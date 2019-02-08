@@ -5,13 +5,25 @@ package app.anlage.site
 
 import com.dc2f.*
 import com.dc2f.example.*
+import com.fasterxml.jackson.annotation.JacksonInject
 import mu.KotlinLogging
 import java.nio.file.FileSystems
 import org.apache.commons.lang3.builder.*
+import org.apache.commons.text.StringEscapeUtils
 
 private val logger = KotlinLogging.logger {}
 
-abstract class FinalyzerWebsite: Website<SimpleContentFolderChild>
+//interface PageSeo : ContentDef {
+//    val title: String
+//    val description: String
+//}
+//
+//abstract class FinalyzerWebsite: Website<SimpleContentFolderChild> {
+//    @set:JacksonInject("index")
+//    abstract var index: LandingPage
+//}
+
+
 
 fun main(args: Array<String>) {
     logger.info { "Starting ..." }
@@ -19,6 +31,20 @@ fun main(args: Array<String>) {
     val website = ContentLoader(FinalyzerWebsite::class)
         .load(FileSystems.getDefault().getPath("web", "content"))
     logger.info { "loaded website ${website}."}
-    logger.info { "reflected: ${ReflectionToStringBuilder.toString(website, RecursiveToStringStyle())}" }
+    val toStringStyle = object : MultilineRecursiveToStringStyle() {
+        init {
+            isUseShortClassName = true
+            isUseIdentityHashCode = false
+        }
+
+        override fun appendDetail(buffer: StringBuffer?, fieldName: String?, value: Any?) {
+            if (value is String) {
+                buffer?.append(StringEscapeUtils.escapeJson(value))
+            } else {
+                super.appendDetail(buffer, fieldName, value)
+            }
+        }
+    }
+    logger.info { "reflected: ${ReflectionToStringBuilder.toString(website, toStringStyle)}" }
 
 }

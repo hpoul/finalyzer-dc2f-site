@@ -24,9 +24,11 @@ dependencies {
 //    implementation(project("dc2f"))
     implementation("com.dc2f:dc2f:0.0.1-SNAPSHOT")
 
+//    api("com.fasterxml.jackson.core:jackson-annotations")
     implementation("io.github.microutils:kotlin-logging:1.4.9")
 
     // utils
+    implementation("org.apache.commons:commons-text:1.6")
     implementation("org.apache.commons:commons-lang3:3.8.1")
 
 

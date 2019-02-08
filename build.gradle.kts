@@ -24,6 +24,13 @@ dependencies {
 //    implementation(project("dc2f"))
     implementation("com.dc2f:dc2f:0.0.1-SNAPSHOT")
 
+    implementation("io.github.microutils:kotlin-logging:1.4.9")
+
+    // utils
+    implementation("org.apache.commons:commons-lang3:3.8.1")
+
+
+
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 

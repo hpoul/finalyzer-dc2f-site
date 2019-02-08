@@ -21,6 +21,8 @@ repositories {
 dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+//    implementation(project("dc2f"))
+    implementation("com.dc2f:dc2f:0.0.1-SNAPSHOT")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")

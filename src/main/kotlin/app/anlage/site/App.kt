@@ -3,6 +3,8 @@
  */
 package app.anlage.site
 
+import com.dc2f.ContentDef
+
 class App {
     val greeting: String
         get() {
@@ -11,5 +13,6 @@ class App {
 }
 
 fun main(args: Array<String>) {
+    val test: ContentDef
     println(App().greeting)
 }

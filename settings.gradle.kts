@@ -8,3 +8,7 @@
  */
 
 rootProject.name = "finalyzer-dc2f-site"
+
+include("dc2f")
+project(":dc2f").projectDir = file("deps/dc2f.kt")
+

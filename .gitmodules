@@ -1,0 +1,4 @@
+[submodule "deps/dc2f.kt"]
+	path = deps/dc2f.kt
+	url = git@github.com:hpoul/dc2f.kt.git
+	branch = master

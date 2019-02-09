@@ -2,6 +2,8 @@
   <dictionary name="herbert">
     <words>
       <w>finalyzer</w>
+      <w>ktor</w>
+      <w>renderers</w>
     </words>
   </dictionary>
 </component>

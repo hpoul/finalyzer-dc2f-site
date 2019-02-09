@@ -3,12 +3,14 @@
  */
 package app.anlage.site
 
-import kotlin.test.Test
-import kotlin.test.assertNotNull
+import kotlin.test.*
 
 class AppTest {
     @Test fun testAppHasAGreeting() {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+        print("Hello world")
+//        io.ktor.http.Url
+        assertNotNull("useless Test")
+//        val classUnderTest = App()
+//        assertNotNull(classUnderTest.greeting, "app should have a greeting")
     }
 }

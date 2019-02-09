@@ -30,3 +30,5 @@
 
 # Ignore Gradle build output directory
 build
+/public
+

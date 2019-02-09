@@ -4,12 +4,13 @@
 package app.anlage.site
 
 import com.dc2f.*
-import com.dc2f.example.*
-import com.fasterxml.jackson.annotation.JacksonInject
+import com.dc2f.render.*
+import kotlinx.html.*
+import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
-import java.nio.file.FileSystems
 import org.apache.commons.lang3.builder.*
 import org.apache.commons.text.StringEscapeUtils
+import java.nio.file.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -23,14 +24,104 @@ private val logger = KotlinLogging.logger {}
 //    abstract var index: LandingPage
 //}
 
+class FinalyzerTheme : Theme() {
+    override fun configure(config: ThemeConfig) {
+        config.pageRenderer<FinalyzerWebsite> {
+            copyForNode(node.index).renderToHtml()
+        }
+        config.pageRenderer<LandingPage> { landingPage() }
+//        config.pageRenderer<FinalyzerWebsite>(
+//            { ") }
+//        )
+    }
+}
+
+fun <T> TagConsumer<T>.baseTemplate(seo: PageSeo, mainContent: MAIN.() -> Unit) =
+    scaffold(seo) {
+        nav("navbar has-shadow is-spaced is-fixed-top") {
+            role = "navigation"
+            attributes["aria-label"] = "main navigation"
+            div("container") {
+                div("navbar-brand") {
+                    a("/", classes = "navbar-item") {
+                        // TODO image stuff
+                        img("ANLAGE.APP", src = "")
+                    }
+
+                    a(classes = "navbar-burger") {
+                        role = "button"
+                        attributes["aria-label"] = "menu"
+                        attributes["aria-expanded"] = "false"
+                        span { }
+                        span { }
+                        span { }
+                    }
+                }
+                div("navbar-menu") {
+                    id = "main-menu"
+                    div("navbar-end") {
+                        div("navbar-item") {
+                            // TODO signup url?
+                            aButton(href = "signup", target = "_blank", label = "Sign Up!")
+                        }
+                    }
+                }
+            }
+        }
+
+        main {
+            mainContent()
+        }
+    }
+
+fun HEAD.property(propertyName: String, content: String) {
+    meta(content = content) {
+        attributes["property"] = propertyName
+    }
+}
+
+fun HEAD.siteHead(seo: PageSeo) {
+    title {
+        +seo.title
+    }
+    property("og:title", seo.title)
+    property("fb:app_id", "1950393328594234")
+    property("twitter:title", seo.title)
+    property("twitter:card", "summary")
+    property("twitter:site", "@AnlageApp")
+    script {
+        unsafe {
+            raw(
+                """
+         // TODO
+          """.trimIndent()
+            )
+        }
+    }
+
+    meta(name = "description", content = seo.description)
+    property("og:description", seo.description)
+    property("twitter:description", seo.description)
+
+}
+
+fun <T> TagConsumer<T>.scaffold(seo: PageSeo, body: BODY.() -> Unit) =
+    html {
+        head {
+            siteHead(seo)
+        }
+        body("has-navbar-fixed-top has-spaced-navbar-fixed-top") {
+            body()
+        }
+    }
 
 
 fun main(args: Array<String>) {
     logger.info { "Starting ..." }
 
-    val website = ContentLoader(FinalyzerWebsite::class)
+    val loadedWebsite = ContentLoader(FinalyzerWebsite::class)
         .load(FileSystems.getDefault().getPath("web", "content"))
-    logger.info { "loaded website ${website}."}
+    logger.info { "loaded website ${loadedWebsite}." }
     val toStringStyle = object : MultilineRecursiveToStringStyle() {
         init {
             isUseShortClassName = true
@@ -45,6 +136,16 @@ fun main(args: Array<String>) {
             }
         }
     }
-    logger.info { "reflected: ${ReflectionToStringBuilder.toString(website, toStringStyle)}" }
+    logger.info {
+        "reflected: ${ReflectionToStringBuilder.toString(
+            loadedWebsite.content,
+            toStringStyle
+        )}"
+    }
 
+    val targetPath = FileSystems.getDefault().getPath("public")
+    Renderer(
+        FinalyzerTheme(),
+        targetPath
+    ).render(loadedWebsite.content, loadedWebsite.metadata)
 }

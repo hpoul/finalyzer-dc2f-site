@@ -1,0 +1,236 @@
+
+$primary: #e29b4a;
+$secondary: #97c965;
+
+$primary-light: #FBF3E5;
+
+$fa-font-path: "/vendor/fa/webfonts";
+@import 'vendor/fa/fontawesome';
+@import 'vendor/fa/solid';
+
+@import 'node_modules/bulma/sass/utilities/initial-variables';
+
+$custom-colors: ("primary-light": ($primary-light, $grey-dark));
+
+@import 'node_modules/bulma/bulma';
+@import 'node_modules/bulma-extensions/bulma-pricingtable/src/sass/index';
+@import 'node_modules/bulma-extensions/bulma-divider/src/sass/index';
+@import 'node_modules/aos/src/sass/aos';
+
+@import 'pricing';
+@import 'animations';
+@import 'site-layout';
+@import 'report';
+
+.anchor {
+  position: absolute;
+  > div {
+    position: relative;
+    top: -200px;
+  }
+}
+
+.button.allow-linebreak {
+  white-space: normal;
+  height: auto;
+}
+
+nav.navbar.is-fixed-top {
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.85)
+}
+
+.columns-reversed {
+  flex-direction: row-reverse;
+}
+
+
+.no-video .video-container video,
+.touch .video-container video {
+  display: none;
+}
+
+.no-video .video-container .poster,
+.touch .video-container .poster {
+  display: block !important;
+}
+
+
+
+.homepage-hero-module {
+  border-right: none;
+  border-left: none;
+  position: relative;
+  margin-bottom: 3rem;
+
+  .video-container {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    height: 560px;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-container .poster {
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    background-size: cover;
+  }
+
+  .video-container video {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    max-width: unset;
+    object-fit: cover;
+  }
+
+  .video-container video.fillWidth {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .hero-module-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    .section {
+      /* background-color: rgba(255, 255, 255, 0.9); */
+      z-index: 99999;
+      position: absolute;
+      width: 100%;
+      /* display: inline-block; */
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      top: 50%;
+      border-radius: 20px;
+      /* box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.8); */
+      /* outline: 1px solid black; */
+    }
+    &::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #000;
+      opacity: 0.5;
+    }
+    .title {
+      font-weight: 600;
+      line-height: 1.125;
+      color: #fefefe;
+      font-size: 300%;
+    }
+    .subtitle {
+      color: #fefefe;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.debug {
+  outline: 1px solid green;
+}
+
+.email-form-spacing {
+  margin-bottom: -0.5rem;
+}
+
+.hero.has-bg-img {
+  margin-bottom: 2em;
+  position: relative;
+  overflow: hidden;
+
+  .bg-image {
+    background-position: center;
+    background-size:cover;
+    overflow: hidden;
+    //background: #000;
+    //background: darken($primary, 30%);
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(3px);
+    margin: -3px;
+    //transform: translateZ(-1px) scale(1.5);
+    background-attachment: fixed;
+
+    &::before {
+      content: ' ';
+      opacity: 0.5;
+      background: darken($primary, 30%);
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  .hero-body {
+    z-index: 10;
+  }
+
+  .title, .subtitle {
+    color: #fefefe;
+  }
+}
+
+nav.navbar.has-shadow {
+  box-shadow: 0 2px 2px 0 #f5f5f5;
+}
+
+.has-drop-caps > p:first-child::first-letter {
+  color: #c69c6d;
+  float: left;
+  font-weight: bold;
+  font-size: 3em;
+  line-height: 1;
+  margin: 0 .2em 0 0;
+}
+
+.content {
+  line-height: 1.9;
+}
+
+.small-print {
+  @extend .is-size-7;
+
+  line-height: 1.2;
+}
+
+.landing-hero-element .content.column {
+  background-color: #fbf3e52e;
+  border-radius: 8px;
+  padding: 32px 16px;
+}
+
+.landing-hero-element .screenshot {
+  height: 400px;
+  text-align: center;
+
+  img {
+    display: inline;
+    object-fit: contain;
+    width: unset;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+  }
+}

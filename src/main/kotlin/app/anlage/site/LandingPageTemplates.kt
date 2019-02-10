@@ -1,6 +1,9 @@
+@file:Suppress("UnstableApiUsage")
+
 package app.anlage.site
 
 import com.dc2f.render.RenderContext
+import com.google.common.net.MediaType
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 
@@ -20,10 +23,7 @@ fun FlowContent.icon(classes: String) {
 }
 
 fun RenderContext<LandingPage>.landingPage() {
-    out.appendHTML().baseTemplate(node.seo) {
-        h1 {
-            +"Hello World."
-        }
+    out.appendHTML().baseTemplate(this, node.seo) {
         div {
             node.children.map { child ->
                 when (child) {
@@ -31,6 +31,21 @@ fun RenderContext<LandingPage>.landingPage() {
                         div("homepage-hero-module") {
                             div("video-container") {
                                 // TODO video stuff
+                                div("filterx")
+                                video("fillWidth is-hidden-mobile") {
+                                    autoPlay = true
+                                    loop = true
+                                    attributes["muted"] = "muted"
+                                    poster = child.backgroundVideo.placeholder.href(context)
+                                    source {
+                                        src = child.backgroundVideo.videoMp4.href(context)
+                                        type = MediaType.MP4_VIDEO.toString()
+                                    }
+                                    source {
+                                        src = child.backgroundVideo.videoWebm.href(context)
+                                        type = MediaType.WEBM_VIDEO.toString()
+                                    }
+                                }
                             }
                             div("hero-module-content") {
                                 div("section") {
@@ -41,7 +56,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                         }
                                         div {
                                             a("#start-element", classes = "button is-primary is-large") {
-                                                child.buttonLabel
+                                                +child.buttonLabel
                                             }
                                         }
                                     }

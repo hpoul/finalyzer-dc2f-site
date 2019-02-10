@@ -21,11 +21,18 @@ interface LandingPage : ContentDef {
     var children: List<LandingPageElement>
 }
 
+interface BackgroundVideo : ContentDef {
+    val videoWebm: FileAsset
+    val videoMp4: FileAsset
+    val placeholder: ImageAsset
+}
+
 sealed class LandingPageElement : ContentDef {
     @Nestable("intro")
     abstract class Intro : LandingPageElement() {
         abstract val teaser: String
         abstract val buttonLabel: String
+        abstract val backgroundVideo: BackgroundVideo
     }
     @Nestable("hero")
     abstract class Hero : LandingPageElement() {

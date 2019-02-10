@@ -1,2 +1,6 @@
 teaser: 'Hallo Welt!'
 buttonLabel: 'Buy Now!'
+backgroundVideo:
+  placeholder: Empire-out.jpg
+  videoWebm: Empire-out.webm
+  videoMp4: Empire-out.mp4

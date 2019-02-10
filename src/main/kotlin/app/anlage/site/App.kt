@@ -4,6 +4,7 @@
 package app.anlage.site
 
 import com.dc2f.*
+import com.dc2f.assets.ScssAsset
 import com.dc2f.render.*
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
@@ -36,8 +37,8 @@ class FinalyzerTheme : Theme() {
     }
 }
 
-fun <T> TagConsumer<T>.baseTemplate(seo: PageSeo, mainContent: MAIN.() -> Unit) =
-    scaffold(seo) {
+fun <T> TagConsumer<T>.baseTemplate(context: RenderContext<*>, seo: PageSeo, mainContent: MAIN.() -> Unit) =
+    scaffold(context, seo) {
         nav("navbar has-shadow is-spaced is-fixed-top") {
             role = "navigation"
             attributes["aria-label"] = "main navigation"
@@ -80,7 +81,7 @@ fun HEAD.property(propertyName: String, content: String) {
     }
 }
 
-fun HEAD.siteHead(seo: PageSeo) {
+fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
     title {
         +seo.title
     }
@@ -89,6 +90,12 @@ fun HEAD.siteHead(seo: PageSeo) {
     property("twitter:title", seo.title)
     property("twitter:card", "summary")
     property("twitter:site", "@AnlageApp")
+
+    link(rel = LinkRel.stylesheet) {
+        href = context.getAsset("theme/scss/main.scss")
+            .transform(ScssAsset())
+            .href("styles/css/main.css")
+    }
     script {
         unsafe {
             raw(
@@ -105,10 +112,10 @@ fun HEAD.siteHead(seo: PageSeo) {
 
 }
 
-fun <T> TagConsumer<T>.scaffold(seo: PageSeo, body: BODY.() -> Unit) =
+fun <T> TagConsumer<T>.scaffold(context: RenderContext<*>, seo: PageSeo, body: BODY.() -> Unit) =
     html {
         head {
-            siteHead(seo)
+            siteHead(context, seo)
         }
         body("has-navbar-fixed-top has-spaced-navbar-fixed-top") {
             body()
@@ -129,11 +136,17 @@ fun main(args: Array<String>) {
         }
 
         override fun appendDetail(buffer: StringBuffer?, fieldName: String?, value: Any?) {
-            if (value is String) {
+            if (value is Path) {
+                buffer?.append("Path:")?.append(StringEscapeUtils.escapeJson(value.toString()))
+            } else if (value is String) {
                 buffer?.append(StringEscapeUtils.escapeJson(value))
             } else {
                 super.appendDetail(buffer, fieldName, value)
             }
+        }
+
+        override fun accept(clazz: Class<*>?): Boolean {
+            return !setOf(ContentPath::class.java).contains(clazz)
         }
     }
     logger.info {

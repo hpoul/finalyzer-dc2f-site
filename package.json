@@ -1,0 +1,10 @@
+{
+  "name": "finalyzer-dc2f-site",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "aos": "^3.0.0-beta.6",
+    "bulma": "^0.7.4",
+    "bulma-extensions": "^4.0.2"
+  }
+}

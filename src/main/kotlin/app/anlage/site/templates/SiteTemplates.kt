@@ -1,5 +1,6 @@
-package app.anlage.site
+package app.anlage.site.templates
 
+import app.anlage.site.contentdef.PageSeo
 import com.dc2f.assets.ScssTransformer
 import com.dc2f.render.RenderContext
 import kotlinx.html.*

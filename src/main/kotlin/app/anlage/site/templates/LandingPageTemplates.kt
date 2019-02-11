@@ -1,7 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
-package app.anlage.site
+package app.anlage.site.templates
 
+import app.anlage.site.contentdef.*
 import com.dc2f.render.RenderContext
 import com.google.common.net.MediaType
 import kotlinx.html.*

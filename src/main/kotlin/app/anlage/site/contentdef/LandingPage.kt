@@ -1,4 +1,4 @@
-package app.anlage.site
+package app.anlage.site.contentdef
 
 import com.dc2f.*
 import com.dc2f.example.SimpleContentFolderChild

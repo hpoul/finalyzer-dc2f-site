@@ -3,6 +3,8 @@
  */
 package app.anlage.site
 
+import app.anlage.site.contentdef.*
+import app.anlage.site.templates.landingPage
 import com.dc2f.*
 import com.dc2f.render.*
 import mu.KotlinLogging

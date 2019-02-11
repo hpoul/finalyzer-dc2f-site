@@ -70,13 +70,73 @@ fun RenderContext<LandingPage>.landingPage() {
                         section("landing-hero-element section") {
                             div("container") {
                                 div("columns is-vcentered") {
-                                    classes = classes + ""
+                                    if (child.leftAlign) {
+                                        classes = classes + "columns-reversed"
+                                    }
                                     div("column is-7") {
-                                        // TODO image stuff
+                                        // TODO add image resizing/optimization stuff
+                                        figure("image screenshot") {
+                                            attributes["data-aos"] = "fade-up"
+                                            attributes["data-name"] = child.screenshot.name
+                                            img {
+                                                src = child.screenshot.href(context)
+                                                alt = child.title
+                                                width = child.screenshot.width.toString()
+                                                height = child.screenshot.height.toString()
+                                            }
+                                        }
                                     }
                                     div("column content") {
+                                        if (!child.leftAlign) {
+                                            classes = classes + "has-text-centered"
+                                        }
                                         h3 { +child.title }
-                                        +child.body.toString()
+                                        out.append(child.body.toString())
+//                                        unsafe {
+//                                            +child.body.toString()
+//                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    is LandingPageElement.Start -> {
+                        section("section has-background-primary-light") {
+                            div("anchor") {
+                                div {
+                                   id = "start-element"
+                                    attributes["data-target"] = "start-element-input"
+                                }
+                            }
+
+                            div("container") {
+                                div("columns") {
+                                    div("column has-text-centered") {
+                                        div("is-size-3") { +child.title }
+                                        img(
+                                            src = context.getAsset("theme/images/arrow.svg").href("images/arrow.svg"),
+                                            alt="Arrow Image"
+                                        ) {}
+                                        h4("subtitle is-size-5 is-bold") { +child.subTitle }
+                                    }
+                                    div("column has-text-centered") {
+                                        div("is-size-3 email-form-spacing") { out.append("&nbsp;") }
+                                        form(classes = "email-form") {
+                                            div("field") {
+                                                div("control has-icons-left") {
+                                                    span("icon is-small is-left") {
+                                                        i("fas fa-user")
+                                                    }
+                                                    textInput(name="email", classes = "input") {
+                                                        placeholder = "Email Address"
+                                                    }
+                                                }
+                                            }
+                                            submitInput(classes="button is-primary") {
+                                                value = "Sign Up for free"
+                                            }
+                                        }
                                     }
                                 }
                             }

@@ -39,6 +39,13 @@ sealed class LandingPageElement : ContentDef {
         abstract val title: String
         @set:JacksonInject("body")
         abstract var body: Markdown
+        abstract val screenshot: ImageAsset
+        abstract val leftAlign: Boolean
+    }
+    @Nestable("start")
+    abstract class Start : LandingPageElement() {
+        abstract val title: String
+        abstract val subTitle: String
     }
 }
 

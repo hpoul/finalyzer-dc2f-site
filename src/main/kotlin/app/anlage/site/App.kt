@@ -4,10 +4,7 @@
 package app.anlage.site
 
 import com.dc2f.*
-import com.dc2f.assets.ScssAsset
 import com.dc2f.render.*
-import kotlinx.html.*
-import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
 import org.apache.commons.lang3.builder.*
 import org.apache.commons.text.StringEscapeUtils
@@ -36,91 +33,6 @@ class FinalyzerTheme : Theme() {
 //        )
     }
 }
-
-fun <T> TagConsumer<T>.baseTemplate(context: RenderContext<*>, seo: PageSeo, mainContent: MAIN.() -> Unit) =
-    scaffold(context, seo) {
-        nav("navbar has-shadow is-spaced is-fixed-top") {
-            role = "navigation"
-            attributes["aria-label"] = "main navigation"
-            div("container") {
-                div("navbar-brand") {
-                    a("/", classes = "navbar-item") {
-                        // TODO image stuff
-                        img("ANLAGE.APP", src = "")
-                    }
-
-                    a(classes = "navbar-burger") {
-                        role = "button"
-                        attributes["aria-label"] = "menu"
-                        attributes["aria-expanded"] = "false"
-                        span { }
-                        span { }
-                        span { }
-                    }
-                }
-                div("navbar-menu") {
-                    id = "main-menu"
-                    div("navbar-end") {
-                        div("navbar-item") {
-                            // TODO signup url?
-                            aButton(href = "signup", target = "_blank", label = "Sign Up!")
-                        }
-                    }
-                }
-            }
-        }
-
-        main {
-            mainContent()
-        }
-    }
-
-fun HEAD.property(propertyName: String, content: String) {
-    meta(content = content) {
-        attributes["property"] = propertyName
-    }
-}
-
-fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
-    title {
-        +seo.title
-    }
-    property("og:title", seo.title)
-    property("fb:app_id", "1950393328594234")
-    property("twitter:title", seo.title)
-    property("twitter:card", "summary")
-    property("twitter:site", "@AnlageApp")
-
-    link(rel = LinkRel.stylesheet) {
-        href = context.getAsset("theme/scss/main.scss")
-            .transform(ScssAsset())
-            .href("styles/css/main.css")
-    }
-    script {
-        unsafe {
-            raw(
-                """
-         // TODO
-          """.trimIndent()
-            )
-        }
-    }
-
-    meta(name = "description", content = seo.description)
-    property("og:description", seo.description)
-    property("twitter:description", seo.description)
-
-}
-
-fun <T> TagConsumer<T>.scaffold(context: RenderContext<*>, seo: PageSeo, body: BODY.() -> Unit) =
-    html {
-        head {
-            siteHead(context, seo)
-        }
-        body("has-navbar-fixed-top has-spaced-navbar-fixed-top") {
-            body()
-        }
-    }
 
 
 fun main(args: Array<String>) {

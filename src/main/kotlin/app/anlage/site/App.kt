@@ -4,7 +4,7 @@
 package app.anlage.site
 
 import app.anlage.site.contentdef.*
-import app.anlage.site.templates.landingPage
+import app.anlage.site.templates.*
 import com.dc2f.*
 import com.dc2f.render.*
 import mu.KotlinLogging
@@ -27,9 +27,12 @@ private val logger = KotlinLogging.logger {}
 class FinalyzerTheme : Theme() {
     override fun configure(config: ThemeConfig) {
         config.pageRenderer<FinalyzerWebsite> {
+            renderChildren(node.children)
             copyForNode(node.index).renderToHtml()
         }
         config.pageRenderer<LandingPage> { landingPage() }
+        config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
+        config.pageRenderer<Article> { blogArticle() }
 //        config.pageRenderer<FinalyzerWebsite>(
 //            { ") }
 //        )
@@ -60,7 +63,8 @@ fun main(args: Array<String>) {
         }
 
         override fun accept(clazz: Class<*>?): Boolean {
-            return !setOf(ContentPath::class.java).contains(clazz)
+            return !setOf(ContentPath::class.java, LoaderContext::class.java)
+                .contains(clazz)
         }
     }
     logger.info {
@@ -73,6 +77,7 @@ fun main(args: Array<String>) {
     val targetPath = FileSystems.getDefault().getPath("public")
     Renderer(
         FinalyzerTheme(),
-        targetPath
-    ).render(loadedWebsite.content, loadedWebsite.metadata)
+        targetPath,
+        loadedWebsite.context
+    ).renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
 }

@@ -1,6 +1,6 @@
 package app.anlage.site.templates
 
-import app.anlage.site.contentdef.PageSeo
+import app.anlage.site.contentdef.*
 import com.dc2f.assets.ScssTransformer
 import com.dc2f.render.RenderContext
 import kotlinx.html.*
@@ -37,6 +37,16 @@ fun <T> TagConsumer<T>.baseTemplate(
                 div("navbar-menu") {
                     id = "main-menu"
                     div("navbar-end") {
+                        (context.rootNode as FinalyzerWebsite).children.map { folder ->
+                            folder.menu?.let { menu ->
+                                div("navbar-item") {
+                                    a(context.href(folder)) {
+                                        +menu.name
+                                    }
+                                }
+                            }
+                        }
+
                         div("navbar-item") {
                             // TODO signup url?
                             aButton(href = "signup", target = "_blank", label = "Sign Up!")
@@ -83,6 +93,15 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
     meta(name = "description", content = seo.description)
     property("og:description", seo.description)
     property("twitter:description", seo.description)
+
+    // <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    // <meta content="utf-8" http-equiv="encoding">
+    meta(content = "text/html;charset=utf-8") {
+        httpEquiv = MetaHttpEquiv.contentType
+    }
+    meta(content = "utf-8") {
+        httpEquiv = "encoding"
+    }
 
 }
 

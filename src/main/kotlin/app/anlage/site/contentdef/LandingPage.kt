@@ -1,18 +1,8 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
-import com.dc2f.example.SimpleContentFolderChild
 import com.fasterxml.jackson.annotation.JacksonInject
 
-interface PageSeo : ContentDef {
-    val title: String
-    val description: String
-}
-
-abstract class FinalyzerWebsite: Website<SimpleContentFolderChild> {
-    @set:JacksonInject("index")
-    abstract var index: LandingPage
-}
 
 @Nestable("landingpage")
 interface LandingPage : ContentDef {

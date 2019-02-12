@@ -39,7 +39,7 @@ fun RenderContext<Blog>.blogIndexPage() {
                                 h4("subtitle is-size-6 is-bold") { +child.date.toString() }
                                 div("content") {
                                     // TODO generate summary?
-                                    markdown(child.body)
+                                    markdownSummary(child.body)
                                 }
                                 a(context.href(child)) {
                                     i("fas fa-chevron-right") { }
@@ -55,6 +55,10 @@ fun RenderContext<Blog>.blogIndexPage() {
 
 fun HTMLTag.markdown(content: Markdown) {
     unsafe { +content.toString() }
+}
+
+fun HTMLTag.markdownSummary(content: Markdown) {
+    unsafe { +content.summary() }
 }
 
 fun RenderContext<Article>.blogArticle() {

@@ -7,9 +7,14 @@ import app.anlage.site.contentdef.*
 import app.anlage.site.templates.*
 import com.dc2f.*
 import com.dc2f.render.*
+import com.dc2f.util.toStringReflective
+import com.google.common.io.*
+import com.google.common.io.Files
 import mu.KotlinLogging
+import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.builder.*
 import org.apache.commons.text.StringEscapeUtils
+import java.io.File
 import java.nio.file.*
 
 private val logger = KotlinLogging.logger {}
@@ -33,10 +38,17 @@ class FinalyzerTheme : Theme() {
         config.pageRenderer<LandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
+        contentTemplates()
 //        config.pageRenderer<FinalyzerWebsite>(
 //            { ") }
 //        )
     }
+
+    override fun renderLinkTitle(content: ContentDef): String? =
+        when (content) {
+            is WithPageSeo -> content.seo.title
+            else -> null
+        }
 }
 
 
@@ -46,32 +58,8 @@ fun main(args: Array<String>) {
     val loadedWebsite = ContentLoader(FinalyzerWebsite::class)
         .load(FileSystems.getDefault().getPath("web", "content"))
     logger.info { "loaded website ${loadedWebsite}." }
-    val toStringStyle = object : MultilineRecursiveToStringStyle() {
-        init {
-            isUseShortClassName = true
-            isUseIdentityHashCode = false
-        }
-
-        override fun appendDetail(buffer: StringBuffer?, fieldName: String?, value: Any?) {
-            if (value is Path) {
-                buffer?.append("Path:")?.append(StringEscapeUtils.escapeJson(value.toString()))
-            } else if (value is String) {
-                buffer?.append(StringEscapeUtils.escapeJson(value))
-            } else {
-                super.appendDetail(buffer, fieldName, value)
-            }
-        }
-
-        override fun accept(clazz: Class<*>?): Boolean {
-            return !setOf(ContentPath::class.java, LoaderContext::class.java)
-                .contains(clazz)
-        }
-    }
     logger.info {
-        "reflected: ${ReflectionToStringBuilder.toString(
-            loadedWebsite.content,
-            toStringStyle
-        )}"
+        "reflected: ${loadedWebsite.toStringReflective()}"
     }
 
     val targetPath = FileSystems.getDefault().getPath("public")
@@ -80,4 +68,7 @@ fun main(args: Array<String>) {
         targetPath,
         loadedWebsite.context
     ).renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
+    // FIXME workaround for now to copy over some assets only referenced by css (fonts)
+    FileUtils.copyDirectory(File("web", "static"), targetPath.toFile())
+
 }

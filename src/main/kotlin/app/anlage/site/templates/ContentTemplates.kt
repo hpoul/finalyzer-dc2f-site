@@ -1,0 +1,55 @@
+package app.anlage.site.templates
+
+import app.anlage.site.FinalyzerTheme
+import app.anlage.site.contentdef.*
+import com.dc2f.RichText
+import com.dc2f.render.RenderContext
+import com.dc2f.richtext.markdown.*
+import com.dc2f.util.toStringReflective
+import kotlinx.html.*
+import kotlinx.html.stream.appendHTML
+
+
+fun HTMLTag.richText(context: RenderContext<*>, richText: RichText?) {
+    when (richText) {
+        is Markdown -> markdown(context, richText)
+        is Mustache -> unsafe { +richText.renderContent(context) }
+        else -> throw Exception("Invalid body ${richText?.toStringReflective()}")
+    }
+}
+
+fun FinalyzerTheme.contentTemplates() {
+    config.pageRenderer<HtmlPage> {
+        out.appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
+            section("section") {
+                div("container") {
+                    div("columns is-centered") {
+                        div("column has-text-centered is-half is-narrow") {
+                            h1("title") { +node.seo.title }
+                            div("content") {
+                                markdown(context, node.body)
+                            }
+                        }
+                    }
+
+                    richText(context, node.html)
+
+                }
+            }
+        }
+    }
+    config.pageRenderer<ContentPage> {
+        out.appendHTML().baseTemplate(context) {
+            section("section") {
+                div("container") {
+                    div("content") {
+                        markdown(context, node.body)
+                    }
+                }
+            }
+        }
+    }
+    config.pageRenderer<ContentPageFolder> {
+        renderChildren(node.children)
+    }
+}

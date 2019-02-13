@@ -2,3 +2,15 @@ name: 'Anlage.App'
 #seo:
 #    title: 'Lorem Ipsum'
 #    description: 'Hello World'
+footerMenu:
+  - name: Product
+    children:
+      - name: "Info"
+        ref: /
+      - ref: /pages/pricing
+      - name: "Login"
+        url: "https://anlage.app/app/"
+  - name: About
+    children:
+      - ref: /pages/contact
+      - ref: /articles

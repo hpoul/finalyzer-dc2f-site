@@ -1,0 +1,83 @@
+<br />
+
+<div class="pricing-table is-comparative">
+    <div class="pricing-plan is-features">
+        <div class="plan-header">Features</div>
+        <div class="plan-price"><span class="plan-price-amount">&nbsp;</span></div>
+        <div class="plan-items">
+            <div class="plan-item">Holdings</div>
+            <div class="plan-item">Portfolios/Watchlists</div>
+            <div class="plan-item">Free Trial</div>
+            <div class="plan-item">Sharing</div>
+            <div class="plan-item">Alerts</div>
+            <div class="plan-item">Priority Support</div>
+            <div class="plan-item">Imports</div>
+        </div>
+        <div class="plan-footer">
+
+        </div>
+    </div>
+    <div class="pricing-plan is-success">
+        <div class="plan-header">Free</div>
+        <div class="plan-price">
+                    <span class="plan-price-amount"><span
+                            data-fsc-item-path="anlage-app-free-sub" data-fsc-item-priceTotal>$0</span>
+                    </span>/month
+        </div>
+        <div class="plan-items">
+            <div class="plan-item" data-feature="Holdings">5</div>
+            <div class="plan-item" data-feature="Portfolios/Watchlists">5</div>
+            <div class="plan-item" data-feature="Free Trial">-</div>
+            <div class="plan-item" data-feature="Sharing">-</div>
+            <div class="plan-item" data-feature="Alerts">-</div>
+            <div class="plan-item" data-feature="Priority Support">-</div>
+            <div class="plan-item has-text-success" data-feature="Imports"><i class="fas fa-check"></i> Manual</div>
+        </div>
+        <div class="plan-footer">
+            <a class="button is-fullwidth" href="{{ renderContext.rootNode.params.signUpUrl }}" data-fsc-action="Reset,Add,Checkout" data-fsc-item-path-value="anlage-app-free-sub">Sign Up</a>
+        </div>
+    </div>
+
+    <div class="pricing-plan is-active">
+        <div class="plan-header">Premium</div>
+        <div class="plan-price">
+                    <span class="plan-price-amount">
+                        <span data-fsc-item-path="anlage-app-premium-sub" data-fsc-item-priceTotal data-fsc-smartdisplay="smartDisplayWrapper">$10</span>
+                    </span>/month
+            <div data-fsc-item-path="anlage-app-premium-sub" class="has-text-success has-text-weight-bold" smartDisplayWrapper>
+                <span data-fsc-item-path="anlage-app-premium-sub" data-fsc-item-total ></span> First Month
+            </div>
+
+        </div>
+        <div class="plan-items">
+            <div class="plan-item" data-feature="Holdings">50</div>
+            <div class="plan-item" data-feature="Portfolios/Watchlists">50</div>
+            <div class="plan-item has-text-success" data-feature="Free Trial">Apply Promo Code: <a href="#" data-fsc-action="Promocode" data-fsc-promocode-value="FREEMONTH"  data-fsc-item-path="anlage-app-free-sub" data-fsc-action="Reset,Add,Checkout">FREEMONTH</a></div>
+            <div class="plan-item has-text-success" data-feature="Sharing"><i class="fas fa-check"></i></div>
+            <div class="plan-item has-text-success" data-feature="Alerts"><i class="fas fa-check"></i></div>
+            <div class="plan-item has-text-success" data-feature="Priority Support"><i class="fas fa-check"></i></div>
+            <div class="plan-item has-text-success" data-feature="Imports"><i class="fas fa-check"></i> Manual</div>
+        </div>
+        <div class="plan-footer">
+            <a class="button is-fullwidth" href="{{ renderContext.rootNode.params.signUpUrl }}" data-fsc-action="Add,Checkout" data-fsc-item-path-value="anlage-app-premium-sub">Buy Now</a>
+        </div>
+    </div>
+
+    <div class="pricing-plan">
+        <div class="plan-header">Broker</div>
+        <div class="plan-price"><span class="plan-price-amount"><span
+                class="plan-price-currency">$</span>70</span>/month
+        </div>
+        <div class="plan-items">
+            <div class="plan-item has-text-success" data-feature="Holdings"><i class="fas fa-infinity"></i></div>
+            <div class="plan-item has-text-success" data-feature="Portfolios/Watchlists"><i class="fas fa-infinity"></i></div>
+            <div class="plan-item has-text-success" data-feature="Free Trial"><i class="fas fa-check"></i></div>
+            <div class="plan-item has-text-success" data-feature="Sharing"><i class="fas fa-check"></i></div>
+            <div class="plan-item has-text-success" data-feature="Alerts"><i class="fas fa-check"></i></div>
+            <div class="plan-item has-text-success" data-feature="Priority Support"><i class="fas fa-check"></i><i class="fas fa-check"></i><i class="fas fa-check"></i></div>
+            <div class="plan-item" data-feature="Imports">Automatic</div>
+        </div>
+        <div class="plan-footer">
+            <a href="/pages/contact/" class="button is-fullwidth">Contact Us</a>
+        </div>
+    </div>

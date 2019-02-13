@@ -1,0 +1,14 @@
+seo:
+  title: 'Pricing'
+  description: 'Lorem ipsum.'
+#language=markdown
+body: |
+  We have a very simple pricing scheme to allow everybody to take advantage
+  of the best analytics for their personal investments.
+
+  [Contact us](/pages/contact) to inquire for any questions or special requirements.
+menu:
+  name: 'Pricing'
+params:
+  blubb: 'Hello World!'
+

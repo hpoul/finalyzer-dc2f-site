@@ -1,0 +1,24 @@
+<script>
+    function decorateURL(url) {
+        try {
+            var linkerParam = null;
+            ga(function () {
+                var trackers = ga.getAll();
+                linkerParam = trackers[0].get('linkerParam');
+            });
+            return (linkerParam ? url + '?' + linkerParam : url);
+        } catch (e) {
+            console.error('error while decorating URL', e);
+            return url;
+        }
+    }
+</script>
+<script
+        id="fsc-api"
+        src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.6/fastspring-builder.min.js"
+        type="text/javascript"
+        data-storefront="codeuxdesign.onfastspring.com/popup-codeuxdesign"
+        data-debug="true"
+        data-decorate-callback="decorateURL"
+        defer>
+</script>

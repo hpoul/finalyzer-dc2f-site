@@ -3,6 +3,7 @@ package app.anlage.site.templates
 import app.anlage.site.contentdef.*
 import com.dc2f.*
 import com.dc2f.render.RenderContext
+import com.dc2f.richtext.markdown.Markdown
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 
@@ -39,7 +40,7 @@ fun RenderContext<Blog>.blogIndexPage() {
                                 h4("subtitle is-size-6 is-bold") { +child.date.toString() }
                                 div("content") {
                                     // TODO generate summary?
-                                    markdownSummary(child.body)
+                                    markdownSummary(context, child.body)
                                 }
                                 a(context.href(child)) {
                                     i("fas fa-chevron-right") { }
@@ -53,12 +54,12 @@ fun RenderContext<Blog>.blogIndexPage() {
     }
 }
 
-fun HTMLTag.markdown(content: Markdown) {
-    unsafe { +content.toString() }
+fun HTMLTag.markdown(context: RenderContext<*>, content: Markdown) {
+    unsafe { +content.renderedContent(context) }
 }
 
-fun HTMLTag.markdownSummary(content: Markdown) {
-    unsafe { +content.summary() }
+fun HTMLTag.markdownSummary(context: RenderContext<*>, content: Markdown) {
+    unsafe { +content.summary(context) }
 }
 
 fun RenderContext<Article>.blogArticle() {
@@ -83,7 +84,7 @@ fun RenderContext<Article>.blogArticle() {
                 div("columns") {
                     div("column is-offset-2 is-8") {
                         div("content has-drop-caps") {
-                            markdown(node.body)
+                            markdown(context, node.body)
                         }
                     }
                 }

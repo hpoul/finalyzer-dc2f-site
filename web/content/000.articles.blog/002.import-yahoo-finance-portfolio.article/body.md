@@ -16,4 +16,4 @@ Then above the list of your stocks you will see a couple of options. Simply sele
 
 With the downloaded CSV file simply log into your [Anlage.App](https://anlage.app) account and hit the `Import Portfolio (CSV File)` button!
 
-If you stumble upon any problems, don't hesitate to [contact us]({{< ref "/pages/contact" >}}).
+If you stumble upon any problems, don't hesitate to [contact us](/pages/contact).

@@ -1,14 +1,13 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
+import com.dc2f.richtext.markdown.Markdown
 import com.fasterxml.jackson.annotation.JacksonInject
 import java.time.ZonedDateTime
 
 
 @Nestable("blog")
-interface Blog: WebsiteFolders, ContentBranchDef<Article> {
-    val seo: PageSeo
-}
+interface Blog: WebsiteFolders, ContentBranchDef<Article>, WithPageSeo
 
 @Nestable("article")
 interface Article: ContentDef {

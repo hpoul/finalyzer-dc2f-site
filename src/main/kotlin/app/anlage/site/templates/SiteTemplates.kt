@@ -3,15 +3,24 @@ package app.anlage.site.templates
 import app.anlage.site.contentdef.*
 import com.dc2f.assets.ScssTransformer
 import com.dc2f.render.RenderContext
+import com.dc2f.util.toStringReflective
 import kotlinx.html.*
+
+fun <TAG, T : WithPageSeo> TagConsumer<TAG>.baseTemplate(
+    context: RenderContext<T>,
+    headInject: HEAD.() -> Unit = {},
+    mainContent: MAIN.() -> Unit
+) = baseTemplate(context, context.node.seo, headInject, mainContent)
 
 
 fun <T> TagConsumer<T>.baseTemplate(
     context: RenderContext<*>,
     seo: PageSeo,
+    headInject: HEAD.() -> Unit = {},
     mainContent: MAIN.() -> Unit
 ) =
-    scaffold(context, seo) {
+    scaffold(context, seo, headInject) {
+        val website = context.rootNode as FinalyzerWebsite
         nav("navbar has-shadow is-spaced is-fixed-top") {
             role = "navigation"
             attributes["aria-label"] = "main navigation"
@@ -37,19 +46,25 @@ fun <T> TagConsumer<T>.baseTemplate(
                 div("navbar-menu") {
                     id = "main-menu"
                     div("navbar-end") {
-                        (context.rootNode as FinalyzerWebsite).children.map { folder ->
+                        website.children.flatMap {
+                            (it as? ContentPageFolder)?.children?.plus(it) ?: listOf(it)
+                        }.map { folder ->
                             folder.menu?.let { menu ->
-                                div("navbar-item") {
-                                    a(context.href(folder)) {
-                                        +menu.name
-                                    }
+                                a(context.href(folder), classes = "navbar-item") {
+                                    +menu.name
                                 }
                             }
                         }
 
                         div("navbar-item") {
                             // TODO signup url?
-                            aButton(href = "signup", target = "_blank", label = "Sign Up!")
+                            aButton(
+                                type = ButtonType.Primary,
+                                href = "signup",
+                                target = "_blank",
+                                iconClasses = "fas fa-sign-in",
+                                label = "Sign Up!"
+                            )
                         }
                     }
                 }
@@ -59,6 +74,8 @@ fun <T> TagConsumer<T>.baseTemplate(
         main {
             mainContent()
         }
+
+        siteFooter(context)
     }
 
 fun HEAD.property(propertyName: String, content: String) {
@@ -105,10 +122,50 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
 
 }
 
-fun <T> TagConsumer<T>.scaffold(context: RenderContext<*>, seo: PageSeo, body: BODY.() -> Unit) =
+fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
+    footer("footer") {
+        div("container") {
+            div("columns") {
+                // TODO site menu
+                (context.rootNode as? FinalyzerWebsite)?.let { website ->
+                    website.footerMenu.map { menu ->
+                        div("column") {
+                            span("footer-title title is-4") { +menu.name }
+
+                            ul {
+                                menu.children.map { entry ->
+                                    li {
+                                        a(entry.ref?.href(context) ?: entry.url) {
+                                            +(entry.name ?: (entry.ref?.referencedContent as? WithPageSeo)?.seo?.title ?: throw Exception("No name for menu entry. ${entry.toStringReflective()}"))
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                div("column content has-text-right") {
+                    p {
+                        unsafe { +"""<strong>ANLAGE.APP</strong> by <a href="https://codeux.design/" target="_blank">codeux.design</a> and Herbert Poul""" }
+                    }
+                    p {
+                        unsafe { +"""Questions? Suggestions? <a href="mailto:hello@anlage.app">hello@anlage.app</a>"""}
+                    }
+                }
+
+            }
+
+        }
+    }
+}
+
+fun <T> TagConsumer<T>.scaffold(context: RenderContext<*>, seo: PageSeo, headInject: HEAD.() -> Unit = {}, body: BODY.() -> Unit) =
     html {
         head {
             siteHead(context, seo)
+            headInject()
         }
         body("has-navbar-fixed-top has-spaced-navbar-fixed-top") {
             body()

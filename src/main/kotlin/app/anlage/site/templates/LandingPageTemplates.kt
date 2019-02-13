@@ -8,8 +8,20 @@ import com.google.common.net.MediaType
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 
-fun FlowContent.aButton(href: String? = null, target: String? = null, label: String, block: A.() -> Unit = {}) {
-    a(href, target, classes = "button") {
+enum class ButtonType(val classes: String) {
+    Primary("is-primary"),
+}
+
+fun FlowContent.aButton(
+    type: ButtonType?,
+    href: String? = null,
+    target: String? = null,
+    label: String,
+    iconClasses: String? = null,
+    block: A.() -> Unit = {}
+) {
+    a(href, target, classes = "button ${type?.classes ?: "" }") {
+        iconClasses?.let { icon(iconClasses) }
         span { +label }
         block()
     }
@@ -56,7 +68,10 @@ fun RenderContext<LandingPage>.landingPage() {
                                             +"Success per stock. Multiple Currencies. Compare Performance. Monthly Reports."
                                         }
                                         div {
-                                            a("#start-element", classes = "button is-primary is-large") {
+                                            a(
+                                                "#start-element",
+                                                classes = "button is-primary is-large"
+                                            ) {
                                                 +child.buttonLabel
                                             }
                                         }
@@ -106,7 +121,7 @@ fun RenderContext<LandingPage>.landingPage() {
                         section("section has-background-primary-light") {
                             div("anchor") {
                                 div {
-                                   id = "start-element"
+                                    id = "start-element"
                                     attributes["data-target"] = "start-element-input"
                                 }
                             }
@@ -117,7 +132,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                         div("is-size-3") { +child.title }
                                         img(
                                             src = context.getAsset("theme/images/arrow.svg").href("images/arrow.svg"),
-                                            alt="Arrow Image"
+                                            alt = "Arrow Image"
                                         ) {}
                                         h4("subtitle is-size-5 is-bold") { +child.subTitle }
                                     }
@@ -129,12 +144,12 @@ fun RenderContext<LandingPage>.landingPage() {
                                                     span("icon is-small is-left") {
                                                         i("fas fa-user")
                                                     }
-                                                    textInput(name="email", classes = "input") {
+                                                    textInput(name = "email", classes = "input") {
                                                         placeholder = "Email Address"
                                                     }
                                                 }
                                             }
-                                            submitInput(classes="button is-primary") {
+                                            submitInput(classes = "button is-primary") {
                                                 value = "Sign Up for free"
                                             }
                                         }

@@ -1,6 +1,7 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
+import com.dc2f.richtext.markdown.Markdown
 import com.fasterxml.jackson.annotation.JacksonInject
 
 

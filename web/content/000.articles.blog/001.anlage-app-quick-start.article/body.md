@@ -7,4 +7,4 @@ add your stock picks.
 We would love to hear from you! It is very important for us to know
 what users need to keep an eye on their portfolio and stay successful.
 
-Feel free to [contact us]({{< ref "/pages/contact" >}})!
+Feel free to [contact us](/pages/contact)!

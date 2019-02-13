@@ -2,6 +2,11 @@ name: 'Anlage.App'
 #seo:
 #    title: 'Lorem Ipsum'
 #    description: 'Hello World'
+mainMenu:
+  - name: 'Home'
+    ref: /
+  - ref: /pages/pricing
+  - ref: /articles
 footerMenu:
   - name: Product
     children:

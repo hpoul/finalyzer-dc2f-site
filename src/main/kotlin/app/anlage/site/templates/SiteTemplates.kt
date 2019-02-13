@@ -46,13 +46,18 @@ fun <T> TagConsumer<T>.baseTemplate(
                 div("navbar-menu") {
                     id = "main-menu"
                     div("navbar-end") {
-                        website.children.flatMap {
-                            (it as? ContentPageFolder)?.children?.plus(it) ?: listOf(it)
-                        }.map { folder ->
-                            folder.menu?.let { menu ->
-                                a(context.href(folder), classes = "navbar-item") {
-                                    +menu.name
-                                }
+//                        website.children.flatMap {
+//                            (it as? ContentPageFolder)?.children?.plus(it) ?: listOf(it)
+//                        }.map { folder ->
+//                            folder.menu?.let { menu ->
+//                                a(context.href(folder), classes = "navbar-item") {
+//                                    +menu.name
+//                                }
+//                            }
+//                        }
+                        website.mainMenu.map { entry ->
+                            a(entry.href(context), classes = "navbar-item") {
+                                +entry.linkLabel
                             }
                         }
 
@@ -122,6 +127,9 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
 
 }
 
+private fun MenuEntry.href(context: RenderContext<*>): String? =
+    this.ref?.href(context) ?: this.url
+
 fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
     footer("footer") {
         div("container") {
@@ -135,8 +143,8 @@ fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
                             ul {
                                 menu.children.map { entry ->
                                     li {
-                                        a(entry.ref?.href(context) ?: entry.url) {
-                                            +(entry.name ?: (entry.ref?.referencedContent as? WithPageSeo)?.seo?.title ?: throw Exception("No name for menu entry. ${entry.toStringReflective()}"))
+                                        a(entry.href(context)) {
+                                            +entry.linkLabel
                                         }
                                     }
                                 }

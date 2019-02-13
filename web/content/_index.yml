@@ -2,6 +2,7 @@ name: 'Anlage.App'
 #seo:
 #    title: 'Lorem Ipsum'
 #    description: 'Hello World'
+footerContent: /partials/subscribe-reports-section
 mainMenu:
   - name: 'Home'
     ref: /

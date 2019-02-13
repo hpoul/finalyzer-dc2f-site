@@ -1,0 +1,41 @@
+{# @pebvariable name="renderContext" type="com.dc2f.render.RenderContext" #}
+{# @pebvariable name="arguments" type="java.util.Map<String, Object>" #}
+
+{% set type = (arguments.type | default("body")) %}
+{# @pebvariable name="type" type="java.lang.String" #}
+{% set isContent = (type != "footer") %}
+
+
+<section class="section {% if isContent %}has-background-primary-light {% endif %}">
+    <div class="columns is-vcentered">
+        <div class="column has-text-centered">
+            <h3 class="title is-size-4">Don't miss out on great investing ideas.</h3>
+            <p>Receive our weekly market reports and
+                <strong>become a better investor</strong>.
+            </p>
+            <p>The biggest winners and losers of the week – General Market Trends – 52 week lows and
+                highs. All in one weekly email.</p>
+        </div>
+        <div class="column has-text-centered">
+            <form action="https://app.us19.list-manage.com/subscribe/post?u=31641b8435e9e6087061b83c5&amp;id=2bf8ae5c4b"
+                  method="post" class="email-form-weekly-report form">
+                <div class="field">
+                    <div class="control has-icons-left">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        <input type="text" name="EMAIL" class="input" placeholder="Email Address" />
+
+                    </div>
+
+                </div>
+
+                <input type="submit" name="subscribe"
+                       class="button is-success is-medium allow-linebreak" data-aos="wiggle"
+                       data-name="{{ type }}"
+                       value="Subscribe to free Market Updates" />
+            </form>
+
+        </div>
+    </div>
+</section>

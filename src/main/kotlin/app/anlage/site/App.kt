@@ -38,6 +38,7 @@ class FinalyzerTheme : Theme() {
         config.pageRenderer<LandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
+        config.pageRenderer<PartialFolder> {  }
         contentTemplates()
 //        config.pageRenderer<FinalyzerWebsite>(
 //            { ") }

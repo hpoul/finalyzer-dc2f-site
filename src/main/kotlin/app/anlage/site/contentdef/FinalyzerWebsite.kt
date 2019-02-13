@@ -53,6 +53,15 @@ interface MenuEntry : ContentDef {
 
 }
 
+@Nestable("partial")
+interface Partial : ContentDef {
+    @set:JacksonInject("html")
+    var html: RichText
+}
+
+@Nestable("partials")
+interface PartialFolder : ContentBranchDef<Partial>, WebsiteFolders
+
 
 val MenuEntry.linkLabel: String
     get() = this.name ?: (this.ref?.referencedContent as? WithPageSeo)?.seo?.title ?: throw Exception("No name for menu entry. ${this.toStringReflective()}")
@@ -62,4 +71,6 @@ abstract class FinalyzerWebsite: Website<WebsiteFolders> {
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>
     abstract val footerMenu: List<Menu>
+
+    abstract val footerContent: ContentReference
 }

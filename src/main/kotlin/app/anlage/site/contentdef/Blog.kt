@@ -20,3 +20,5 @@ interface Article: ContentDef {
     @set:JacksonInject("body")
     var body: Markdown
 }
+
+data class LoremIpsum(val blubb: String)

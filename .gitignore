@@ -11,6 +11,7 @@
 !.idea/inspectionProfiles/*
 !.idea/codeStyles
 !.idea/codeStyles/*
+!.idea/templateLanguages.xml
 *.iml
 
 # Java/Kotlin/Android

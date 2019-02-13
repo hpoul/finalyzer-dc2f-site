@@ -131,21 +131,19 @@ private fun MenuEntry.href(context: RenderContext<*>): String? =
     this.ref?.href(context) ?: this.url
 
 fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
+    val website = context.rootNode as FinalyzerWebsite
     footer("footer") {
         div("container") {
             div("columns") {
-                // TODO site menu
-                (context.rootNode as? FinalyzerWebsite)?.let { website ->
-                    website.footerMenu.map { menu ->
-                        div("column") {
-                            span("footer-title title is-4") { +menu.name }
+                website.footerMenu.map { menu ->
+                    div("column") {
+                        span("footer-title title is-4") { +menu.name }
 
-                            ul {
-                                menu.children.map { entry ->
-                                    li {
-                                        a(entry.href(context)) {
-                                            +entry.linkLabel
-                                        }
+                        ul {
+                            menu.children.map { entry ->
+                                li {
+                                    a(entry.href(context)) {
+                                        +entry.linkLabel
                                     }
                                 }
                             }
@@ -166,6 +164,8 @@ fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
             }
 
         }
+
+        richText(context, (website.footerContent.referencedContent as? Partial)?.html, mapOf("type" to "footer"))
     }
 }
 

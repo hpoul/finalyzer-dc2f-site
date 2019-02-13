@@ -14,6 +14,14 @@ plugins {
     application
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir("web/content")
+        }
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }

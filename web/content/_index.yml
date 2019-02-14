@@ -16,6 +16,9 @@ footerMenu:
       - name: "Info"
         ref: /
       - ref: /pages/pricing
+      - ref: /tools/weekly-reports
+      - ref: /tools/52-week-lows
+      - ref: /tools/52-week-highs
       - name: "Login"
         url: "https://anlage.app/app/"
   - name: About

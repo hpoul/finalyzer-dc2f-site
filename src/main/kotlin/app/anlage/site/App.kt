@@ -10,6 +10,8 @@ import com.dc2f.render.*
 import com.dc2f.util.toStringReflective
 import com.google.common.io.*
 import com.google.common.io.Files
+import kotlinx.html.*
+import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
 import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.builder.*
@@ -39,6 +41,19 @@ class FinalyzerTheme : Theme() {
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
         config.pageRenderer<PartialFolder> {  }
+        config.pageRenderer<FigureEmbeddable> {
+            out.appendHTML().div {
+                figure {
+                    img {
+                        src = node.image.href(context)
+                        alt = node.alt ?: ""
+                        width = "200"//child.screenshot.width.toString()
+                        height = "200"//child.screenshot.height.toString()
+                    }
+                }
+
+            }
+        }
         contentTemplates()
 //        config.pageRenderer<FinalyzerWebsite>(
 //            { ") }

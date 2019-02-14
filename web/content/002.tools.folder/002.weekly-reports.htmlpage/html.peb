@@ -1,0 +1,61 @@
+{# @pebvariable name="node" type="app.anlage.site.contentdef.HtmlPage" #}
+
+{{ render(content=node.getEmbed().references.subscribeReports) }}
+
+<section class="section">
+    <cx-weekly-stats-index></cx-weekly-stats-index>
+</section>
+
+<div class="content">
+
+    <h1>Free Tools for Individual Investors</h1>
+
+    <p>Here we provide you with a couple of free tools to make it easier
+        to keep an eye on the stock market.</p>
+
+    <div class="columns is-vcentered">
+        <div class="column is-4">
+
+        {#{{< figure src="../52-week-lows/52-week-lows.png" alt="52 Week Lows" width="200" height="200" >}}#}
+            {{ render(content=node.embed.figures.lows, args={"width": 200, "height": 200}) }}
+
+        </div>
+        <div class="column is-8">
+            {% set lows = render(content=node.embed.references.lows.hrefRenderable) %}
+<p>
+            <h2><a href="{{ lows }}">52 Week Lows</a></h2>
+</p>
+            <p>
+                With this tool you can find <a href="{{ lows }}">stocks reaching their 52 week lows</a>
+            within the last week.
+            </p><p>
+            <a href="{{ lows }}">Open Tool...</a>
+</p>
+        </div>
+    </div>
+
+<div class="is-clear-both"></div>
+
+    <div class="columns is-vcentered">
+        <div class="column is-4">
+        {% set highs = render(content=node.embed.references.highs.hrefRenderable) %}
+
+
+        {#{{< figure src="../52-week-highs/52-week-highs.png" alt="52 Week Highs" width="200" height="200" >}}#}
+            {{ render(content=node.embed.figures.highs, args={"width": 200, "height": 200}) }}
+
+        </div>
+        <div class="column is-8">
+
+            <h2><a href="{{ highs }}">52 Week Highs</a></h2>
+
+            <p>With this tool you can find <a href="{{ highs }}">stocks reaching their 52 week highs</a>
+                within the last week.</p>
+
+            <a href="{{ highs }}">Open Tool...</a>
+        </div>
+    </div>
+
+    <div class="is-clear-both"></div>
+
+</div>

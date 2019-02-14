@@ -1,6 +1,7 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
+import com.dc2f.render.RenderContext
 import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.toStringReflective
 import com.fasterxml.jackson.annotation.*
@@ -35,7 +36,18 @@ interface HtmlPage : ContentPage {
     var head: RichText?
     @set:JacksonInject("html")
     var html: RichText
+    var embed: Embeddables?
     var params: Map<String, Any>?
+}
+
+interface FigureEmbeddable: ContentDef {
+    val alt: String?
+    val image: ImageAsset
+}
+
+interface Embeddables: ContentDef {
+    val references: Map<String, ContentReference>?
+    val figures: Map<String, FigureEmbeddable>?
 }
 
 @Nestable("folder")
@@ -54,10 +66,14 @@ interface MenuEntry : ContentDef {
 }
 
 @Nestable("partial")
-interface Partial : ContentDef {
+abstract class Partial : ContentDef, Renderable {
     @set:JacksonInject("html")
-    var html: RichText
+    abstract var html: RichText
+
+    override fun renderContent(renderContext: RenderContext<*>, arguments: Any?): String =
+        html.renderContent(renderContext, arguments)
 }
+
 
 @Nestable("partials")
 interface PartialFolder : ContentBranchDef<Partial>, WebsiteFolders

@@ -13,6 +13,7 @@ import kotlinx.html.stream.appendHTML
 
 fun HTMLTag.richText(context: RenderContext<*>, richText: RichText?, arguments: Any? = null) {
     when (richText) {
+        null -> return
         is Markdown -> markdown(context, richText)
         is Mustache -> unsafe { +richText.renderContent(context, arguments) }
         is Pebble -> unsafe { +richText.renderContent(context, arguments) }

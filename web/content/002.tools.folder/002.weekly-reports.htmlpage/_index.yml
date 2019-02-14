@@ -14,3 +14,5 @@ embed:
     highs:
       alt: '52 Week Highs'
       image: '52-week-highs.png'
+  files:
+    weeklyStatsComponent: ./weekly-stats-component.js

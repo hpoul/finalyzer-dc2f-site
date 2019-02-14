@@ -59,3 +59,4 @@
     <div class="is-clear-both"></div>
 
 </div>
+<script src="{{ render(content=node.embed.files.weeklyStatsComponent.hrefRenderable) }}"></script>

@@ -48,6 +48,7 @@ interface FigureEmbeddable: ContentDef {
 interface Embeddables: ContentDef {
     val references: Map<String, ContentReference>?
     val figures: Map<String, FigureEmbeddable>?
+    val files: Map<String, FileAsset>?
 }
 
 @Nestable("folder")

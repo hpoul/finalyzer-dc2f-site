@@ -107,7 +107,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                             classes = classes + "has-text-centered"
                                         }
                                         h3 { +child.title }
-                                        out.append(child.body.toString())
+                                        markdown(context, child.body)
 //                                        unsafe {
 //                                            +child.body.toString()
 //                                        }

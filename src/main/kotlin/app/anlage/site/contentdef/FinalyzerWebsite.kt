@@ -83,11 +83,22 @@ interface PartialFolder : ContentBranchDef<Partial>, WebsiteFolders
 val MenuEntry.linkLabel: String
     get() = this.name ?: (this.ref?.referencedContent as? WithPageSeo)?.seo?.title ?: throw Exception("No name for menu entry. ${this.toStringReflective()}")
 
+interface Favicon : ContentDef {
+    val image: ImageAsset
+}
+
+interface FinalyzerConfig : ContentDef {
+    val backendUrlProd: String
+    val backendUrlDev: String
+    val favicons: List<Favicon>
+}
+
 abstract class FinalyzerWebsite: Website<WebsiteFolders> {
     @set:JacksonInject("index")
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>
     abstract val footerMenu: List<Menu>
+    abstract val config : FinalyzerConfig
 
     abstract val footerContent: ContentReference
 }

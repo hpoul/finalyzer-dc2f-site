@@ -6,9 +6,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * This generated file contains a sample Kotlin application project to get you started.
  */
 
+group = "app.anlage.site"
+version = "0.0.1-SNAPSHOT"
+
+
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
     id("org.jetbrains.kotlin.jvm").version("1.3.20")
+    //kotlin("kapt") version "1.3.20"
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -33,6 +38,9 @@ repositories {
 }
 
 dependencies {
+    //kapt("com.github.therapi:therapi-runtime-javadoc-scribe:0.9.0")
+    //compile("com.github.therapi:therapi-runtime-javadoc:0.9.0")
+
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 //    implementation(project("dc2f"))

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JacksonInject
 
 @Nestable("landingpage")
 interface LandingPage : ContentDef {
+    /** the pages seo */
     var seo: PageSeo
     @set:JacksonInject("children")
     var children: List<LandingPageElement>

@@ -7,6 +7,8 @@ import com.dc2f.richtext.PebbleContext
 import com.dc2f.richtext.markdown.Markdown
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
+import java.text.DateFormat
+import java.time.format.*
 
 fun RenderContext<Blog>.blogIndexPage() {
     out.appendHTML().baseTemplate(this, node.seo) {
@@ -36,9 +38,12 @@ fun RenderContext<Blog>.blogIndexPage() {
                             div("column") {
                                 a(context.href(child)) {
                                     h3("title is-size-3") { +child.title }
-                                    // TODO format date?!
                                 }
-                                h4("subtitle is-size-6 is-bold") { +child.date.toString() }
+                                h4("subtitle is-size-6 is-bold") {
+                                    // TODO format date?! make it generic, and cache instance?
+                                    +child.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
+//                                    +child.date.toString()
+                                }
                                 div("content") {
                                     // TODO generate summary?
                                     markdownSummary(context, child.body)
@@ -75,7 +80,7 @@ fun RenderContext<Article>.blogArticle() {
                 h1("title") { +node.title }
                 h2("subtitle is-size-6 has-text-weight-bold") {
                     // TODO format date
-                    +node.date.toString()
+                    +node.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
                 }
             }
         }

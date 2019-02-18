@@ -10,6 +10,13 @@ mainMenu:
   - name: "Tools"
     ref: /tools/weekly-reports
   - ref: /articles
+config:
+  backendUrlProd: 'https://api.anlage.app/api'
+  backendUrlDev: 'http://localhost:8080/api'
+  favicons:
+    - image: ./favicon.ico
+    - image: ./favicon-16x16.png
+    - image: ./favicon-32x32.png
 footerMenu:
   - name: Product
     children:

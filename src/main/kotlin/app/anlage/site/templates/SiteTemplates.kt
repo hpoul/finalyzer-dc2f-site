@@ -4,6 +4,7 @@ import app.anlage.site.contentdef.*
 import com.dc2f.assets.ScssTransformer
 import com.dc2f.render.RenderContext
 import com.dc2f.util.toStringReflective
+import com.google.common.net.MediaType
 import kotlinx.html.*
 
 fun <TAG, T : WithPageSeo> TagConsumer<TAG>.baseTemplate(
@@ -46,7 +47,7 @@ fun <T> TagConsumer<T>.baseTemplate(
                 div("navbar-menu") {
                     id = "main-menu"
                     div("navbar-end") {
-//                        website.children.flatMap {
+                        //                        website.children.flatMap {
 //                            (it as? ContentPageFolder)?.children?.plus(it) ?: listOf(it)
 //                        }.map { folder ->
 //                            folder.menu?.let { menu ->
@@ -89,15 +90,76 @@ fun HEAD.property(propertyName: String, content: String) {
     }
 }
 
-fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
-    title {
-        +seo.title
+enum class Dc2fEnv(val id: String) {
+    Production("production"),
+    ProductionDrafts("production-drafts"),
+    Dev("dev"),
+    ;
+
+    companion object {
+        fun findById(id: String?, default: Dc2fEnv = Dc2fEnv.Dev) =
+            id?.let { idString -> Dc2fEnv.values().firstOrNull { it.id == idString } }
+                ?: default
     }
-    property("og:title", seo.title)
-    property("fb:app_id", "1950393328594234")
-    property("twitter:title", seo.title)
-    property("twitter:card", "summary")
-    property("twitter:site", "@AnlageApp")
+}
+
+fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
+    val website = context.rootNode as FinalyzerWebsite
+    val title = "${seo.title} | Anlage.App"
+    title {
+        +title
+    }
+    property("og:title", title)
+
+    val env = Dc2fEnv.findById(System.getenv("DC2F_ENV"))
+
+    script {
+        unsafe {
+            raw(
+                """window.AA = { 'backendUrl': '${if (env == Dc2fEnv.Dev) {
+                    website.config.backendUrlDev
+                } else {
+                    website.config.backendUrlProd
+                }}' };"""
+            )
+        }
+    }
+
+    if (env == Dc2fEnv.Production) {
+        unsafe {
+            raw(
+                """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-91100035-3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-91100035-3', {'siteSpeedSampleRate': 100});
+</script>
+            """.trimIndent()
+            )
+        }
+    } else {
+        unsafe {
+            raw(
+                """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-91100035-4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-91100035-4', {'siteSpeedSampleRate': 100});
+</script>
+                """.trimIndent()
+            )
+        }
+    }
+
+    meta(charset = "UTF-8")
 
     link(rel = LinkRel.stylesheet) {
         href = context.getAsset("theme/scss/main.scss")
@@ -112,15 +174,34 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
 
     }
 
+    meta("viewport", "width=device-width, initial-scale=1")
+
+    website.config.favicons.map { favicon ->
+        @Suppress("UnstableApiUsage")
+        when (val mediaType = MediaType.parse(favicon.image.imageInfo.mimeType).withoutParameters()) {
+            // don't ask why, but i'll prefer image/x-icon over image/vnd.microsoft.icon for now.
+            MediaType.ICO -> link(rel = "icon", type = "image/x-icon", href = favicon.image.href(context))
+            else -> link(rel = "icon", type = mediaType.toString(), href = favicon.image.href(context)) {
+                sizes = "${favicon.image.imageInfo.width}x${favicon.image.imageInfo.height}"
+            }
+        }
+    }
+
+    property("fb:app_id", "1950393328594234")
+    property("twitter:title", title)
+    property("twitter:card", "summary")
+    property("twitter:site", "@AnlageApp")
+
     meta(name = "description", content = seo.description)
     property("og:description", seo.description)
     property("twitter:description", seo.description)
 
-    // <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    // <meta content="utf-8" http-equiv="encoding">
+    property("og:url", context.href(context.node))
+
     meta(content = "text/html;charset=utf-8") {
         httpEquiv = MetaHttpEquiv.contentType
     }
+
     meta(content = "utf-8") {
         httpEquiv = "encoding"
     }
@@ -157,7 +238,7 @@ fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
                         unsafe { +"""<strong>ANLAGE.APP</strong> by <a href="https://codeux.design/" target="_blank">codeux.design</a> and Herbert Poul""" }
                     }
                     p {
-                        unsafe { +"""Questions? Suggestions? <a href="mailto:hello@anlage.app">hello@anlage.app</a>"""}
+                        unsafe { +"""Questions? Suggestions? <a href="mailto:hello@anlage.app">hello@anlage.app</a>""" }
                     }
                 }
 
@@ -165,12 +246,22 @@ fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
 
         }
 
-        richText(context, (website.footerContent.referencedContent as? Partial)?.html, mapOf("type" to "footer"))
+        richText(
+            context,
+            (website.footerContent.referencedContent as? Partial)?.html,
+            mapOf("type" to "footer")
+        )
     }
 }
 
-fun <T> TagConsumer<T>.scaffold(context: RenderContext<*>, seo: PageSeo, headInject: HEAD.() -> Unit = {}, body: BODY.() -> Unit) =
+fun <T> TagConsumer<T>.scaffold(
+    context: RenderContext<*>,
+    seo: PageSeo,
+    headInject: HEAD.() -> Unit = {},
+    body: BODY.() -> Unit
+) =
     html {
+        lang = "en-us"
         head {
             siteHead(context, seo)
             headInject()

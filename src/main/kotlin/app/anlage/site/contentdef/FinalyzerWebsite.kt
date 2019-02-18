@@ -2,9 +2,10 @@ package app.anlage.site.contentdef
 
 import com.dc2f.*
 import com.dc2f.render.RenderContext
+import com.dc2f.richtext.RichText
 import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.toStringReflective
-import com.fasterxml.jackson.annotation.*
+import com.fasterxml.jackson.annotation.JacksonInject
 
 interface PageSeo : ContentDef {
     var title: String
@@ -42,6 +43,7 @@ interface HtmlPage : ContentPage {
 
 interface FigureEmbeddable: ContentDef {
     val alt: String?
+    val title: String?
     val image: ImageAsset
 }
 
@@ -87,10 +89,16 @@ interface Favicon : ContentDef {
     val image: ImageAsset
 }
 
+interface Disqus : ContentDef {
+    val shortName: String
+}
+
 interface FinalyzerConfig : ContentDef {
     val backendUrlProd: String
     val backendUrlDev: String
     val favicons: List<Favicon>
+    val signUpUrl: String
+    val disqus: Disqus?
 }
 
 abstract class FinalyzerWebsite: Website<WebsiteFolders> {
@@ -99,6 +107,8 @@ abstract class FinalyzerWebsite: Website<WebsiteFolders> {
     abstract val mainMenu: List<MenuEntry>
     abstract val footerMenu: List<Menu>
     abstract val config : FinalyzerConfig
+
+    abstract val embed: Embeddables
 
     abstract val footerContent: ContentReference
 }

@@ -1,0 +1,3 @@
+<div class="section has-text-centered">
+    <a href="{{ renderContext.rootNode.config.signUpUrl }}" class="button is-success is-large">Start tracking my portfolio today! It's Free!</a>
+</div>

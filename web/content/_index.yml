@@ -3,6 +3,9 @@ name: 'Anlage.App'
 #    title: 'Lorem Ipsum'
 #    description: 'Hello World'
 footerContent: /partials/subscribe-reports-section
+embed:
+  references:
+    ctaButton: /partials/cta-button
 mainMenu:
   - name: 'Home'
     ref: /
@@ -13,6 +16,9 @@ mainMenu:
 config:
   backendUrlProd: 'https://api.anlage.app/api'
   backendUrlDev: 'http://localhost:8080/api'
+  signUpUrl: 'https://anlage.app/app/#/auth/signUp'
+  disqus:
+    shortName: 'anlage-app'
   favicons:
     - image: ./favicon.ico
     - image: ./favicon-16x16.png

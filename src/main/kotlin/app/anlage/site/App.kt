@@ -14,6 +14,7 @@ import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
 import org.apache.commons.io.FileUtils
+import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.builder.*
 import org.apache.commons.text.StringEscapeUtils
 import java.io.File
@@ -41,18 +42,49 @@ class FinalyzerTheme : Theme() {
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
         config.pageRenderer<PartialFolder> {  }
+
+        // TODO maybe create a custom variant to register embeddable figures?
         config.pageRenderer<FigureEmbeddable> {
             out.appendHTML().div {
                 figure {
                     img {
                         src = node.image.href(context)
-                        alt = node.alt ?: ""
-                        width = "200"//child.screenshot.width.toString()
-                        height = "200"//child.screenshot.height.toString()
+                        alt = node.alt ?: node.title ?: ""
+//                        width = "200"//child.screenshot.width.toString()
+//                        height = "200"//child.screenshot.height.toString()
+                    }
+                    node.title?.let { title ->
+                        figcaption {
+                            h4 { +title }
+                        }
                     }
                 }
 
             }
+        }
+        config.pageRenderer<Disqus> {
+            val permalink = StringEscapeUtils.escapeJson(context.href(node))
+            // language=html
+            out.append("""
+                <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    this.page.url = "permalink";  // Replace PAGE_URL with your page's canonical URL variable
+    // this.page.identifier = '{{ . }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        setTimeout(function() {
+            var d = document, s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://${node.shortName}.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }, 2000);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            """.trimIndent())
         }
         contentTemplates()
 //        config.pageRenderer<FinalyzerWebsite>(

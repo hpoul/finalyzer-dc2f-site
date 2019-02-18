@@ -18,13 +18,19 @@ With Facebook, Alphabet and Apple reaching 52 week lows. Netflix
 is also down 9% since last week! You can [follow the FANG stocks in our 
 example portfolio](https://anlage.app/app/#/portfolio/holdings/917b0893-b042-4144-8862-1162dc99b8cf).
 
+{{render content=rootNode.embed.references.ctaButton/}}
 
+{{render content=rootNode.embed/}}
+
+
+screenshot:
 {{render content=node.embed.figures.screenshot/}}
-
 {{render content=rootNode.embed.references.ctaButton/}}
 
 
 {{% cta-button %}}
+
+{{render content=renderContext.rootNode.embed.references.ctaButton/}}
 
 # So what is on your watchlist?
 

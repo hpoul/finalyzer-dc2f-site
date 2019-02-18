@@ -1,13 +1,11 @@
 package app.anlage.site.templates
 
 import app.anlage.site.contentdef.*
-import com.dc2f.*
+import com.dc2f.FillType
 import com.dc2f.render.RenderContext
-import com.dc2f.richtext.PebbleContext
 import com.dc2f.richtext.markdown.Markdown
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
-import java.text.DateFormat
 import java.time.format.*
 
 fun RenderContext<Blog>.blogIndexPage() {

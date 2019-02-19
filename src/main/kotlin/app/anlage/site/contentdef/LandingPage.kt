@@ -19,6 +19,13 @@ interface BackgroundVideo : ContentDef {
     val placeholder: ImageAsset
 }
 
+enum class TextAlign {
+    Left,
+    Right,
+    Center
+    ;
+}
+
 sealed class LandingPageElement : ContentDef {
     @Nestable("intro")
     abstract class Intro : LandingPageElement() {
@@ -31,6 +38,7 @@ sealed class LandingPageElement : ContentDef {
         abstract val title: String
         @set:JacksonInject("body")
         abstract var body: Markdown
+        var bodyTextAlign : TextAlign = TextAlign.Center
         abstract val screenshot: ImageAsset
         abstract val leftAlign: Boolean
     }

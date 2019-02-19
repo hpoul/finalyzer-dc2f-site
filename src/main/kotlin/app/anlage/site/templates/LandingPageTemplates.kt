@@ -20,7 +20,7 @@ fun FlowContent.aButton(
     iconClasses: String? = null,
     block: A.() -> Unit = {}
 ) {
-    a(href, target, classes = "button ${type?.classes ?: "" }") {
+    a(href, target, classes = "button ${type?.classes ?: ""}") {
         iconClasses?.let { icon(iconClasses) }
         span { +label }
         block()
@@ -37,7 +37,7 @@ fun FlowContent.icon(classes: String) {
 
 fun RenderContext<LandingPage>.landingPage() {
     out.appendHTML().baseTemplate(this, node.seo) {
-        div {
+//        div {
             node.children.map { child ->
                 when (child) {
                     is LandingPageElement.Intro -> {
@@ -103,7 +103,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                         }
                                     }
                                     div("column content") {
-                                        if (!child.leftAlign) {
+                                        if (child.bodyTextAlign == TextAlign.Center) {
                                             classes = classes + "has-text-centered"
                                         }
                                         h3 { +child.title }
@@ -137,7 +137,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                         h4("subtitle is-size-5 is-bold") { +child.subTitle }
                                     }
                                     div("column has-text-centered") {
-                                        div("is-size-3 email-form-spacing") { out.append("&nbsp;") }
+                                        div("is-size-3 email-form-spacing") { unsafe { raw("&nbsp;") } }
                                         form(classes = "email-form") {
                                             div("field") {
                                                 div("control has-icons-left") {
@@ -145,6 +145,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                                         i("fas fa-user")
                                                     }
                                                     textInput(name = "email", classes = "input") {
+                                                        id = "start-element-input"
                                                         placeholder = "Email Address"
                                                     }
                                                 }
@@ -160,6 +161,6 @@ fun RenderContext<LandingPage>.landingPage() {
                     }
                 }
             }
-        }
+//        }
     }
 }

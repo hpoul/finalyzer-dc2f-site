@@ -3,7 +3,6 @@ package app.anlage.site.templates
 import app.anlage.site.contentdef.*
 import com.dc2f.assets.ScssTransformer
 import com.dc2f.render.RenderContext
-import com.dc2f.util.toStringReflective
 import com.google.common.net.MediaType
 import kotlinx.html.*
 
@@ -211,7 +210,7 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
 private fun MenuEntry.href(context: RenderContext<*>): String? =
     this.ref?.href(context) ?: this.url
 
-fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
+fun BODY.siteFooter(context: RenderContext<*>) {
     val website = context.rootNode as FinalyzerWebsite
     footer("footer") {
         div("container") {
@@ -251,6 +250,26 @@ fun <T> TagConsumer<T>.siteFooter(context: RenderContext<*>) {
             (website.footerContent.referencedContent as? Partial)?.html,
             mapOf("type" to "footer")
         )
+    }
+    unsafe {
+        raw("""
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+    js.async = true;
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="306833413221913">
+</div>
+        """)
     }
 }
 

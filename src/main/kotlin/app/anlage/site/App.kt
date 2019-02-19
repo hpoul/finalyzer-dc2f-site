@@ -63,13 +63,13 @@ class FinalyzerTheme : Theme() {
             }
         }
         config.pageRenderer<Disqus> {
-            val permalink = StringEscapeUtils.escapeJson(context.href(node))
+            val permalink = enclosingNode?.let { StringEscapeUtils.escapeJson(context.href(it)) } ?: ""
             // language=html
             out.append("""
-                <div id="disqus_thread"></div>
+<div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
-    this.page.url = "permalink";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.url = "$permalink";  // Replace PAGE_URL with your page's canonical URL variable
     // this.page.identifier = '{{ . }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
@@ -84,7 +84,7 @@ class FinalyzerTheme : Theme() {
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            """.trimIndent())
+            """)
         }
         contentTemplates()
 //        config.pageRenderer<FinalyzerWebsite>(

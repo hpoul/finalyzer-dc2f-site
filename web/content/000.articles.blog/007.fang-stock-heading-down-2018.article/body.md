@@ -24,11 +24,9 @@ example portfolio](https://anlage.app/app/#/portfolio/holdings/917b0893-b042-414
 {{render content=rootNode.embed.references.ctaButton/}}
 
 
-{{% cta-button %}}
-
 # So what is on your watchlist?
 
 What are your current ideas for stocks? Do you have more ways to come up with good
 investing opportunities? Let us know in the comments below!
 
-{{% disqus %}}
+{{render content=renderContext.rootNode.config.disqus}}

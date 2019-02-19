@@ -3,7 +3,8 @@
 package app.anlage.site.templates
 
 import app.anlage.site.contentdef.*
-import com.dc2f.render.RenderContext
+import com.dc2f.FillType
+import com.dc2f.render.*
 import com.google.common.net.MediaType
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
@@ -91,14 +92,16 @@ fun RenderContext<LandingPage>.landingPage() {
                                     }
                                     div("column is-7") {
                                         // TODO add image resizing/optimization stuff
-                                        figure("image screenshot") {
-                                            attributes["data-aos"] = "fade-up"
-                                            attributes["data-name"] = child.screenshot.name
-                                            img {
-                                                src = child.screenshot.href(context)
-                                                alt = child.title
-                                                width = child.screenshot.width.toString()
-                                                height = child.screenshot.height.toString()
+                                        child.screenshot.resize(context, 1200, Int.MAX_VALUE, FillType.Fit).let { image ->
+                                            figure("image screenshot") {
+                                                attributes["data-aos"] = "fade-up"
+                                                attributes["data-name"] = child.screenshot.name
+                                                img {
+                                                    src = image.href
+                                                    alt = child.title
+                                                    width = image.width.toString()
+                                                    height = image.height.toString()
+                                                }
                                             }
                                         }
                                     }
@@ -131,7 +134,9 @@ fun RenderContext<LandingPage>.landingPage() {
                                     div("column has-text-centered") {
                                         div("is-size-3") { +child.title }
                                         img(
-                                            src = context.getAsset("theme/images/arrow.svg").href("images/arrow.svg"),
+                                            src = context.getAsset("theme/images/arrow.svg")
+                                                .href(RenderPath.parse("/images/")
+                                            ),
                                             alt = "Arrow Image"
                                         ) {}
                                         h4("subtitle is-size-5 is-bold") { +child.subTitle }

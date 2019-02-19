@@ -8,17 +8,13 @@ import app.anlage.site.templates.*
 import com.dc2f.*
 import com.dc2f.render.*
 import com.dc2f.util.toStringReflective
-import com.google.common.io.*
-import com.google.common.io.Files
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
 import org.apache.commons.io.FileUtils
-import org.apache.commons.lang3.StringUtils
-import org.apache.commons.lang3.builder.*
 import org.apache.commons.text.StringEscapeUtils
 import java.io.File
-import java.nio.file.*
+import java.nio.file.FileSystems
 
 private val logger = KotlinLogging.logger {}
 

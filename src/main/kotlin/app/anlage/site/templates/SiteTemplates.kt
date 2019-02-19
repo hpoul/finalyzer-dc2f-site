@@ -1,10 +1,12 @@
 package app.anlage.site.templates
 
 import app.anlage.site.contentdef.*
-import com.dc2f.assets.ScssTransformer
-import com.dc2f.render.RenderContext
+import app.anlage.site.templates.debug.debugHead
+import com.dc2f.assets.*
+import com.dc2f.render.*
 import com.google.common.net.MediaType
 import kotlinx.html.*
+import java.io.File
 
 fun <TAG, T : WithPageSeo> TagConsumer<TAG>.baseTemplate(
     context: RenderContext<T>,
@@ -30,7 +32,8 @@ fun <T> TagConsumer<T>.baseTemplate(
                         // TODO image stuff
                         img(
                             "ANLAGE.APP",
-                            src = context.getAsset("theme/images/logo-anlage-app.svg").href("images/logo-anlage-app.svg")
+                            src = context.getAsset("theme/images/logo-anlage-app.svg")
+                                .href(RenderPath.parse("/images/"))
                         )
                     }
 
@@ -156,21 +159,46 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
                 """.trimIndent()
             )
         }
+        debugHead(context)
+        unsafe {
+            raw("""
+<script type="text/javascript">
+    (function (g) {
+        var s = document.createElement('script'),
+            t = document.getElementsByTagName('script')[0];
+        s.async = true;
+        s.src = g + '?v=' + (new Date()).getTime();
+        s.charset = 'UTF-8';
+        s.setAttribute('crossorigin', '*');
+        t.parentNode.insertBefore(s, t);
+    })('https://www.canvasflip.com/plugins/vi/vi.min.js');
+</script>
+            """)
+        }
     }
 
     meta(charset = "UTF-8")
 
-    link(rel = LinkRel.stylesheet) {
+    link(rel = LinkRel.stylesheet.toLowerCase()) {
+        val digest = DigestTransformer()
         href = context.getAsset("theme/scss/main.scss")
-            .transform(ScssTransformer())
-            .href("styles/css/main.css")
+            .transform(
+                ScssTransformer(
+                    includePaths = listOf(
+                        File("."),
+                        File(context.getResourceFromFileSystem("theme/scss/"))
+                    )
+                )
+            ).transform(digest)
+            .href(RenderPath.parse("/styles/css/"))
+        integrity = requireNotNull(digest.integrityAttrValue)
     }
     script(
         // TODO add support for typescript transform?
         type = ScriptType.textJavaScript,
-        src = context.getAsset("theme/script/main.js").href("script/main.js")
+        src = context.getAsset("theme/script/main.js").href(RenderPath.parse("/script/"))
     ) {
-
+        async = true
     }
 
     meta("viewport", "width=device-width, initial-scale=1")
@@ -187,7 +215,9 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
     }
 
     property("fb:app_id", "1950393328594234")
-    property("twitter:title", title)
+    // DIFF for compatibility with hugo site, we use the bare seo.title
+//    property("twitter:title", title)
+    property("twitter:title", seo.title)
     property("twitter:card", "summary")
     property("twitter:site", "@AnlageApp")
 
@@ -197,9 +227,9 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
 
     property("og:url", context.href(context.node))
 
-    meta(content = "text/html;charset=utf-8") {
-        httpEquiv = MetaHttpEquiv.contentType
-    }
+//    meta(content = "text/html;charset=utf-8") {
+//        httpEquiv = MetaHttpEquiv.contentType
+//    }
 
     meta(content = "utf-8") {
         httpEquiv = "encoding"

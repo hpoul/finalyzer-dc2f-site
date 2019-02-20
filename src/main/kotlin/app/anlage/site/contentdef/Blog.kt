@@ -7,7 +7,7 @@ import java.time.ZonedDateTime
 
 
 @Nestable("blog")
-interface Blog: WebsiteFolders, ContentBranchDef<Article>, WithPageSeo
+interface Blog: WebsiteFolderContent, ContentBranchDef<Article>, WithPageSeo
 
 @Nestable("article")
 interface Article: ContentDef, SlugCustomization {

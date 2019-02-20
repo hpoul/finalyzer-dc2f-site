@@ -12,13 +12,14 @@ fun <TAG, T : WithPageSeo> TagConsumer<TAG>.baseTemplate(
     context: RenderContext<T>,
     headInject: HEAD.() -> Unit = {},
     mainContent: MAIN.() -> Unit
-) = baseTemplate(context, context.node.seo, headInject, mainContent)
+) = baseTemplate(context, context.node.seo, headInject, mainContent = mainContent)
 
 
 fun <T> TagConsumer<T>.baseTemplate(
     context: RenderContext<*>,
     seo: PageSeo,
     headInject: HEAD.() -> Unit = {},
+    navbarMenuOverride: (DIV.() -> Unit)? = null,
     mainContent: MAIN.() -> Unit
 ) =
     scaffold(context, seo, headInject) {
@@ -36,43 +37,43 @@ fun <T> TagConsumer<T>.baseTemplate(
                                 .href(RenderPath.parse("/images/"))
                         )
                     }
+                    // DIFF added newline to minimize diff with hugo version.
+                    +" "
 
                     a(classes = "navbar-burger") {
                         role = "button"
+                        attributes["data-target"] = "main-menu"
                         attributes["aria-label"] = "menu"
                         attributes["aria-expanded"] = "false"
-                        span { }
-                        span { }
-                        span { }
+                        // DIFF added newline to minimize diff with hugo version.
+                        +" "
+                        span { attributes["aria-hidden"] = "true" }; +" "
+                        span { attributes["aria-hidden"] = "true" }; +" "
+                        span { attributes["aria-hidden"] = "true" }
                     }
                 }
                 div("navbar-menu") {
                     id = "main-menu"
                     div("navbar-end") {
-                        //                        website.children.flatMap {
-//                            (it as? ContentPageFolder)?.children?.plus(it) ?: listOf(it)
-//                        }.map { folder ->
-//                            folder.menu?.let { menu ->
-//                                a(context.href(folder), classes = "navbar-item") {
-//                                    +menu.name
-//                                }
-//                            }
-//                        }
-                        website.mainMenu.map { entry ->
-                            a(entry.href(context), classes = "navbar-item") {
-                                +entry.linkLabel
+                        if (navbarMenuOverride == null) {
+                            website.mainMenu.map { entry ->
+                                a(entry.href(context), classes = "navbar-item") {
+                                    +entry.linkLabel
+                                }
                             }
-                        }
 
-                        div("navbar-item") {
-                            // TODO signup url?
-                            aButton(
-                                type = ButtonType.Primary,
-                                href = "signup",
-                                target = "_blank",
-                                iconClasses = "fas fa-sign-in",
-                                label = "Sign Up!"
-                            )
+                            div("navbar-item") {
+                                // TODO signup url?
+                                aButton(
+                                    type = ButtonType.Primary,
+                                    href = "signup",
+                                    target = "_blank",
+                                    iconClasses = "fas fa-sign-in",
+                                    label = "Sign Up!"
+                                )
+                            }
+                        } else {
+                            navbarMenuOverride()
                         }
                     }
                 }

@@ -58,8 +58,8 @@ fun RenderContext<Blog>.blogIndexPage() {
     }
 }
 
-fun HTMLTag.markdown(context: RenderContext<*>, content: Markdown) {
-    unsafe { +content.renderedContent(context) }
+fun HTMLTag.markdown(context: RenderContext<*>, content: Markdown, asInlineContent: Boolean = false) {
+    unsafe { +content.renderedContent(context, asInlineContent = asInlineContent) }
 }
 
 fun HTMLTag.markdownSummary(context: RenderContext<*>, content: Markdown) {

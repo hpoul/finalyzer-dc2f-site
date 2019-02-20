@@ -36,8 +36,86 @@ fun FlowContent.icon(classes: String) {
     }
 }
 
+private fun DIV.arrowImage(context: RenderContext<*>) {
+    img(
+        src = context.getAsset("theme/images/arrow.svg")
+            .href(RenderPath.parse("/images/")
+            ),
+        alt = "Arrow Image"
+    ) {}
+}
+
+fun HEAD.cpcLandingPageHead(context: RenderContext<CpcLandingPage>) {
+    val cpcLandingPage = context.node
+    unsafe { raw("""
+    <script>
+        var fscSession = {
+            'reset': true,
+            'coupon': '${context.node.couponCode}'
+
+        };
+        function decorateURL(url) {
+            try {
+                var linkerParam = null;
+                ga(function () {
+                    var trackers = ga.getAll();
+                    linkerParam = trackers[0].get('linkerParam');
+                });
+                return (linkerParam ? url + '?' + linkerParam : url);
+            } catch (e) {
+                console.error('error while decorating URL', e);
+                return url;
+            }
+        }
+        function fastspringDataCallback() {
+
+        }
+    </script>
+    <script
+            id="fsc-api"
+            src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.6/fastspring-builder.min.js"
+            type="text/javascript"
+            data-storefront="codeuxdesign.onfastspring.com/popup-codeuxdesign"
+            data-debug="true"
+            data-data-callback="fastspringDataCallback"
+            data-decorate-callback="decorateURL"
+            defer>
+    </script>
+    <!-- DO NOT MODIFY -->
+    <!-- Quora Pixel Code (JS Helper) -->
+    <script>
+        !function(q,e,v,n,t,s){if(q.qp) return; n=q.qp=function(){n.qp?n.qp.apply(n,arguments):n.queue.push(arguments);}; n.queue=[];t=document.createElement(e);t.async=!0;t.src=v; s=document.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);}(window, 'script', 'https://a.quora.com/qevents.js');
+        qp('init', 'eae54d9d4de74813ac479f7c6427b6a1');
+        qp('track', 'ViewContent');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://q.quora.com/_/ad/eae54d9d4de74813ac479f7c6427b6a1/pixel?tag=ViewContent&noscript=1"/></noscript>
+    <!-- End of Quora Pixel Code -->
+    """) }
+}
+
+fun RenderContext<CpcLandingPage>.cpcNavbarOverride(): (DIV.() -> Unit) = {
+    val website = rootNode as FinalyzerWebsite
+    div("navbar-item") {
+        a(website.config.signUpUrl, ATarget.blank, classes = "button is-primary") {
+            // TODO make this configurable?
+            attributes["data-fsc-action"] = "Add,Checkout"
+            attributes["data-fsc-item-path-value"] = "anlage-app-premium-sub"
+
+            icon("fas fa-sign-in")
+            // DIFF added newline to minimize diff with hugo version.
+            +" "
+            span { +node.ctaBuyNowLabel }
+        }
+    }
+}
+
 fun RenderContext<LandingPage>.landingPage() {
-    out.appendHTML().baseTemplate(this, node.seo) {
+    out.appendHTML().baseTemplate(
+        this,
+        node.seo,
+        headInject = { context.nodeType<CpcLandingPage>()?.run { cpcLandingPageHead(context) } },
+        navbarMenuOverride = context.nodeType<CpcLandingPage>()?.run { context.cpcNavbarOverride() }
+    ) {
 //        div {
             node.children.map { child ->
                 when (child) {
@@ -84,7 +162,8 @@ fun RenderContext<LandingPage>.landingPage() {
 
 
                     is LandingPageElement.Hero -> {
-                        section("landing-hero-element section") {
+                        // DIFF added a useless div here, for minimizing diffs
+                        section("landing-hero-element section") { div("") {
                             div("container") {
                                 div("columns is-vcentered") {
                                     if (child.leftAlign) {
@@ -98,7 +177,9 @@ fun RenderContext<LandingPage>.landingPage() {
                                                 attributes["data-name"] = child.screenshot.name
                                                 img {
                                                     src = image.href
-                                                    alt = child.title
+                                                    // DIFF for compatibility. but maybe we should use child.title instead of file name.
+//                                                    alt = child.title
+                                                    alt = child.screenshot.name
                                                     width = image.width.toString()
                                                     height = image.height.toString()
                                                 }
@@ -117,6 +198,71 @@ fun RenderContext<LandingPage>.landingPage() {
                                     }
                                 }
                             }
+                        } }
+                    }
+
+                    is LandingPageElement.CpcTry -> {
+                        section("section has-background-primary-light") {
+                            div("container") {
+                                div("columns") {
+                                    div("column is-6 has-text-centered") {
+                                        div {
+                                            h3("title") { +child.offerTitle }
+                                            h4("subtitle") { markdown(context, child.offerSubTitle, asInlineContent = true) }
+                                        }
+                                        arrowImage(context)
+                                        div {
+                                            div("has-text-weight-bold has-text-danger is-size-4") {
+                                                style = "text-decoration: line-through"
+                                                attributes["data-fsc-item-path"] = "anlage-app-premium-sub"
+                                                span("has-text-success is-size-3 has-text-weight-bold") {
+                                                    attributes["data-fsc-item-path"] = "anlage-app-premium-sub"
+                                                    attributes["data-fsc-smartdisplay"] = ""
+                                                    attributes["data-fsc-item-priceTotal"] = ""
+                                                }
+                                            }
+                                            span("plan-price-amount") {
+                                                span("has-text-success is-size-3 has-text-weight-bold") {
+                                                    attributes["data-fsc-item-path"] = "anlage-app-premium-sub"
+                                                    attributes["data-fsc-item-total"] = ""
+                                                    +"$10"
+                                                }
+                                                +"/month"
+                                            }
+                                        }
+                                    }
+
+                                    div("column is-6 has-text-centered") {
+                                        div("is-size-4 email-form-spacing") { unsafe { +"&nbsp;" } }
+                                        div("is-size-4 email-form-spacing") { unsafe { +"&nbsp;" } }
+
+                                        form(classes = "email-form") {
+                                            hiddenInput(name = "fs_coupon") {
+                                                value = child.offerCoupon
+                                            }
+                                            div("field") {
+                                                div("control has-icons-left") {
+                                                    span("icon is-small is-left") {
+                                                        i("fas fa-user")
+                                                    }
+                                                    // DIFF added newline to minimize diff with hugo version.
+                                                    +" "
+                                                    textInput(classes = "input") {
+                                                        name = "email"
+                                                        placeholder = "Email Address"
+                                                    }
+                                                }
+                                            }
+
+                                            submitInput(classes = "button is-success is-large") {
+                                                attributes["data-aos"] = "wiggle"
+                                                value = "Save Now and Sign Up!"
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
                         }
                     }
 
@@ -133,12 +279,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                 div("columns") {
                                     div("column has-text-centered") {
                                         div("is-size-3") { +child.title }
-                                        img(
-                                            src = context.getAsset("theme/images/arrow.svg")
-                                                .href(RenderPath.parse("/images/")
-                                            ),
-                                            alt = "Arrow Image"
-                                        ) {}
+                                        arrowImage(context)
                                         h4("subtitle is-size-5 is-bold") { +child.subTitle }
                                     }
                                     div("column has-text-centered") {
@@ -164,8 +305,30 @@ fun RenderContext<LandingPage>.landingPage() {
                             }
                         }
                     }
-                }
+                    is LandingPageElement.NotReady -> unsafe { raw("""
+<section class="section">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Not ready yet to commit <span class="has-text-success has-text-weight-bold"
+                                              data-fsc-item-path="anlage-app-premium-sub"
+                                              data-fsc-item-total></span>?</p>
+            <p>
+                <a href="" class="button" data-fsc-action="Reset,Add,Checkout" data-fsc-item-path-value="anlage-app-free-sub">Start free Trial</a>
+            </p>
+        </div>
+    </div>
+</section>
+                    """)
+                    }
+                    is LandingPageElement.Content ->
+                        section("section") {
+                            div("container content") {
+                                richText(context, child.body)
+                            }
+                        }
+
+                }.let {  } // https://discuss.kotlinlang.org/t/sealed-classes-and-when-expressions/3980
             }
-//        }
+        }
     }
-}

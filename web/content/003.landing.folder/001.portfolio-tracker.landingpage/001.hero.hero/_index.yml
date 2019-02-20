@@ -1,0 +1,10 @@
+title: "Track your stock portfolio!"
+screenshot: ./screenshot-fang.png
+bodyTextAlign: Left
+# language=markdown
+body: |
+  - Import your Portfolio
+  - See success contribution per Stock
+  - Success over time
+  - See returns in any currency
+  - Compare Market Caps

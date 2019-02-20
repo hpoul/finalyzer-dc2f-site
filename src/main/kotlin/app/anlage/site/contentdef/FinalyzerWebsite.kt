@@ -16,7 +16,8 @@ interface MenuDef: ContentDef {
     val name: String
 }
 
-interface WebsiteFolders : ContentDef {
+/** Marker interface for content inside folders. */
+interface WebsiteFolderContent : ContentDef, SlugCustomization {
     val menu: MenuDef?
 }
 
@@ -25,7 +26,7 @@ interface WithPageSeo: ContentDef {
 }
 
 @Nestable("page")
-interface ContentPage : WebsiteFolders, WithPageSeo {
+interface ContentPage : WebsiteFolderContent, WithPageSeo {
     @set:JacksonInject("body")
     var body: Markdown
 }
@@ -54,7 +55,7 @@ interface Embeddables: ContentDef {
 }
 
 @Nestable("folder")
-interface ContentPageFolder : WebsiteFolders, ContentBranchDef<WebsiteFolders>
+interface ContentPageFolder : WebsiteFolderContent, ContentBranchDef<WebsiteFolderContent>
 
 interface Menu : ContentDef {
     val name: String
@@ -79,7 +80,7 @@ abstract class Partial : ContentDef, Renderable {
 
 
 @Nestable("partials")
-interface PartialFolder : ContentBranchDef<Partial>, WebsiteFolders
+interface PartialFolder : ContentBranchDef<Partial>, WebsiteFolderContent
 
 
 val MenuEntry.linkLabel: String
@@ -101,7 +102,7 @@ interface FinalyzerConfig : ContentDef {
     val disqus: Disqus?
 }
 
-abstract class FinalyzerWebsite: Website<WebsiteFolders> {
+abstract class FinalyzerWebsite: Website<WebsiteFolderContent> {
     @set:JacksonInject("index")
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>

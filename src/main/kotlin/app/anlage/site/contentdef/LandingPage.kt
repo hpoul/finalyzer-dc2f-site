@@ -1,16 +1,22 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
+import com.dc2f.richtext.RichText
 import com.dc2f.richtext.markdown.Markdown
 import com.fasterxml.jackson.annotation.JacksonInject
 
 
-@Nestable("landingpage")
-interface LandingPage : ContentDef {
+interface LandingPage : ContentDef, WebsiteFolderContent {
     /** the pages seo */
     var seo: PageSeo
     @set:JacksonInject("children")
     var children: List<LandingPageElement>
+}
+
+@Nestable("landingpage")
+abstract class CpcLandingPage : LandingPage, WebsiteFolderContent {
+    var couponCode: String = "EARLYADOPTER90"
+    var ctaBuyNowLabel: String = "Buy Now!"
 }
 
 interface BackgroundVideo : ContentDef {
@@ -46,6 +52,20 @@ sealed class LandingPageElement : ContentDef {
     abstract class Start : LandingPageElement() {
         abstract val title: String
         abstract val subTitle: String
+    }
+    @Nestable("cpctry")
+    abstract class CpcTry : Start() {
+        var offerCoupon = "EARLYADOPTER90"
+        var offerTitle = "Limited time offer!"
+        var offerSubTitle = Markdown("Early Adopter price, 90% Off! Forever!")
+    }
+    @Nestable("notready")
+    abstract class NotReady : LandingPageElement()
+
+    @Nestable("content")
+    abstract class Content  : LandingPageElement() {
+        @set:JacksonInject("body")
+        abstract var body: RichText
     }
 }
 

@@ -1,0 +1,17 @@
+<div class="columns is-centered is-vcentered ">
+    <div class="has-text-centered column is-6">
+        <h1 class="title">Stock Portfolio Tracking</h1>
+        <h2 class="subtitle has-text-primary">Public Beta</h2>
+
+        <p>You are invited to our public Beta! Start tracking and analysing your portfolio
+            now <strong>for free</strong>. So Sign Up now with coupon code <code>BETA-PHASE</code>
+            to receive
+            the premium plan free forever!</p>
+
+        <div class="small-print">
+            All we ask in return is occasional feedback.<br />
+            Any problems? Questions? Contact <a
+                href="mailto:herbert@anlage.app">herbert@anlage.app</a>!
+        </div>
+    </div>
+</div>

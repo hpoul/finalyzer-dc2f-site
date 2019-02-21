@@ -17,7 +17,7 @@ of a share does not tell you anything at all. Take, for example, **General Elect
 to **PayPal** (PYPL). GE has a current (August 2018) share price of 12.45 USD compared to PYPL
 at 89.01 USD. So which company is priced better?
 
-{{< figure src="market-cap-calculation.jpg" title="Some basic Market Cap Calculations" >}}
+{{render content=node.embed.figures.marketCapCalculation/}}
 
 
 # Market Capitalization
@@ -45,7 +45,7 @@ market caps of **companies in your portfolio** to each other.
 Since you are already familiar with those companies you might
 have a better feeling when comparing them with each other.
 
-{{< figure src="compare-market-caps.png" title="Compare market caps" >}}
+{{render content=node.embed.figures.compareMarketCaps/}}
 
 In addition, it's valuable to compare the absolute market caps 
 to how much of your portfolio those stocks are allocating.
@@ -54,5 +54,5 @@ The theory being, that **smaller companies are typically more volatile**.
 To do this, just import your portfolio into [Anlage.App](https://anlage.app/) 
 and open your "Market Cap" graph.
 
-{{% cta-button %}}
+{{render content=rootNode.embed.references.ctaButton/}}
 

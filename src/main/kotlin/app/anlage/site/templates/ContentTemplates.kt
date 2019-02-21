@@ -23,7 +23,8 @@ fun HTMLTag.richText(context: RenderContext<*>, richText: RichText?, arguments: 
 fun FinalyzerTheme.contentTemplates() {
     config.pageRenderer<HtmlPage> {
         out.appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
-            section("section") {
+            // DIFF because of some reason i have used `div` instead of `section` on old page.
+            div("section") {
                 div("container") {
                     div("columns is-centered") {
                         div("column has-text-centered is-half is-narrow") {

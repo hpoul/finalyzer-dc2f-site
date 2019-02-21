@@ -10,8 +10,8 @@ import java.time.ZonedDateTime
 interface Blog: WebsiteFolderContent, ContentBranchDef<Article>, WithPageSeo
 
 @Nestable("article")
-interface Article: ContentDef, SlugCustomization {
-    var author: String
+interface Article: ContentDef, SlugCustomization, WithAuthor, WithWordCount, WithMainImage {
+    override var author: String
     val date: ZonedDateTime
     val categories: Array<String>
     val seo: PageSeo
@@ -23,6 +23,13 @@ interface Article: ContentDef, SlugCustomization {
 
     @JvmDefault
     override fun slugGenerationValue(): String? = title
+
+    @JvmDefault
+    override fun wordCount(): Int? =
+        countWords(body.rawContent)
+
+    @JvmDefault
+    override fun mainImage(): ImageAsset? = teaser
 }
 
 data class LoremIpsum(val blubb: String)

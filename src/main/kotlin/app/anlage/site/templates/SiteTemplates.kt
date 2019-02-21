@@ -4,6 +4,7 @@ import app.anlage.site.contentdef.*
 import app.anlage.site.templates.debug.debugHead
 import com.dc2f.assets.*
 import com.dc2f.render.*
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.net.MediaType
 import kotlinx.html.*
 import java.io.File
@@ -56,20 +57,28 @@ fun <T> TagConsumer<T>.baseTemplate(
                     id = "main-menu"
                     div("navbar-end") {
                         if (navbarMenuOverride == null) {
+                            val active = website.mainMenu.findActiveEntry(context.renderer.loaderContext, context.node)
                             website.mainMenu.map { entry ->
                                 a(entry.href(context), classes = "navbar-item") {
+                                    entry.ref?.referencedContent?.let { ref ->
+                                        if (active == entry) {
+                                            classes = classes + "is-active"
+                                        }
+                                    }
+                                    title = entry.linkLabel
                                     +entry.linkLabel
                                 }
+                                // DIFF space in old implementation.
+                                +" "
                             }
 
                             div("navbar-item") {
-                                // TODO signup url?
                                 aButton(
                                     type = ButtonType.Primary,
-                                    href = "signup",
+                                    href = website.config.signUpUrl,
                                     target = "_blank",
                                     iconClasses = "fas fa-sign-in",
-                                    label = "Sign Up!"
+                                    label = "Sign Up"
                                 )
                             }
                         } else {
@@ -192,11 +201,12 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
                 )
             ).transform(digest)
             .href(RenderPath.parse("/styles/css/"))
-        integrity = requireNotNull(digest.integrityAttrValue)
+        integrity = requireNotNull(digest.value?.integrityAttrValue)
     }
     script(
         // TODO add support for typescript transform?
-        type = ScriptType.textJavaScript,
+        // DIFF don't include type=".."
+//        type = ScriptType.textJavaScript,
         src = context.getAsset("theme/script/main.js").href(RenderPath.parse("/script/"))
     ) {
         async = true
@@ -226,15 +236,78 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
     property("og:description", seo.description)
     property("twitter:description", seo.description)
 
-    property("og:url", context.href(context.node))
+    property("og:url", context.absoluteUrl(context.node))
+
+    if (seo.noIndex == true) {
+        meta("robots", "noindex")
+    }
+
+    val linkedData = if (website.index == context.node) {
+        mapOf(
+            "@context" to "http://schema.org",
+            "@type" to "Product",
+            "url" to context.absoluteUrl(website),
+            "name" to "Anlage.App",
+            "logo" to website.config.logo?.href(context, absoluteUri = true)
+        )
+    } else {
+        LinkedHashMap<String, Any>().apply {
+            put("@context", "http://schema.org")
+            put("@type", if (context.node is Article) { "Article" } else { "WebPage" })
+            put("headline", seo.title)
+            put("mainEntityOfPage", mapOf(
+                "@type" to "WebPage",
+                "@id" to context.href(context.node, absoluteUrl = true)
+            ))
+            (context.node as? WithMainImage)?.mainImage()?.let { mainImage ->
+                put("image", mainImage.href(context, true))
+            }
+            (context.node as? Article)?.categories?.firstOrNull()?.let { category ->
+                put("articleSection", category)
+            }
+            (context.node as? WithWordCount)?.wordCount()?.let {
+                put("wordcount", it)
+            }
+            put("url", context.absoluteUrl(context.node))
+            // TODO: datePublished
+            // TODO: dateModified
+            put("publisher", LinkedHashMap<String, Any>().apply {
+                put("@type", "Organization")
+                put("name", website.name)
+                put("logo", mapOf(
+                    "@type" to "ImageObject",
+                    "url" to website.config.logo?.href(context, absoluteUri = true)
+                ))
+            })
+            (context.node as? WithAuthor)?.author ?.let { author ->
+                put("author", mapOf(
+                    "@type" to "Person",
+                    "name" to author
+                ))
+            }
+            put("description", seo.description)
+        }
+    }
+    script("application/ld+json") {
+        unsafe { raw(ObjectMapper().writeValueAsString(linkedData)) }
+    }
+
+    (context.node as? Article)?.let { article ->
+        val image = article.mainImage() ?: article.teaser
+        property("og:image", image.href(context, absoluteUri = true))
+        property("og:image:width", image.width.toString())
+        property("og:image:height", image.height.toString())
+        property("twitter:image", image.href(context, absoluteUri = true))
+        property("og:type", "article")
+    }
 
 //    meta(content = "text/html;charset=utf-8") {
 //        httpEquiv = MetaHttpEquiv.contentType
 //    }
 
-    meta(content = "utf-8") {
-        httpEquiv = "encoding"
-    }
+//    meta(content = "utf-8") {
+//        httpEquiv = "encoding"
+//    }
 
 }
 

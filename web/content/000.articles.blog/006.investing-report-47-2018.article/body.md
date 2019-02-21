@@ -24,16 +24,14 @@ So who have been the biggest winners and losers this week? [Bombardier got a
 cryptocurrencies](https://ethereumprice.org/updates/another-market-crash-is-ethereum-still-relevant/). So better stick to stocks, as there are at least analysts 
 who try to rationalize market performances. 
 
-{{< figure src="report-week-47.png" title="Investing Report: Week 47, 2018." >}}
+{{render content=node.embed.figures.screenshot/}}
 
-
-
-{{% cta-button %}}
+{{render content=rootNode.embed.references.ctaButton/}}
 
 # So what is on your watchlist?
 
 What are your current ideas for stocks? Do you have more ways to come up with good
 investing opportunities? Let us know in the comments below!
 
-{{% disqus %}}
+{{render content=renderContext.rootNode.config.disqus}}
 

@@ -23,7 +23,7 @@ Make sure to **plan for the long term**. Most gains for individual
 investors come from investing in **good companies** and keeping
 them for the long term!
 
-{{< figure src="broker.jpg" title="Choosing the right broker" >}}
+{{render content=node.embed.figures.broker/}}
 
 # Step 2: Choose a broker that fits your needs
 
@@ -60,7 +60,7 @@ If you only buy a small position in a stock, make sure to keep an eye on
 the fees of your broker. You don't want to have a good stock just to realize that
 all your market gains are eaten away by the fees.
 
-{{< figure src="anlage-app-screenshot-observe.png" title="Observe and analyse your portfolio with Anlage.App" >}}
+{{render content=node.embed.figures.screenshot/}}
 
 # Step 4: Hold, Observe and Learn
 
@@ -72,4 +72,4 @@ To keep **track of your investments** make sure to add your positions
 to [Anlage.App](https://anlage.app/) to easily know where your
 portfolio is trending and if your investment strategy is working.
 
-{{% cta-button %}}
+{{render content=rootNode.embed.references.ctaButton/}}

@@ -23,6 +23,8 @@ fun FlowContent.aButton(
 ) {
     a(href, target, classes = "button ${type?.classes ?: ""}") {
         iconClasses?.let { icon(iconClasses) }
+        // DIFF space in old implementation.
+        +" "
         span { +label }
         block()
     }
@@ -46,7 +48,6 @@ private fun DIV.arrowImage(context: RenderContext<*>) {
 }
 
 fun HEAD.cpcLandingPageHead(context: RenderContext<CpcLandingPage>) {
-    val cpcLandingPage = context.node
     unsafe { raw("""
     <script>
         var fscSession = {
@@ -215,7 +216,7 @@ fun RenderContext<LandingPage>.landingPage() {
                                             div("has-text-weight-bold has-text-danger is-size-4") {
                                                 style = "text-decoration: line-through"
                                                 attributes["data-fsc-item-path"] = "anlage-app-premium-sub"
-                                                span("has-text-success is-size-3 has-text-weight-bold") {
+                                                span {
                                                     attributes["data-fsc-item-path"] = "anlage-app-premium-sub"
                                                     attributes["data-fsc-smartdisplay"] = ""
                                                     attributes["data-fsc-item-priceTotal"] = ""

@@ -1,5 +1,6 @@
 seo:
   title: 'Beta Stock Portfolio Portfolio - FREE - Analyse your Performance'
   description: 'Track your stock portfolio. Focus on your winning stocks and improve your return on investment.'
+  noIndex: true
 ctaBuyNowLabel: 'Join Now!'
 couponCode: 'BETA-PHASE'

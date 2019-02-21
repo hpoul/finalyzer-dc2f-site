@@ -11,18 +11,22 @@ mainMenu:
     ref: /
   - ref: /pages/pricing
   - name: "Tools"
-    ref: /tools/weekly-reports
+    ref: /tools
   - ref: /articles
 config:
   backendUrlProd: 'https://api.anlage.app/api'
   backendUrlDev: 'http://localhost:8080/api'
   signUpUrl: 'https://anlage.app/app/#/auth/signUp'
+  url:
+    protocol: https
+    host: anlage.app
   disqus:
     shortName: 'anlage-app'
   favicons:
     - image: ./favicon.ico
     - image: ./favicon-32x32.png
     - image: ./favicon-16x16.png
+  logo: anlage-app-logo.png
 footerMenu:
   - name: Product
     children:
@@ -30,7 +34,7 @@ footerMenu:
         ref: /
       - ref: /pages/pricing
       - name: 'Weekly Reports'
-        ref: /tools/weekly-reports
+        ref: /tools
       - name: 'Tool: 52 Week Lows'
         ref: /tools/52-week-lows
       - name: 'Tool: 52 Week Highs'

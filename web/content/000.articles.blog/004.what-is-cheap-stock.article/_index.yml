@@ -8,4 +8,13 @@ seo:
   title: What is a cheap stock price?
   description: To evaluate whether a stock is worth buying we first have to define what a cheap stock actually is.
 title: What is a cheap stock price?
+embed:
+  figures:
+    compareMarketCaps:
+      image: ./compare-market-caps.png
+      title: 'Compare market caps'
+    marketCapCalculation:
+      image: ./market-cap-calculation.jpg
+      title: 'Some basic Market Cap Calculations'
+
 teaser: 'teaser.jpg'

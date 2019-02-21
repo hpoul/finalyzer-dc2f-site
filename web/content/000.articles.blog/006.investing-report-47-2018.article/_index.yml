@@ -8,3 +8,8 @@ seo:
   description: 'Pretty poor performance of major stock indexes across all markets. But there are still quite a few winners this past week!'
 title: 'Weekly Investing Report - Week 47, 2018'
 teaser: 'teaser.png'
+embed:
+  figures:
+    screenshot:
+      image: ./report-week-47.png
+      title: 'Investing Report: Week 47, 2018.'

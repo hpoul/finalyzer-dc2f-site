@@ -41,8 +41,8 @@ class FinalyzerTheme : Theme() {
 
         // TODO maybe create a custom variant to register embeddable figures?
         config.pageRenderer<FigureEmbeddable> {
-            out.appendHTML().div {
-                figure {
+            out.appendHTML().figure {
+//                figure {
                     img {
                         src = node.image.href(context)
                         alt = node.alt ?: node.title ?: ""
@@ -54,22 +54,21 @@ class FinalyzerTheme : Theme() {
                             h4 { +title }
                         }
                     }
-                }
+//                }
 
             }
         }
         config.pageRenderer<Disqus> {
-            val permalink = enclosingNode?.let { StringEscapeUtils.escapeJson(context.href(it)) } ?: ""
+            val permalink = enclosingNode?.let { StringEscapeUtils.escapeJson(context.href(it, absoluteUrl = true)) } ?: ""
             // language=html
             out.append("""
 <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
-    this.page.url = "$permalink";  // Replace PAGE_URL with your page's canonical URL variable
-    // this.page.identifier = '{{ . }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    this.page.url = "$permalink";
     };
 
-    (function() { // DON'T EDIT BELOW THIS LINE
+    (function() {${ /* // DON'T EDIT BELOW THIS LINE */ "" }
         setTimeout(function() {
             var d = document, s = d.createElement('script');
             s.async = true;
@@ -101,7 +100,7 @@ fun main(args: Array<String>) {
 
     val loadedWebsite = ContentLoader(FinalyzerWebsite::class)
         .load(FileSystems.getDefault().getPath("web", "content"))
-    logger.info { "loaded website ${loadedWebsite}." }
+    logger.info { "loaded website $loadedWebsite." }
     logger.info {
         "reflected: ${loadedWebsite.toStringReflective()}"
     }
@@ -110,7 +109,8 @@ fun main(args: Array<String>) {
     Renderer(
         FinalyzerTheme(),
         targetPath,
-        loadedWebsite.context
+        loadedWebsite.context,
+        urlConfig = loadedWebsite.content.config.url
     ).renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
     // FIXME workaround for now to copy over some assets only referenced by css (fonts)
     FileUtils.copyDirectory(File("web", "static"), targetPath.toFile())

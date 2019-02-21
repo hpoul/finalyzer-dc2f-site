@@ -9,7 +9,7 @@ a few interesting stocks you have to further get into the details and analysis.
 
 <!--more-->
 
-{{< figure src="watchlist.jpg" title="Keep a list of your stock ideas in a watchlist." >}}
+{{render content=node.embed.figures.watchList/}}
 
 # 1. Keep a watchlist
 
@@ -41,7 +41,8 @@ realises? Or are you a project manager using Jira or similar tools by Atlassian
  a second look into those categories is always a good idea. Just make sure that
  your insights are really an advantage rather than a distraction from bad earning reports.
 
-{{< figure src="business-news-follow-the-news.jpg" title="Follow the news." >}}
+{{render content=node.embed.figures.followTheNews/}}
+
 
 # 3. Follow the News
 
@@ -55,7 +56,7 @@ A good way to discover great investment opportunities is to focus on the biggest
 movers of the week, or stocks reaching their 52 week high or low. Check out our
 [Weekly reports](/tools/weekly-reports/)
 
-{{< figure src="biggest-movers.png" title="Weekly reports from Anlage.App" >}}
+{{render content=node.embed.figures.biggestMovers/}}
 
 * **Biggest weekly movers**: These are stocks which had the most gains or losses during a week.
   This can have several reasons. Maybe the company released their quarterly earnings and the stock market
@@ -77,12 +78,11 @@ movers of the week, or stocks reaching their 52 week high or low. Check out our
 Make sure to subscribe to our [Weekly reports](/tools/weekly-reports/) for your weekly
 dose of the biggest movers of the week as well as companies reaching their 52 week low or high.
 
-{{% cta-button %}}
+{{render content=rootNode.embed.references.ctaButton/}}
 
 # So what is on your watchlist?
 
 What are your current ideas for stocks? Do you have more ways to come up with good
 investing opportunities? Let us know in the comments below!
 
-{{% disqus %}}
-
+{{render content=renderContext.rootNode.config.disqus}}

@@ -11,5 +11,16 @@ seo:
                 to discover.'
 title: 'Diversify your Portfolio: Four simple ways to find great Investment Opportunities'
 #slug: 'finding-stock-investing-opportunities'
+embed:
+  figures:
+    biggestMovers:
+      image: ./biggest-movers.png
+      title: 'Weekly reports from Anlage.App'
+    followTheNews:
+      image: ./business-news-follow-the-news.jpg
+      title: 'Follow the news.'
+    watchList:
+      image: ./watchlist.jpg
+      title: 'Keep a list of your stock ideas in a watchlist.'
 
 teaser: 'teaser.png'

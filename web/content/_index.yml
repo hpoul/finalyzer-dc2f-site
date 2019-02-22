@@ -6,6 +6,8 @@ footerContent: /partials/subscribe-reports-section
 embed:
   references:
     ctaButton: /partials/cta-button
+menu: # config how this page is listed in the menu.
+  name: 'Home'
 mainMenu:
   - name: 'Home'
     ref: /

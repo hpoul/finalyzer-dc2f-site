@@ -1,0 +1,11 @@
+seo:
+  title: Tools
+  description: Remain hidden.
+#draft: true
+#sitemap_hidden: true
+#date: 2018-08-18
+forEmailGeneration: true
+body: ''
+embed:
+  references:
+    reportsPage: ../weekly-reports

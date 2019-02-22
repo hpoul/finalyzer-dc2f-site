@@ -232,9 +232,12 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
     property("twitter:card", "summary")
     property("twitter:site", "@AnlageApp")
 
-    meta(name = "description", content = seo.description)
-    property("og:description", seo.description)
-    property("twitter:description", seo.description)
+    if (seo.description.isNotBlank()) {
+        // DIFF we should probably not support empty descriptions.
+        meta(name = "description", content = seo.description)
+        property("og:description", seo.description)
+        property("twitter:description", seo.description)
+    }
 
     property("og:url", context.absoluteUrl(context.node))
 

@@ -17,13 +17,17 @@ interface PageSeo : ContentDef {
     val noIndex: Boolean?
 }
 
+interface WithMenuDef : ContentDef {
+    val menu: MenuDef?
+}
+
 interface MenuDef: ContentDef {
     val name: String
 }
 
 /** Marker interface for content inside folders. */
-interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect {
-    val menu: MenuDef?
+interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef {
+//    val menu: MenuDef?
 //    override val redirect: ContentReference?
 }
 
@@ -76,6 +80,12 @@ interface HtmlPage : ContentPage {
     var embed: Embeddables?
     var params: Map<String, Any>?
 
+}
+
+@Nestable("tools")
+interface ToolsPage : HtmlPage {
+    /** I use one page to take screenshots for the weekly newsletter. */
+    val forEmailGeneration: Boolean
 }
 
 interface FigureEmbeddable: ContentDef {
@@ -161,7 +171,7 @@ interface FinalyzerConfig : ContentDef {
     val logo: ImageAsset?
 }
 
-abstract class FinalyzerWebsite: Website<WebsiteFolderContent> {
+abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef {
     @set:JacksonInject("index")
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>

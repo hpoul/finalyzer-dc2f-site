@@ -2,7 +2,7 @@ package app.anlage.site.contentdef
 
 import com.dc2f.*
 import com.dc2f.render.*
-import com.dc2f.richtext.RichText
+import com.dc2f.richtext.*
 import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.toStringReflective
 import com.fasterxml.jackson.annotation.JacksonInject
@@ -29,6 +29,8 @@ interface MenuDef: ContentDef {
 interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef {
 //    val menu: MenuDef?
 //    override val redirect: ContentReference?
+    @set:JacksonInject("index")
+    var index: WebsiteFolderContent?
 }
 
 interface WithPageSeo: ContentDef {
@@ -65,6 +67,7 @@ interface WithAuthor: ContentDef { val author: String }
 interface ContentPage : WebsiteFolderContent, WithPageSeo, WithWordCount {
     @set:JacksonInject("body")
     var body: Markdown
+    var embed: Embeddables?
 
     @JvmDefault
     override fun wordCount(): Int? = countWords(body.rawContent)
@@ -77,7 +80,6 @@ interface HtmlPage : ContentPage {
     var head: RichText?
     @set:JacksonInject("html")
     var html: RichText
-    var embed: Embeddables?
     var params: Map<String, Any>?
 
 }
@@ -98,6 +100,7 @@ interface Embeddables: ContentDef {
     val references: Map<String, ContentReference>?
     val figures: Map<String, FigureEmbeddable>?
     val files: Map<String, FileAsset>?
+    val pebble: Map<String, Pebble>?
 }
 
 @Nestable("folder")
@@ -161,6 +164,11 @@ interface Disqus : ContentDef {
     val shortName: String
 }
 
+interface GameConfig : ContentDef {
+    val storeUrlAndroid: String
+    val storeUrlIOS: String
+}
+
 interface FinalyzerConfig : ContentDef {
     val backendUrlProd: String
     val backendUrlDev: String
@@ -169,6 +177,7 @@ interface FinalyzerConfig : ContentDef {
     val disqus: Disqus?
     val url: UrlConfig
     val logo: ImageAsset?
+    val game: GameConfig
 }
 
 abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef {

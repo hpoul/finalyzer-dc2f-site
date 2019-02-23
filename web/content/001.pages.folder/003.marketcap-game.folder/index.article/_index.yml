@@ -1,0 +1,76 @@
+seo:
+  title: 'MarketCap Game'
+  description: 'MarketCap Game - Test your stock market knowledge!'
+title: 'MarketCap Game'
+author: 'Herbert Poul'
+date: '2018-12-21 10:00'
+subTitle: 'Test your stock market knowledge by guessing Market Caps!'
+categories: ['MarketCap Game']
+teaser: ./teaser.jpg
+mainImageOverride: ./device-screenshots.png
+embed:
+  figures:
+    mainImage:
+      image: ./device-screenshots.png
+      title: 'MarketCap Game by Anlage.App'
+  references:
+    gameBadges: /partials/game-badges
+  pebble:
+    # language=html
+    header: |
+      <style>
+      .badges {
+          vertical-align: middle;
+          text-align: center;
+      }
+      .badges a {
+          /* width: 135px; */
+          /* height: 40px; */
+          line-height: 0;
+          display: inline-block;
+          vertical-align: middle;
+      }
+      .screenshots-badges a.android {
+          margin-right: 32px;
+          margin-left: 40px;
+      }
+      .badges a.android img {
+          height: 60px;
+      }
+      </style>
+
+      <div class="columns">
+      <div class="column has-drop-caps">
+
+      <p>MarketCap Game is a fun way to discover the valuation of companies. Test your knowledge of the investing market and maybe discover new investing opportunities.</p>
+
+      <div class="badges">
+      {{ render(node.embed.references.gameBadges) }}
+      </div>
+      <br />
+
+      <p>Each round you will be presented with four companies which you have to sort based on their <strong>market cap</strong>. This way you can get a feeling for the valuation of companies, discover new investing opportunities and have fun getting new high scores.</p>
+    # language=html
+    footer: |
+      </div>
+      <div class="column">
+
+      <div class="badges screenshots-badges">
+      {{ render(node.embed.references.gameBadges) }}
+      </div>
+
+
+      {{ render(node.embed.figures.mainImage) }}
+
+
+      </div>
+      </div>
+
+
+#resources:
+#  - name: teaser
+#    src: ./teaser.jpg
+#  - name: mainimage
+#    src: ./device-screenshots.png
+#aliases:
+#  - /game

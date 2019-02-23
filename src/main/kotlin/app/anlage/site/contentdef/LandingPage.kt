@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JacksonInject
 interface LandingPage : ContentDef, WebsiteFolderContent {
     /** the pages seo */
     var seo: PageSeo
-    @set:JacksonInject("children")
+    @set:JacksonInject(PROPERTY_CHILDREN)
     var children: List<LandingPageElement>
 }
 

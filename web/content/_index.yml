@@ -29,6 +29,9 @@ config:
     - image: ./favicon-32x32.png
     - image: ./favicon-16x16.png
   logo: anlage-app-logo.png
+  game:
+    storeUrlAndroid: 'https://play.google.com/store/apps/details?id=app.anlage.game.marketcap&utm_source=website&utm_campaign=website&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
+    storeUrlIOS: 'https://itunes.apple.com/app/marketcap-game-by-anlage-app/id1446255350?mt=8&at=11l8ru&pt=827760&ct=website'
 footerMenu:
   - name: Product
     children:

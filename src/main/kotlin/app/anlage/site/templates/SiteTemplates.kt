@@ -57,7 +57,13 @@ fun <T> TagConsumer<T>.baseTemplate(
                     id = "main-menu"
                     div("navbar-end") {
                         if (navbarMenuOverride == null) {
-                            val active = website.mainMenu.findActiveEntry(context.renderer.loaderContext, context.node)
+                            val active = website.mainMenu.findActiveEntry(context.renderer.loaderContext, context.node)?.let { activeEntry ->
+                                if (activeEntry.ref?.referencedContentPath(context.renderer.loaderContext)?.isRoot == true && activeEntry.ref?.referencedContent != context.node) {
+                                    null
+                                } else {
+                                    activeEntry
+                                }
+                            }
                             website.mainMenu.map { entry ->
                                 a(entry.href(context), classes = "navbar-item") {
                                     entry.ref?.referencedContent?.let { ref ->

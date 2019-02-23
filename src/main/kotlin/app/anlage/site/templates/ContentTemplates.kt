@@ -118,5 +118,9 @@ fun FinalyzerTheme.contentTemplates() {
     }
     config.pageRenderer<ContentPageFolder> {
         renderChildren(node.children)
+//        node.index?.let(::renderNode)
+        node.index?.let { index ->
+            copyForNode(index).renderToHtml()
+        }
     }
 }

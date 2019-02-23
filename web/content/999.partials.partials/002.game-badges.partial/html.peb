@@ -1,0 +1,2 @@
+<a class="android" href='{{ renderContext.rootNode.config.game.storeUrlAndroid }}'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+<a href="{{ renderContext.rootNode.config.game.storeUrlIOS }}" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-12-18&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>

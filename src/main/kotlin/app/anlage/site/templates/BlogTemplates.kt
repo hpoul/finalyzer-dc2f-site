@@ -78,7 +78,7 @@ fun RenderContext<Article>.blogArticle() {
                 h1("title") { +node.title }
                 h2("subtitle is-size-6 has-text-weight-bold") {
                     // TODO format date
-                    +node.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
+                    +(node.subTitle ?: node.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)))
                 }
             }
         }

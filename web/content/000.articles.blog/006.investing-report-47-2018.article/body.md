@@ -33,5 +33,5 @@ who try to rationalize market performances.
 What are your current ideas for stocks? Do you have more ways to come up with good
 investing opportunities? Let us know in the comments below!
 
-{{render content=renderContext.rootNode.config.disqus}}
+{{render content=renderContext.rootNode.config.disqus/}}
 

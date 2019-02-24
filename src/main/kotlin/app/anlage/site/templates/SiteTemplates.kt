@@ -252,6 +252,7 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
         meta("robots", "noindex")
     }
 
+    @Suppress("SimplifiableCallChain")
     val linkedData = if (website.index == context.node) {
         mapOf(
             "@context" to "http://schema.org",
@@ -272,7 +273,8 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
             (context.node as? WithMainImage)?.mainImage()?.let { mainImage ->
                 put("image", mainImage.href(context, true))
             }
-            (context.node as? Article)?.categories?.firstOrNull()?.let { category ->
+            // DIFF we ignore "marketcap game" hardcoded here, because on hugo they had no category.
+            (context.node as? Article)?.categories?.filter { it != "MarketCap Game" }?.firstOrNull()?.let { category ->
                 put("articleSection", category)
             }
             (context.node as? WithWordCount)?.wordCount()?.let {

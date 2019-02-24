@@ -1,0 +1,22 @@
+seo:
+  title: 'MarketCap Game - Challenge Invitation'
+  description: 'MarketCap Game - Test your stock market knowledge!'
+date: '2018-12-21'
+author: 'Herbert Poul'
+title: 'MarketCap Game - Challenge Invitation'
+subTitle: 'Prove your Market insights!'
+categories: ['MarketCap Game']
+teaser: ./teaser.jpg
+renderPath: /game/invite/
+mainImageOverride: ./device-screenshots.png
+#resources:
+#url: /game/invite
+# DIFF I added a few more words.. just to get the wordcount >10
+body: '<!-- a few more words, just because i need to increase the wordcount of this site.'
+embed:
+  figures:
+    screenshot:
+      image: ./device-screenshots.png
+      title: MarketCap Game by Anlage.App
+  references:
+    contact: /pages/contact/

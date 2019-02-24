@@ -1,0 +1,58 @@
+<style>
+.badges {
+    vertical-align: middle;
+    text-align: center;
+}
+.badges a {
+    /* width: 135px; */
+    /* height: 40px; */
+    line-height: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+.badges a.android {
+    margin-right: 32px;
+    margin-left: 40px;
+}
+.badges a.android img {
+    height: 60px;
+}
+</style>
+
+<div class="columns">
+    <div class="column has-drop-caps">
+
+        <p>
+            You have been challenged to participate in a MarketCap Game Challenge.
+            To accept it, simply install the app on your mobile device (iOS or Android)
+            and click on the invitation!
+        </p>
+
+
+        <div class="badges">
+            <a class="android" href='https://play.google.com/store/apps/details?id=app.anlage.game.marketcap&utm_source=website&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+            <a href="https://itunes.apple.com/us/app/marketcap-game-by-anlage-app/id1446255350?mt=8" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-12-18&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>
+        </div>
+
+        <br />
+
+        <p>MarketCap Game is a fun way to discover the valuation of companies. Test your knowledge of the investing market and maybe discover new investing opportunities.</p>
+
+        <p>Each round you will be presented with four companies which you have to sort based on their <strong>market cap</strong>. This way you can get a feeling for the valuation of companies, discover new investing opportunities and have fun getting new high scores.</p>
+
+        <p>Let us know what you think! Just <a href="{{render(node.embed.references.contact.hrefRenderable)}}">contact us</a>.</p>
+
+    </div>
+    <div class="column">
+
+        <div class="badges">
+            <a class="android" href='https://play.google.com/store/apps/details?id=app.anlage.game.marketcap&utm_source=website&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+            <a href="https://itunes.apple.com/us/app/marketcap-game-by-anlage-app/id1446255350?mt=8" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2018-12-18&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>
+        </div>
+
+
+        {{render(node.embed.figures.screenshot)}}
+
+
+    </div>
+</div>

@@ -67,7 +67,11 @@ fun HTMLTag.markdownSummary(context: RenderContext<*>, content: Markdown) {
 }
 
 fun RenderContext<Article>.blogArticle() {
-    appendHTML().baseTemplate(this, node.seo) {
+    appendHTML().baseTemplate(this, node.seo, headInject = {
+        node.headInject?.let {
+            richText(context, it)
+        }
+    }) {
         div("hero is-medium has-bg-img") {
             div("bg-image") {
                 // TODO image resize and blur
@@ -88,7 +92,8 @@ fun RenderContext<Article>.blogArticle() {
                 div("columns") {
                     div("column is-offset-2 is-8") {
                         div("content has-drop-caps") {
-                            markdown(context, node.body)
+                            node.html?.let { richText(context, node.html) }
+                                ?: markdown(context, node.body)
                         }
                     }
                 }

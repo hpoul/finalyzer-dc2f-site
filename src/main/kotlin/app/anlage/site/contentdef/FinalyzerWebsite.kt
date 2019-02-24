@@ -33,8 +33,14 @@ interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, Wi
     @set:JacksonInject("index")
     var index: WebsiteFolderContent?
 
+    var includeInSitemap: Boolean?
+
     @JvmDefault
     override fun renderAlias(): ContentDef? = index
+
+    @JvmDefault
+    override fun includeInSitemap(): Boolean =
+        includeInSitemap ?: super.includeInSitemap()
 }
 
 interface WithPageSeo: ContentDef, WithSitemapInfo {

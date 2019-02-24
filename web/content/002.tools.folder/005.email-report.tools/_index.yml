@@ -9,3 +9,4 @@ body: ''
 embed:
   references:
     reportsPage: ../weekly-reports
+includeInSitemap: false

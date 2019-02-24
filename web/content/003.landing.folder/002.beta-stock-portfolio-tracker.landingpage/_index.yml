@@ -4,3 +4,4 @@ seo:
   noIndex: true
 ctaBuyNowLabel: 'Join Now!'
 couponCode: 'BETA-PHASE'
+includeInSitemap: false

@@ -19,7 +19,6 @@ interface Article: ContentDef, SlugCustomization, WithAuthor, WithWordCount, Wit
     val categories: Array<String>
     val seo: PageSeo
     val title: String
-    val headInject: Pebble?
     /**
      * optional sub title, if not defined the date will be shown.
      */

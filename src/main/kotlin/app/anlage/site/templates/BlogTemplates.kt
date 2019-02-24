@@ -67,11 +67,7 @@ fun HTMLTag.markdownSummary(context: RenderContext<*>, content: Markdown) {
 }
 
 fun RenderContext<Article>.blogArticle() {
-    appendHTML().baseTemplate(this, node.seo, headInject = {
-        node.headInject?.let {
-            richText(context, it)
-        }
-    }) {
+    appendHTML().baseTemplate(this, node.seo) {
         div("hero is-medium has-bg-img") {
             div("bg-image") {
                 // TODO image resize and blur

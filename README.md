@@ -2,10 +2,14 @@ Website for [Anlage.App](https://anlage.app/) implemented using dc2f.
 
 ### Remaining Todos/diffs
 
-- [ ] Sitemap
-- [ ] Index for folders (?) and categories.
-- [ ] aliases/redirects
-- [ ] surveysparrow integration (contact page)
-- [ ] allsites.json generation (used for fastspring cache clearing)
-- [ ] 404 page?
-- [ ] /BingSiteAuth.xml and /robots.txt (?)
+* Blocker (Before launching/deploying to live website instead of old hugo implementation)
+    - [x] Sitemap
+    - [ ] Index for folders (?) and categories.
+    - [ ] aliases/redirects
+    - [x] surveysparrow integration (contact page)
+    - [x] allsites.json generation (used for cloudflaren cache clearing)
+    - [x] 404 page
+    - [ ] better project setup (right now probably sub module)
+    - [ ] CI build & auto deployment
+* Later
+    - [ ] /BingSiteAuth.xml and /robots.txt (?)

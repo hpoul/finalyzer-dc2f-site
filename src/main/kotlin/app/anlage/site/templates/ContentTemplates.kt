@@ -20,25 +20,34 @@ fun HTMLTag.richText(context: RenderContext<*>, richText: RichText?, arguments: 
     }
 }
 
+data class BreadcrumbEntry(
+    val path: ContentPath,
+    val content: ContentDef,
+    val href: String
+) {
+    constructor(context: RenderContext<*>, path: ContentPath, content: ContentDef) : this(path, content, context.href(content))
+    constructor(context: RenderContext<*>, path: ContentPath) : this(context, path, requireNotNull(context.renderer.loaderContext.contentByPath[path]))
+}
+
 fun MAIN.breadcrumb(context: RenderContext<*>) {
     val loaderContext = context.renderer.loaderContext
     section("breadcrumb-container") {
         div("container") {
             nav("breadcrumb") {
                 ol("nav navbar-nav") {
-                    generateSequence(loaderContext.findContentPath(context.node) to context.node) {
-                        (!it.first.isRoot).then {
-                            it.first.parent().let {
-                                it to loaderContext.contentByPath[it] as ContentDef
+                    generateSequence(BreadcrumbEntry(context, loaderContext.findContentPath(context.node), context.node)) { entry ->
+                        (!entry.path.isRoot).then {
+                            entry.path.parent().let {
+                                BreadcrumbEntry(context, it, loaderContext.contentByPath[it] as ContentDef)
                             }
                         }
-                    }.toList().reversed().map {
-                        findPageTitle(it.second)?.let { title ->
+                    }.toList().distinctBy { it.href }.reversed().map {
+                        findPageTitle(it.content)?.let { title ->
                             li {
-                                if (it.second == context.node) {
+                                if (it.content == context.node) {
                                     classes = classes + "is-active"
                                 }
-                                a(context.href(it.second)) {
+                                a(context.href(it.content)) {
                                     +title
                                 }
                             }

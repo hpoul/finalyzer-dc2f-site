@@ -62,7 +62,7 @@ class FinalyzerTheme : Theme() {
         config.pageRenderer<Disqus> {
             val permalink = enclosingNode?.let { StringEscapeUtils.escapeJson(context.href(it, absoluteUrl = true)) } ?: ""
             // language=html
-            out.append("""
+            out.appendln("""
 <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {

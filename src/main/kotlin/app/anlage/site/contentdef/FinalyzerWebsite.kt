@@ -1,7 +1,6 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
-import com.dc2f.git.CommitInfo
 import com.dc2f.render.*
 import com.dc2f.richtext.*
 import com.dc2f.richtext.markdown.Markdown
@@ -27,7 +26,7 @@ interface MenuDef: ContentDef {
 }
 
 /** Marker interface for content inside folders. */
-interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithRenderAlias {
+interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithRenderAlias, WithSitemapInfo {
 //    val menu: MenuDef?
 //    override val redirect: ContentReference?
     @set:JacksonInject("index")
@@ -78,13 +77,19 @@ interface ContentPage : WebsiteFolderContent, WithPageSeo, WithWordCount {
 }
 
 @Nestable("htmlpage")
-interface HtmlPage : ContentPage {
+interface HtmlPage : ContentPage, WithRenderPathOverride {
     /** additional code which will end up in the <head> section of the page. */
     @set:JacksonInject("head")
     var head: RichText?
     @set:JacksonInject("html")
     var html: RichText
     var params: Map<String, Any>?
+    var renderOnlyHtml: Boolean?
+    var renderPath: String?
+
+    @JvmDefault
+    override fun renderPath(renderer: Renderer): RenderPath? =
+        renderPath?.let { RenderPath.parseLeafPath(it) }
 
 }
 
@@ -184,7 +189,7 @@ interface FinalyzerConfig : ContentDef {
     val game: GameConfig
 }
 
-abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef {
+abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, WithSitemapInfo {
     @set:JacksonInject("index")
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>

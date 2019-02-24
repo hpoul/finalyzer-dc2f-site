@@ -3,3 +3,6 @@ seo:
   description: 'Get in contact with Anlage.App for questions around stock tracking, investing and our service.'
 menu:
   name: 'Contact Us'
+embed:
+  references:
+    surveysparrow: /partials/surveysparrow

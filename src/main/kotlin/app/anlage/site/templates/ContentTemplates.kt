@@ -86,20 +86,25 @@ fun FinalyzerTheme.contentTemplates() {
 
     config.pageRenderer<HtmlPage> {
         appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
-            // DIFF because of some reason i have used `div` instead of `section` on old page.
-            div("section") {
-                div("container") {
-                    div("columns is-centered") {
-                        div("column has-text-centered is-half is-narrow") {
-                            h1("title") { +node.seo.title }
-                            div("content") {
-                                markdown(context, node.body)
+            if (node.renderOnlyHtml == true) {
+                requireNotNull(node.html) { "renderOnlyHtml was defined true, but no html attribute was found."}
+                richText(context, node.html)
+            } else {
+                // DIFF because of some reason i have used `div` instead of `section` on old page.
+                div("section") {
+                    div("container") {
+                        div("columns is-centered") {
+                            div("column has-text-centered is-half is-narrow") {
+                                h1("title") { +node.seo.title }
+                                div("content") {
+                                    markdown(context, node.body)
+                                }
                             }
                         }
+
+                        richText(context, node.html)
+
                     }
-
-                    richText(context, node.html)
-
                 }
             }
         }

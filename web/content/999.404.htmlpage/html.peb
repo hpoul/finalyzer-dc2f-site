@@ -1,0 +1,19 @@
+<div class="section container">
+    <div class="columns columns-reversed">
+        <div class="column is-5 has-text-centered">
+            <div class="content">
+            {{render(node.body)}}
+            </div>
+        </div>
+        <div class="column is-7 content">
+            <figure>
+                <a data-flickr-embed="true"  href="https://www.flickr.com/photos/hpoul/albums/72157696499941172" title="Lighthouse Point Park, Ponce Inlet, Florida, United States"><img src="https://farm1.staticflickr.com/890/28503717998_fd63834d4e_z.jpg" width="100%" alt="Lighthouse Point Park, Ponce Inlet, Florida, United States"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+                <figcaption>
+                    <h4>
+                        I thought I use this opportunity to show you a few of my favorite photos!
+                    </h4>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+</div>

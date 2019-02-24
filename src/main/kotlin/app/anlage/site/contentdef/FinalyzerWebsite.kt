@@ -1,6 +1,7 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
+import com.dc2f.git.CommitInfo
 import com.dc2f.render.*
 import com.dc2f.richtext.*
 import com.dc2f.richtext.markdown.Markdown
@@ -26,14 +27,17 @@ interface MenuDef: ContentDef {
 }
 
 /** Marker interface for content inside folders. */
-interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef {
+interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithRenderAlias {
 //    val menu: MenuDef?
 //    override val redirect: ContentReference?
     @set:JacksonInject("index")
     var index: WebsiteFolderContent?
+
+    @JvmDefault
+    override fun renderAlias(): ContentDef? = index
 }
 
-interface WithPageSeo: ContentDef {
+interface WithPageSeo: ContentDef, WithSitemapInfo {
     val seo: PageSeo
 }
 

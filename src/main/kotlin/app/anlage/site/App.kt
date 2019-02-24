@@ -6,8 +6,9 @@ package app.anlage.site
 import app.anlage.site.contentdef.*
 import app.anlage.site.templates.*
 import com.dc2f.*
+import com.dc2f.git.*
 import com.dc2f.render.*
-import com.dc2f.util.toStringReflective
+import com.dc2f.util.*
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
@@ -41,7 +42,7 @@ class FinalyzerTheme : Theme() {
 
         // TODO maybe create a custom variant to register embeddable figures?
         config.pageRenderer<FigureEmbeddable> {
-            out.appendHTML().figure {
+            appendHTML().figure {
 //                figure {
                     img {
                         src = node.image.href(context)
@@ -98,21 +99,39 @@ class FinalyzerTheme : Theme() {
 fun main(args: Array<String>) {
     logger.info { "Starting ..." }
 
-    val loadedWebsite = ContentLoader(FinalyzerWebsite::class)
-        .load(FileSystems.getDefault().getPath("web", "content"))
-    logger.info { "loaded website $loadedWebsite." }
-    logger.info {
-        "reflected: ${loadedWebsite.toStringReflective()}"
-    }
+//    val gitInfo = GitInfoLoader(FileSystems.getDefault().getPath("web", "content"))
+//        .load()
+//    val gitInfo = GitInfoLoaderCmd(FileSystems.getDefault().getPath("web", "content"))
+//        .load()
+//
+//    println("gitinfo: $gitInfo")
+//    println(Timing.allToString())
+//
+//    System.exit(0)
 
-    val targetPath = FileSystems.getDefault().getPath("public")
-    Renderer(
-        FinalyzerTheme(),
-        targetPath,
-        loadedWebsite.context,
-        urlConfig = loadedWebsite.content.config.url
-    ).renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
-    // FIXME workaround for now to copy over some assets only referenced by css (fonts)
-    FileUtils.copyDirectory(File("web", "static"), targetPath.toFile())
+    val loadedWebsite = ContentLoader(FinalyzerWebsite::class)
+        .load(FileSystems.getDefault().getPath("web", "content")) { loadedWebsite, context ->
+
+            logger.info { "loaded website $loadedWebsite." }
+            logger.info {
+                "reflected: ${loadedWebsite.toStringReflective()}"
+            }
+
+            val targetPath = FileSystems.getDefault().getPath("public")
+            Renderer(
+                FinalyzerTheme(),
+                targetPath,
+                loadedWebsite.context,
+                urlConfig = loadedWebsite.content.config.url
+            ).let { renderer ->
+                renderer.renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
+                SitemapRenderer(targetPath, loadedWebsite.context, renderer, loadedWebsite.content.config.url)
+                    .render()
+            }
+
+            // FIXME workaround for now to copy over some assets only referenced by css (fonts)
+            FileUtils.copyDirectory(File("web", "static"), targetPath.toFile())
+
+        }
 
 }

@@ -1,6 +1,7 @@
 package app.anlage.site.contentdef
 
 import com.dc2f.*
+import com.dc2f.render.*
 import com.dc2f.richtext.markdown.Markdown
 import com.fasterxml.jackson.annotation.JacksonInject
 import java.time.ZonedDateTime
@@ -8,6 +9,7 @@ import java.time.ZonedDateTime
 
 @Nestable("blog")
 interface Blog: WebsiteFolderContent, ContentBranchDef<Article>, WithPageSeo
+
 
 @Nestable("article")
 interface Article: ContentDef, SlugCustomization, WithAuthor, WithWordCount, WithMainImage, WebsiteFolderContent {

@@ -111,7 +111,7 @@ fun RenderContext<CpcLandingPage>.cpcNavbarOverride(): (DIV.() -> Unit) = {
 }
 
 fun RenderContext<LandingPage>.landingPage() {
-    out.appendHTML().baseTemplate(
+    appendHTML().baseTemplate(
         this,
         node.seo,
         headInject = { context.nodeType<CpcLandingPage>()?.run { cpcLandingPageHead(context) } },

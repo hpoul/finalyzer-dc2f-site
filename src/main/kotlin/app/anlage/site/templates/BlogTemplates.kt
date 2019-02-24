@@ -9,7 +9,7 @@ import kotlinx.html.stream.appendHTML
 import java.time.format.*
 
 fun RenderContext<Blog>.blogIndexPage() {
-    out.appendHTML().baseTemplate(this, node.seo) {
+    appendHTML().baseTemplate(this, node.seo) {
         div("container") {
             node.children
                 .sortedByDescending { it.date }
@@ -67,7 +67,7 @@ fun HTMLTag.markdownSummary(context: RenderContext<*>, content: Markdown) {
 }
 
 fun RenderContext<Article>.blogArticle() {
-    out.appendHTML().baseTemplate(this, node.seo) {
+    appendHTML().baseTemplate(this, node.seo) {
         div("hero is-medium has-bg-img") {
             div("bg-image") {
                 // TODO image resize and blur

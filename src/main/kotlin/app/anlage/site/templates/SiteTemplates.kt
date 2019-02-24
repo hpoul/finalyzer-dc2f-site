@@ -7,6 +7,7 @@ import com.dc2f.render.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.net.MediaType
 import kotlinx.html.*
+import kotlinx.html.dom.*
 import java.io.File
 
 fun <TAG, T : WithPageSeo> TagConsumer<TAG>.baseTemplate(
@@ -245,7 +246,7 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
         property("twitter:description", seo.description)
     }
 
-    property("og:url", context.absoluteUrl(context.node))
+    property("og:url", context.href(context.node, true))
 
     if (seo.noIndex == true) {
         meta("robots", "noindex")
@@ -255,7 +256,7 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
         mapOf(
             "@context" to "http://schema.org",
             "@type" to "Product",
-            "url" to context.absoluteUrl(website),
+            "url" to context.href(website, true),
             "name" to "Anlage.App",
             "logo" to website.config.logo?.href(context, absoluteUri = true)
         )
@@ -277,7 +278,7 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
             (context.node as? WithWordCount)?.wordCount()?.let {
                 put("wordcount", it)
             }
-            put("url", context.absoluteUrl(context.node))
+            put("url", context.href(context.node, true))
             // TODO: datePublished
             // TODO: dateModified
             put("publisher", LinkedHashMap<String, Any>().apply {
@@ -392,13 +393,16 @@ fun <T> TagConsumer<T>.scaffold(
     headInject: HEAD.() -> Unit = {},
     body: BODY.() -> Unit
 ) =
-    html {
-        lang = "en-us"
-        head {
-            siteHead(context, seo)
-            headInject()
-        }
-        body("has-navbar-fixed-top has-spaced-navbar-fixed-top") {
-            body()
+    document {
+
+        html {
+            lang = "en-us"
+            head {
+                siteHead(context, seo)
+                headInject()
+            }
+            body("has-navbar-fixed-top has-spaced-navbar-fixed-top") {
+                body()
+            }
         }
     }

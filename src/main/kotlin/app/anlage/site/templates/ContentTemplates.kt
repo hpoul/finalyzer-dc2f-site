@@ -8,7 +8,6 @@ import com.dc2f.richtext.*
 import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.*
 import kotlinx.html.*
-import kotlinx.html.stream.appendHTML
 
 
 fun HTMLTag.richText(context: RenderContext<*>, richText: RichText?, arguments: Any? = null) {
@@ -60,7 +59,7 @@ fun FinalyzerTheme.contentTemplates() {
 
     config.pageRenderer<ToolsPage> {
         // DIFF the only reason to have this separate from [HtmlPage] is for backward compatibility, we can probably easily combine them.
-        out.appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
+        appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
             // TODO breadcrumbs
             breadcrumb(context)
 
@@ -86,7 +85,7 @@ fun FinalyzerTheme.contentTemplates() {
     }
 
     config.pageRenderer<HtmlPage> {
-        out.appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
+        appendHTML().baseTemplate(context, headInject = { richText(context, node.head) }) {
             // DIFF because of some reason i have used `div` instead of `section` on old page.
             div("section") {
                 div("container") {
@@ -106,7 +105,7 @@ fun FinalyzerTheme.contentTemplates() {
         }
     }
     config.pageRenderer<ContentPage> {
-        out.appendHTML().baseTemplate(context) {
+        appendHTML().baseTemplate(context) {
             section("section") {
                 div("container") {
                     div("content") {

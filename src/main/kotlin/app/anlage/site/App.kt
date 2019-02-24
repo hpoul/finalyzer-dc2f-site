@@ -137,6 +137,8 @@ fun main(args: Array<String>) {
                 renderer.renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
                 SitemapRenderer(targetPath, loadedWebsite.context, renderer, loadedWebsite.content.config.url)
                     .render()
+                AllSitesJsonGenerator(targetPath.resolve("allsites.json"), renderer.loaderContext, renderer)
+                    .render()
             }
 
             // FIXME workaround for now to copy over some assets only referenced by css (fonts)

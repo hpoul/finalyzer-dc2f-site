@@ -3,7 +3,8 @@ package app.anlage.site.templates
 import app.anlage.site.FinalyzerTheme
 import app.anlage.site.contentdef.*
 import com.dc2f.*
-import com.dc2f.render.RenderContext
+import com.dc2f.assets.DigestTransformer
+import com.dc2f.render.*
 import com.dc2f.richtext.*
 import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.*
@@ -88,6 +89,13 @@ fun FinalyzerTheme.contentTemplates() {
             div("report-footer") {
                 +"Get your free weekly reports directly into your inbox https://anlage.app/reports"
             }
+            script(
+                // DIFF don't include type=".."
+                // type = ScriptType.textJavaScript,
+                src = context.getAsset("theme/script/weekly-stats-component.js")
+                    .transform(DigestTransformer())
+                    .href(RenderPath.parse("/script/"))
+            ) { }
 
 
         }

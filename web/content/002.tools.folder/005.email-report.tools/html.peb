@@ -12,4 +12,3 @@
 
 </div>
 
-<script src="{{ render(content=node.embed.references.reportsPage.referencedContent.embed.files.weeklyStatsComponent.hrefRenderable) }}"></script>

@@ -5,9 +5,9 @@ package app.anlage.site.templates
 import app.anlage.site.contentdef.*
 import com.dc2f.FillType
 import com.dc2f.render.*
+import com.dc2f.util.then
 import com.google.common.net.MediaType
 import kotlinx.html.*
-import kotlinx.html.stream.appendHTML
 
 enum class ButtonType(val classes: String) {
     Primary("is-primary"),
@@ -47,7 +47,7 @@ private fun DIV.arrowImage(context: RenderContext<*>) {
     ) {}
 }
 
-fun HEAD.cpcLandingPageHead(context: RenderContext<CpcLandingPage>) {
+fun HEAD.cpcLandingPageHeadShopScripts(context: RenderContext<CpcLandingPage>) {
     unsafe { raw("""
     <script>
         var fscSession = {
@@ -110,12 +110,13 @@ fun RenderContext<CpcLandingPage>.cpcNavbarOverride(): (DIV.() -> Unit) = {
     }
 }
 
-fun RenderContext<LandingPage>.landingPage() {
+fun RenderContext<CpcLandingPage>.landingPage() {
     appendHTML().baseTemplate(
         this,
         node.seo,
-        headInject = { context.nodeType<CpcLandingPage>()?.run { cpcLandingPageHead(context) } },
-        navbarMenuOverride = context.nodeType<CpcLandingPage>()?.run { context.cpcNavbarOverride() }
+        // we only need to inject shop JS if there is at least one [CpcTry] element on the page.
+        headInject = { node.children.find { it is LandingPageElement.CpcTry }?.let { cpcLandingPageHeadShopScripts(context) } },
+        navbarMenuOverride = node.overrideNavbar.then { context.cpcNavbarOverride() }
     ) {
 //        div {
             node.children.map { child ->
@@ -138,6 +139,9 @@ fun RenderContext<LandingPage>.landingPage() {
                                         src = child.backgroundVideo.videoWebm.href(context)
                                         type = MediaType.WEBM_VIDEO.toString()
                                     }
+                                }
+                                div("poster") {
+                                    style = "background-image: url('${child.backgroundVideo.placeholder.href(context)}')"
                                 }
                             }
                             div("hero-module-content") {
@@ -291,6 +295,8 @@ fun RenderContext<LandingPage>.landingPage() {
                                                     span("icon is-small is-left") {
                                                         i("fas fa-user")
                                                     }
+                                                    // DIFF useless space on old page.
+                                                    +" "
                                                     textInput(name = "email", classes = "input") {
                                                         id = "start-element-input"
                                                         placeholder = "Email Address"

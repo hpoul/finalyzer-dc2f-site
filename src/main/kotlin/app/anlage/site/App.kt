@@ -35,7 +35,7 @@ class FinalyzerTheme : Theme() {
             renderChildren(node.children)
             copyForNode(node.index).renderToHtml()
         }
-        config.pageRenderer<LandingPage> { landingPage() }
+        config.pageRenderer<CpcLandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
         config.pageRenderer<PartialFolder> {  }
@@ -45,7 +45,17 @@ class FinalyzerTheme : Theme() {
             appendHTML().figure {
 //                figure {
                     img {
-                        src = node.image.href(context)
+                        node.resize?.let { resize ->
+                            val resized = node.image.resize(context,
+                                resize.width ?: Int.MAX_VALUE,
+                                resize.height ?: Int.MAX_VALUE,
+                                fillType = resize.fillType ?: FillType.Cover)
+                            src = resized.href
+                            width = resized.width.toString()
+                            height = resized.height.toString()
+                        } ?: run {
+                            src = node.image.href(context)
+                        }
                         alt = node.alt ?: node.title ?: ""
 //                        width = "200"//child.screenshot.width.toString()
 //                        height = "200"//child.screenshot.height.toString()

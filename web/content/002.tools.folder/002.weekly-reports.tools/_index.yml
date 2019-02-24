@@ -9,10 +9,14 @@ embed:
     highs: '../52-week-highs'
   figures:
     lows:
-      title: '52 Week Lows'
+      alt: '52 Week Lows'
       image: '52-week-lows.png'
+      resize:
+        width: 200
+        height: 200
     highs:
-      title: '52 Week Highs'
+      alt: '52 Week Highs'
       image: '52-week-highs.png'
-  files:
-    weeklyStatsComponent: ./weekly-stats-component.js
+      resize:
+        width: 200
+        height: 200

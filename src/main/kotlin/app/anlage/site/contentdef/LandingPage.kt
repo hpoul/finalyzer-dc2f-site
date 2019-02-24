@@ -17,6 +17,8 @@ interface LandingPage : ContentDef, WebsiteFolderContent {
 abstract class CpcLandingPage : LandingPage, WebsiteFolderContent {
     var couponCode: String = "EARLYADOPTER90"
     var ctaBuyNowLabel: String = "Buy Now!"
+    // Flag to indicate that the navbar should have limited options (only a CTA)
+    var overrideNavbar: Boolean = true
 }
 
 interface BackgroundVideo : ContentDef {

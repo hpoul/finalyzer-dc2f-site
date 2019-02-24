@@ -7,6 +7,7 @@ import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.toStringReflective
 import com.fasterxml.jackson.annotation.JacksonInject
 import mu.KotlinLogging
+import org.checkerframework.common.value.qual.IntVal
 
 
 private val logger = KotlinLogging.logger {}
@@ -99,10 +100,17 @@ interface ToolsPage : HtmlPage {
     val forEmailGeneration: Boolean
 }
 
+interface ResizeConfig {
+    val width: Int?
+    val height: Int?
+    val fillType: FillType?
+}
+
 interface FigureEmbeddable: ContentDef {
     val alt: String?
     val title: String?
     val image: ImageAsset
+    val resize: ResizeConfig?
 }
 
 interface Embeddables: ContentDef {
@@ -189,7 +197,7 @@ interface FinalyzerConfig : ContentDef {
     val game: GameConfig
 }
 
-abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, WithSitemapInfo {
+abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, WithSitemapInfo, WithRenderAlias {
     @set:JacksonInject("index")
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>
@@ -200,5 +208,7 @@ abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, Wit
 
     abstract val footerContent: ContentReference
 
+//    @JvmDefault
+    override fun renderAlias(): ContentDef? = index
 
 }

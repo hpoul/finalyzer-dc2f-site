@@ -22,15 +22,14 @@
         </div>
         <div class="column is-8">
             {% set lows = render(content=node.embed.references.lows.hrefRenderable) %}
-<p>
+
             <h2><a href="{{ lows }}">52 Week Lows</a></h2>
-</p>
+
             <p>
                 With this tool you can find <a href="{{ lows }}">stocks reaching their 52 week lows</a>
             within the last week.
-            </p><p>
-            <a href="{{ lows }}">Open Tool...</a>
-</p>
+            </p>
+                <p><a href="{{ lows }}">Open Tool…</a></p>
         </div>
     </div>
 
@@ -52,11 +51,10 @@
             <p>With this tool you can find <a href="{{ highs }}">stocks reaching their 52 week highs</a>
                 within the last week.</p>
 
-            <a href="{{ highs }}">Open Tool...</a>
+            <p><a href="{{ highs }}">Open Tool…</a></p>
         </div>
     </div>
 
     <div class="is-clear-both"></div>
 
 </div>
-<script src="{{ render(content=node.embed.files.weeklyStatsComponent.hrefRenderable) }}"></script>

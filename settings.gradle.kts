@@ -12,5 +12,5 @@ rootProject.name = "finalyzer-dc2f-site"
 //include("dc2f")
 //project(":dc2f").projectDir = file("deps/dc2f.kt")
 
-includeBuild("../dc2f.kt")
+includeBuild("./deps/dc2f.kt")
 

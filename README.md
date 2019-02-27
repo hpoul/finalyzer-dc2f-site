@@ -13,3 +13,4 @@ Website for [Anlage.App](https://anlage.app/) implemented using dc2f.
 * Later
     - [ ] Index for folders (?) and categories.
     - [ ] /BingSiteAuth.xml and /robots.txt (?)
+

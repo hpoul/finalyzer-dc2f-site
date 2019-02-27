@@ -38,3 +38,4 @@ build
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
+/tools/secrets/github-pages_id_rsa

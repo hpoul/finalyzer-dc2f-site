@@ -18,8 +18,9 @@ cp -a ${repodir}/public "${tmpdir}/public"
 
 pushd "${tmpdir}"
 
+git status
 git add .
-git commit --author="ci@travis" -m "new publish from travis ci ${TRAVIS_BUILD_NUMBER} ${TRAVIS_BUILD_WEB_URL}"
+git commit --author="Travis <ci@travis>" -m "new publish from travis ci ${TRAVIS_BUILD_NUMBER} ${TRAVIS_BUILD_WEB_URL}"
 GIT_SSH_COMMAND='ssh -i secrets/github-pages_id_rsa' git push
 
 popd

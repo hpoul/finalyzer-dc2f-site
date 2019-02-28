@@ -9,6 +9,7 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 deploy:
+  skip_cleanup: true
   provider: script
   script: bash tools/gh-pages-deploy.sh
   on:

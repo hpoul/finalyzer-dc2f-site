@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="412px" height="17px" viewBox="0 0 412 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Landingpage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-v2" transform="translate(-83.000000, -909.000000)">
+            <g id="Group-5" transform="translate(83.000000, 858.000000)">
+                <g id="arrow" transform="translate(0.000000, 51.000000)">
+                    <path d="M0,8.5 C0,8.5 1.78337097,8.5 3.99132426,8.5 L400,8.5" id="Stroke-29" stroke="#E29B4A" stroke-width="6"></path>
+                    <path d="M411.283535,9.57989948 C412.215993,8.98358855 412.21918,8.01881557 411.283535,7.42046658 L401.369316,1.08027751 C399.508494,-0.109726812 398,0.709898327 398,2.91657428 L398,14.0837918 C398,16.2879548 399.504113,17.1128949 401.369316,15.9200885 L411.283535,9.57989948 Z" id="Arrow-head-29" fill="#E29B4A"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

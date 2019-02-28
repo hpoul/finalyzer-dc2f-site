@@ -1,3 +1,4 @@
+dist: xenial
 language: java
 script: "./gradlew run"
 before_cache:
@@ -20,3 +21,4 @@ before_install:
 - gpg2 -v --import < tools/travis/BLACKBOX_SECRET_KEY.txt
 - git clone https://github.com/mipmip/blackbox #&& cd blackbox && make manual-install && cd ..
 - GPG=gpg2 blackbox/bin/blackbox_postdeploy
+- npm install

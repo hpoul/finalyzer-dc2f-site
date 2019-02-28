@@ -21,7 +21,7 @@ rm -rf "${tmpdir}/*"
 # remove all remaining . files (.htaccess), but keep .git sub directory.
 #find "${tmpdir}" -type f -exec rm {} \;
 
-cp -a ${repodir}/public/ "${tmpdir}"
+cp -a ${repodir}/public/. "${tmpdir}"
 
 pushd "${tmpdir}"
 

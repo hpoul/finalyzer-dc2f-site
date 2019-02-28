@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Track Stock Portfolio - Analyse your Performance | Anlage.App</title>
+    <meta content="Track Stock Portfolio - Analyse your Performance | Anlage.App" property="og:title">
+    <script>window.AA = { 'backendUrl': 'http://localhost:8080/api' };</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-91100035-4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-91100035-4', {'siteSpeedSampleRate': 100});
+</script>
+<style>
+    .debug-meta-description {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        padding: 10px;
+        border: 10px solid #eee;
+    }
+    .debug-meta-description h3 {
+        font-size: x-small;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let metaDescription = document.querySelector('meta[name=description]').getAttribute("content");
+        document.querySelector('footer').insertAdjacentHTML('beforebegin', '<div class="debug-meta-description"><h3>DEBUG - META DESCRIPTION: (not visible in production - hopefully)</h3><div class="content"></div></div>');
+        document.querySelector('.debug-meta-description .content').textContent = metaDescription;
+    });
+</script>
+        
+<script type="text/javascript">
+    (function (g) {
+        var s = document.createElement('script'),
+            t = document.getElementsByTagName('script')[0];
+        s.async = true;
+        s.src = g + '?v=' + (new Date()).getTime();
+        s.charset = 'UTF-8';
+        s.setAttribute('crossorigin', '*');
+        t.parentNode.insertBefore(s, t);
+    })('https://www.canvasflip.com/plugins/vi/vi.min.js');
+</script>
+                <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/css/main.c4e96a7d6410cf88c359a907e1ee27505b4931e9d9e90efadb372eaa503ad555.css" integrity="sha256-xOlqfWQQz4jDWakH4e4nUFtJMenZ6Q762zcuqlA61VU=">
+    <script src="/script/main.js" async="async"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <meta content="1950393328594234" property="fb:app_id">
+    <meta content="Track Stock Portfolio - Analyse your Performance" property="twitter:title">
+    <meta content="summary" property="twitter:card">
+    <meta content="@AnlageApp" property="twitter:site">
+    <meta name="description" content="Track your stock portfolio. Focus on your winning stocks and improve your return on investment.">
+    <meta content="Track your stock portfolio. Focus on your winning stocks and improve your return on investment." property="og:description">
+    <meta content="Track your stock portfolio. Focus on your winning stocks and improve your return on investment." property="twitter:description">
+    <meta content="https://anlage.app/lp/portfolio-tracker/" property="og:url">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"WebPage","headline":"Track Stock Portfolio - Analyse your Performance","mainEntityOfPage":{"@type":"WebPage","@id":"https://anlage.app/lp/portfolio-tracker/"},"url":"https://anlage.app/lp/portfolio-tracker/","publisher":{"@type":"Organization","name":"Anlage.App","logo":{"@type":"ImageObject","url":"https://anlage.app/anlage-app-logo.png"}},"description":"Track your stock portfolio. Focus on your winning stocks and improve your return on investment."}</script>
+
+    <script>
+        var fscSession = {
+            'reset': true,
+            'coupon': 'EARLYADOPTER90'
+
+        };
+        function decorateURL(url) {
+            try {
+                var linkerParam = null;
+                ga(function () {
+                    var trackers = ga.getAll();
+                    linkerParam = trackers[0].get('linkerParam');
+                });
+                return (linkerParam ? url + '?' + linkerParam : url);
+            } catch (e) {
+                console.error('error while decorating URL', e);
+                return url;
+            }
+        }
+        function fastspringDataCallback() {
+
+        }
+    </script>
+    <script
+            id="fsc-api"
+            src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.6/fastspring-builder.min.js"
+            type="text/javascript"
+            data-storefront="codeuxdesign.onfastspring.com/popup-codeuxdesign"
+            data-debug="true"
+            data-data-callback="fastspringDataCallback"
+            data-decorate-callback="decorateURL"
+            defer>
+    </script>
+    <!-- DO NOT MODIFY -->
+    <!-- Quora Pixel Code (JS Helper) -->
+    <script>
+        !function(q,e,v,n,t,s){if(q.qp) return; n=q.qp=function(){n.qp?n.qp.apply(n,arguments):n.queue.push(arguments);}; n.queue=[];t=document.createElement(e);t.async=!0;t.src=v; s=document.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);}(window, 'script', 'https://a.quora.com/qevents.js');
+        qp('init', 'eae54d9d4de74813ac479f7c6427b6a1');
+        qp('track', 'ViewContent');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://q.quora.com/_/ad/eae54d9d4de74813ac479f7c6427b6a1/pixel?tag=ViewContent&noscript=1"/></noscript>
+    <!-- End of Quora Pixel Code -->
+      </head>
+  <body class="has-navbar-fixed-top has-spaced-navbar-fixed-top">
+    <nav class="navbar has-shadow is-spaced is-fixed-top" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand"><a href="/" class="navbar-item"><img alt="ANLAGE.APP" src="/images/logo-anlage-app.svg"></a> <a class="navbar-burger" role="button" data-target="main-menu" aria-label="menu" aria-expanded="false"> <span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span></a></div>
+        <div class="navbar-menu" id="main-menu">
+          <div class="navbar-end">
+            <div class="navbar-item"><a href="https://anlage.app/app/#/auth/signUp" target="_blank" class="button is-primary" data-fsc-action="Add,Checkout" data-fsc-item-path-value="anlage-app-premium-sub"><span class="icon"><i class="fas fa-sign-in" aria-hidden="true"></i></span> <span>Buy Now!</span></a></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <section class="landing-hero-element section">
+        <div class="">
+          <div class="container">
+            <div class="columns is-vcentered">
+              <div class="column is-7">
+                <figure class="image screenshot" data-aos="fade-up" data-name="screenshot-fang.png"><img src="/lp/portfolio-tracker/hero/Fit_1200x2147483647_screenshot-fang.png" alt="screenshot-fang.png" width="1200" height="724"></figure>
+              </div>
+              <div class="column content">
+                <h3>Track your stock portfolio!</h3>
+<ul>
+<li>Import your Portfolio</li>
+<li>See success contribution per Stock</li>
+<li>Success over time</li>
+<li>See returns in any currency</li>
+<li>Compare Market Caps</li>
+</ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section has-background-primary-light">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-6 has-text-centered">
+              <div>
+                <h3 class="title">Limited time offer!</h3>
+                <h4 class="subtitle">Early Adopter price, 90% Off! Forever!</h4>
+              </div>
+<img alt="Arrow Image" src="/images/arrow.svg">
+              <div>
+                <div class="has-text-weight-bold has-text-danger is-size-4" style="text-decoration: line-through" data-fsc-item-path="anlage-app-premium-sub"><span data-fsc-item-path="anlage-app-premium-sub" data-fsc-smartdisplay="" data-fsc-item-priceTotal=""></span></div>
+<span class="plan-price-amount"><span class="has-text-success is-size-3 has-text-weight-bold" data-fsc-item-path="anlage-app-premium-sub" data-fsc-item-total="">$10</span>/month</span></div>
+            </div>
+            <div class="column is-6 has-text-centered">
+              <div class="is-size-4 email-form-spacing">&nbsp;</div>
+              <div class="is-size-4 email-form-spacing">&nbsp;</div>
+              <form class="email-form"><input type="hidden" name="fs_coupon" value="EARLYADOPTER90">
+                <div class="field">
+                  <div class="control has-icons-left"><span class="icon is-small is-left"><i class="fas fa-user"></i></span> <input type="text" class="input" name="email" placeholder="Email Address"></div>
+                </div>
+<input type="submit" class="button is-success is-large" data-aos="wiggle" value="Save Now and Sign Up!"></form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="landing-hero-element section">
+        <div class="">
+          <div class="container">
+            <div class="columns is-vcentered">
+              <div class="column is-7">
+                <figure class="image screenshot" data-aos="fade-up" data-name="mac-analyse-performance.png"><img src="/lp/portfolio-tracker/analyse-performance/Fit_1200x2147483647_mac-analyse-performance.png" alt="mac-analyse-performance.png" width="1200" height="1446"></figure>
+              </div>
+              <div class="column content has-text-centered">
+                <h3>Track Performance</h3>
+<p>Get an easy overview over which of your stocks contributed to
+the success of your portfolio in the last three months.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="landing-hero-element section">
+        <div class="">
+          <div class="container">
+            <div class="columns is-vcentered columns-reversed">
+              <div class="column is-7">
+                <figure class="image screenshot" data-aos="fade-up" data-name="monthly-performance-reports.png"><img src="/lp/portfolio-tracker/monthly-reports/Fit_1200x2147483647_monthly-performance-reports.png" alt="monthly-performance-reports.png" width="1200" height="797"></figure>
+              </div>
+              <div class="column content has-text-centered">
+                <h3>Monthly Reports</h3>
+<p>Each month receive an executive summary of how your portfolio
+developed. Don&rsquo;t micro manage your portfolio and stay focused
+on the long strategy!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section has-background-primary-light">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-6 has-text-centered">
+              <div>
+                <h3 class="title">Limited time offer!</h3>
+                <h4 class="subtitle">Early Adopter price, 90% Off! Forever!</h4>
+              </div>
+<img alt="Arrow Image" src="/images/arrow.svg">
+              <div>
+                <div class="has-text-weight-bold has-text-danger is-size-4" style="text-decoration: line-through" data-fsc-item-path="anlage-app-premium-sub"><span data-fsc-item-path="anlage-app-premium-sub" data-fsc-smartdisplay="" data-fsc-item-priceTotal=""></span></div>
+<span class="plan-price-amount"><span class="has-text-success is-size-3 has-text-weight-bold" data-fsc-item-path="anlage-app-premium-sub" data-fsc-item-total="">$10</span>/month</span></div>
+            </div>
+            <div class="column is-6 has-text-centered">
+              <div class="is-size-4 email-form-spacing">&nbsp;</div>
+              <div class="is-size-4 email-form-spacing">&nbsp;</div>
+              <form class="email-form"><input type="hidden" name="fs_coupon" value="EARLYADOPTER90">
+                <div class="field">
+                  <div class="control has-icons-left"><span class="icon is-small is-left"><i class="fas fa-user"></i></span> <input type="text" class="input" name="email" placeholder="Email Address"></div>
+                </div>
+<input type="submit" class="button is-success is-large" data-aos="wiggle" value="Save Now and Sign Up!"></form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+<section class="section">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Not ready yet to commit <span class="has-text-success has-text-weight-bold"
+                                              data-fsc-item-path="anlage-app-premium-sub"
+                                              data-fsc-item-total></span>?</p>
+            <p>
+                <a href="" class="button" data-fsc-action="Reset,Add,Checkout" data-fsc-item-path-value="anlage-app-free-sub">Start free Trial</a>
+            </p>
+        </div>
+    </div>
+</section>
+                        </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="columns">
+          <div class="column"><span class="footer-title title is-4">Product</span>
+            <ul>
+              <li><a href="/">Info</a></li>
+              <li><a href="/pages/pricing/">Pricing</a></li>
+              <li><a href="/tools/weekly-reports/">Weekly Reports</a></li>
+              <li><a href="/tools/52-week-lows/">Tool: 52 Week Lows</a></li>
+              <li><a href="/tools/52-week-highs/">Tool: 52 Week Highs</a></li>
+              <li><a href="https://anlage.app/app/">Login</a></li>
+            </ul>
+          </div>
+          <div class="column"><span class="footer-title title is-4">About</span>
+            <ul>
+              <li><a href="/pages/contact/">Contact Us</a></li>
+              <li><a href="/articles/">Blog</a></li>
+            </ul>
+          </div>
+          <div class="column content has-text-right">
+            <p><strong>ANLAGE.APP</strong> by <a href="https://codeux.design/" target="_blank">codeux.design</a> and Herbert Poul</p>
+            <p>Questions? Suggestions? <a href="mailto:hello@anlage.app">hello@anlage.app</a></p>
+          </div>
+        </div>
+      </div>
+
+
+
+<section class="section ">
+    <div class="columns is-vcentered">
+        <div class="column has-text-centered">
+            <h3 class="title is-size-4">Don't miss out on great investing ideas.</h3>
+            <p>Receive our weekly market reports and
+                <strong>become a better investor</strong>.
+            </p>
+            <p>The biggest winners and losers of the week – General Market Trends – 52 week lows and
+                highs. All in one weekly email.</p>
+        </div>
+        <div class="column has-text-centered">
+            <form action="https://app.us19.list-manage.com/subscribe/post?u=31641b8435e9e6087061b83c5&amp;id=2bf8ae5c4b"
+                  method="post" class="email-form-weekly-report form">
+                <div class="field">
+                    <div class="control has-icons-left">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        <input type="text" name="EMAIL" class="input" placeholder="Email Address" />
+
+                    </div>
+
+                </div>
+
+                <input type="submit" name="subscribe"
+                       class="button is-success is-medium allow-linebreak" data-aos="wiggle"
+                       data-name="footer"
+                       value="Subscribe to free Market Updates" />
+            </form>
+
+        </div>
+    </div>
+</section>
+    </footer>
+
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+    js.async = true;
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="306833413221913">
+</div>
+          </body>
+</html>

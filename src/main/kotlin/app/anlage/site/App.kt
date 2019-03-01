@@ -6,11 +6,9 @@ package app.anlage.site
 import app.anlage.site.contentdef.*
 import app.anlage.site.templates.*
 import com.dc2f.*
-import com.dc2f.git.*
 import com.dc2f.render.*
 import com.dc2f.util.*
 import kotlinx.html.*
-import kotlinx.html.stream.appendHTML
 import mu.KotlinLogging
 import org.apache.commons.io.FileUtils
 import org.apache.commons.text.StringEscapeUtils
@@ -33,12 +31,13 @@ class FinalyzerTheme : Theme() {
     override fun configure(config: ThemeConfig) {
         config.pageRenderer<FinalyzerWebsite> {
             renderChildren(node.children)
-            copyForNode(node.index).renderToHtml()
+            copyForNode(node.index).render()
         }
         config.pageRenderer<CpcLandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
         config.pageRenderer<PartialFolder> {  }
+        robotsTxt()
 
         // TODO maybe create a custom variant to register embeddable figures?
         config.pageRenderer<FigureEmbeddable> {
@@ -106,6 +105,20 @@ class FinalyzerTheme : Theme() {
 }
 
 
+fun FinalyzerTheme.robotsTxt() {
+    config.pageRenderer<FinalyzerWebsite>(OutputType.robotsTxt) {
+        out.appendln("User-agent: *")
+        if (Dc2fEnv.current == Dc2fEnv.Production) {
+            out.appendln("Allow: /")
+            out.appendln("")
+            out.appendln("Sitemap: https://anlage.app/sitemap.xml")
+        } else {
+            out.appendln("Disallow: /")
+        }
+    }
+}
+
+
 fun main(args: Array<String>) {
     logger.info { "Starting ..." }
 
@@ -135,6 +148,7 @@ fun main(args: Array<String>) {
                 urlConfig = loadedWebsite.content.config.url
             ).let { renderer ->
                 renderer.renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
+
                 SitemapRenderer(targetPath, loadedWebsite.context, renderer, loadedWebsite.content.config.url)
                     .render()
                 AllSitesJsonGenerator(targetPath.resolve("allsites.json"), renderer.loaderContext, renderer)
@@ -147,3 +161,4 @@ fun main(args: Array<String>) {
         }
 
 }
+

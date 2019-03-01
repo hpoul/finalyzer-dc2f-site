@@ -116,6 +116,8 @@ enum class Dc2fEnv(val id: String) {
     ;
 
     companion object {
+        val current by lazy { findById(System.getenv("DC2F_ENV")) }
+
         fun findById(id: String?, default: Dc2fEnv = Dc2fEnv.Dev) =
             id?.let { idString -> Dc2fEnv.values().firstOrNull { it.id == idString } }
                 ?: default
@@ -130,7 +132,7 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
     }
     property("og:title", title)
 
-    val env = Dc2fEnv.findById(System.getenv("DC2F_ENV"))
+    val env = Dc2fEnv.current
 
     script {
         unsafe {

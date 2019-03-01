@@ -26,7 +26,7 @@ interface MenuDef: ContentDef {
 }
 
 /** Marker interface for content inside folders. */
-interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithRenderAlias, WithSitemapInfo, WithRenderPathAliases {
+interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithContentSymlink, WithSitemapInfo, WithRenderPathAliases {
 //    val menu: MenuDef?
 //    override val redirect: ContentReference?
     @set:JacksonInject("index")
@@ -37,7 +37,7 @@ interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, Wi
     val renderPathAliases: ArrayList<String>?
 
     @JvmDefault
-    override fun renderAlias(): ContentDef? = index
+    override fun contentSymlink(): ContentDef? = index
 
     @JvmDefault
     override fun includeInSitemap(): Boolean =
@@ -208,7 +208,7 @@ interface FinalyzerConfig : ContentDef {
     val game: GameConfig
 }
 
-abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, WithSitemapInfo, WithRenderAlias {
+abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, WithSitemapInfo, WithContentSymlink {
     @set:JacksonInject("index")
     abstract var index: LandingPage
     abstract val mainMenu: List<MenuEntry>
@@ -220,6 +220,6 @@ abstract class FinalyzerWebsite: Website<WebsiteFolderContent>, WithMenuDef, Wit
     abstract val footerContent: ContentReference
 
 //    @JvmDefault
-    override fun renderAlias(): ContentDef? = index
+    override fun contentSymlink(): ContentDef? = index
 
 }

@@ -7,7 +7,6 @@ import com.dc2f.richtext.markdown.Markdown
 import com.dc2f.util.toStringReflective
 import com.fasterxml.jackson.annotation.JacksonInject
 import mu.KotlinLogging
-import org.checkerframework.common.value.qual.IntVal
 
 
 private val logger = KotlinLogging.logger {}
@@ -27,7 +26,7 @@ interface MenuDef: ContentDef {
 }
 
 /** Marker interface for content inside folders. */
-interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithRenderAlias, WithSitemapInfo {
+interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, WithMenuDef, WithRenderAlias, WithSitemapInfo, WithRenderPathAliases {
 //    val menu: MenuDef?
 //    override val redirect: ContentReference?
     @set:JacksonInject("index")
@@ -35,15 +34,21 @@ interface WebsiteFolderContent : ContentDef, SlugCustomization, WithRedirect, Wi
 
     var includeInSitemap: Boolean?
 
+    val renderPathAliases: ArrayList<String>?
+
     @JvmDefault
     override fun renderAlias(): ContentDef? = index
 
     @JvmDefault
     override fun includeInSitemap(): Boolean =
         includeInSitemap ?: super.includeInSitemap()
+
+    @JvmDefault
+    override fun renderPathAliases(renderer: Renderer): List<RenderPath>? =
+        renderPathAliases?.map { RenderPath.parseLeafPath(it) }
 }
 
-interface WithPageSeo: ContentDef, WithSitemapInfo {
+interface WithPageSeo : ContentDef, WithSitemapInfo {
     val seo: PageSeo
 }
 

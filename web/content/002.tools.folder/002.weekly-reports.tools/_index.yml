@@ -20,3 +20,4 @@ embed:
       resize:
         width: 200
         height: 200
+renderPathAliases: ['/reports/', '/tools/']

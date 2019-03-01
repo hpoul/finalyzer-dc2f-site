@@ -40,3 +40,5 @@ build
 /.blackbox/secring.gpg
 /tools/secrets/github-pages_id_rsa
 /tools/secrets/github-pages_id_rsa.pub
+/tools/travis/BLACKBOX_SECRET_KEY.txt
+

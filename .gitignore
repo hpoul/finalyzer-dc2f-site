@@ -42,3 +42,4 @@ build
 /tools/secrets/github-pages_id_rsa.pub
 /tools/travis/BLACKBOX_SECRET_KEY.txt
 
+/tools/secrets/purgecache.secrets.json

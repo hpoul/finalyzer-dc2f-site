@@ -1,2 +1,3 @@
 tools/secrets/github-pages_id_rsa
 tools/secrets/github-pages_id_rsa.pub
+tools/secrets/purgecache.secrets.json

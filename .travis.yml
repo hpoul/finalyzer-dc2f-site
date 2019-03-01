@@ -1,7 +1,7 @@
 dist: xenial
 language: java
 env:
-- DC2F_ENV=prod
+- DC2F_ENV=production
 script: "./gradlew run"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

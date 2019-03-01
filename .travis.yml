@@ -16,6 +16,8 @@ deploy:
   script: bash tools/gh-pages-deploy.sh
   on:
     branch: master
+after_deploy:
+  - ts-node tools/scripts/purgecache/purgecache.ts
 before_install:
 - openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv
   -in tools/travis/BLACKBOX_SECRET_KEY.txt.enc -out tools/travis/BLACKBOX_SECRET_KEY.txt -d

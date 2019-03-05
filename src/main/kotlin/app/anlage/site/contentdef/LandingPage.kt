@@ -6,11 +6,11 @@ import com.dc2f.richtext.markdown.Markdown
 import com.fasterxml.jackson.annotation.JacksonInject
 
 
-interface LandingPage : ContentDef, WebsiteFolderContent {
+interface LandingPage : ContentDef, WebsiteFolderContent, ContentBranchDef<LandingPageElement> {
     /** the pages seo */
     var seo: PageSeo
-    @set:JacksonInject(PROPERTY_CHILDREN)
-    var children: List<LandingPageElement>
+//    @set:JacksonInject(PROPERTY_CHILDREN)
+//    var children: List<LandingPageElement>
 }
 
 @Nestable("landingpage")

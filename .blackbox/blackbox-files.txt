@@ -1,4 +1,5 @@
 tools/secrets/github-pages_id_rsa
 tools/secrets/github-pages_id_rsa.pub
 tools/secrets/id_rsa.web.sphene.net
+tools/secrets/id_rsa.web.sphene.net.pub
 tools/secrets/purgecache.secrets.json

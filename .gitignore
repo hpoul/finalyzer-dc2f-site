@@ -45,3 +45,4 @@ build
 /tools/scripts/**/*.js.map
 
 /tools/secrets/purgecache.secrets.json
+/tools/secrets/id_rsa.web.sphene.net

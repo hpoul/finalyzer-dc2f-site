@@ -397,17 +397,15 @@ fun BODY.siteFooter(context: RenderContext<*>) {
         runWithContinually(function (continually) {
             continually.on('ready', function (api) {
                 api.on('startConversation', function (event) {
-                    ga('send', 'event', {
-                        eventCategory: 'Continually Conversations',
-                        eventAction: 'Started Conversation',
-                        eventLabel: event.conversationId
+                    gtag('event', 'Started Conversation', {
+                        'event_category': 'Continually Conversations',
+                        'event_label': event.conversationId
                     });
                 });
                 api.on('emailCapture', function (event) {
-                    ga('send', 'event', {
-                        eventCategory: 'Continually Conversations',
-                        eventAction: 'Email captured',
-                        eventLabel: event.conversationId
+                    gtag('event', 'Email captured', {
+                        'event_category': 'Continually Conversations',
+                        'event_label': event.conversationId
                     });
                 });
             });

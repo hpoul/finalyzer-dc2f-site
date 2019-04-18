@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.net.MediaType
 import kotlinx.html.*
 import kotlinx.html.dom.*
+import mu.KotlinLogging
 import java.io.File
+
+private val logger = KotlinLogging.logger {}
 
 fun <TAG, T : WithPageSeo> TagConsumer<TAG>.baseTemplate(
     context: RenderContext<T>,
@@ -116,9 +119,12 @@ enum class Dc2fEnv(val id: String) {
     ;
 
     companion object {
-        val current by lazy { findById(System.getenv("DC2F_ENV")) }
+        val current by lazy {
+            findById(System.getenv("DC2F_ENV"))
+                .also { logger.info { "DC2F_ENV is ${it}" } }
+        }
 
-        fun findById(id: String?, default: Dc2fEnv = Dc2fEnv.Dev) =
+        private fun findById(id: String?, default: Dc2fEnv = Dc2fEnv.Dev) =
             id?.let { idString -> Dc2fEnv.values().firstOrNull { it.id == idString } }
                 ?: default
     }

@@ -80,7 +80,7 @@ dose of the biggest movers of the week as well as companies reaching their 52 we
 
 {{render content=rootNode.embed.references.ctaButton/}}
 
-# So what is on your watchlist?
+## So what is on your watchlist?
 
 What are your current ideas for stocks? Do you have more ways to come up with good
 investing opportunities? Let us know in the comments below!

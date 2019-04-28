@@ -182,7 +182,7 @@ interface PartialFolder : ContentBranchDef<Partial>, WebsiteFolderContent
 
 
 val MenuEntry.linkLabel: String
-    get() = this.name ?: (this.ref?.referencedContent as? WithPageSeo)?.seo?.title ?: throw Exception("No name for menu entry. ${this.toStringReflective()}")
+    get() = this.name ?: (this.ref?.referencedContent as? WithMenuDef)?.menu?.name ?: (this.ref?.referencedContent as? WithPageSeo)?.seo?.title ?: throw Exception("No name for menu entry. ${this.toStringReflective()}")
 
 interface Favicon : ContentDef {
     val image: ImageAsset

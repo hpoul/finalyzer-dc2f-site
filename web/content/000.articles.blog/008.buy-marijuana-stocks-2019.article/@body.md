@@ -44,7 +44,7 @@ Global Insights believes that the legal marijuana production industry will reach
 {{render content=rootNode.embed.references.ctaButton/}}
 
 
-# So what is on your watchlist?
+## So what is on your watchlist?
 
 What are your current ideas for stocks? Do you have more ways to come up with good
 investing opportunities? Let us know in the comments below!

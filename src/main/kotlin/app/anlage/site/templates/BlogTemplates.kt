@@ -11,6 +11,9 @@ import java.time.format.*
 fun RenderContext<Blog>.blogIndexPage() {
     appendHTML().baseTemplate(this, node.seo) {
         div("container") {
+            div("section has-text-centered") {
+                h1("title") { +node.seo.title }
+            }
             node.children
                 .sortedByDescending { it.date }
                 .map { child ->

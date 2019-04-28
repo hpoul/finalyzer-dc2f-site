@@ -411,10 +411,6 @@ fun BODY.siteFooter(context: RenderContext<*>) {
             });
         });
    </script>
-   <!-- End GA Tracking events -->
-            });
-        }
-      </script>
         """)
 //        raw("""
 //<!-- Load Facebook SDK for JavaScript -->

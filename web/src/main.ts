@@ -70,7 +70,7 @@ const setupForm = () => {
                 },
                 handleSubmit: (e) => {
                     e.preventDefault();
-                    //event('InitiateCheckout', 'conversion', `${product}:${coupon}`);
+                    event('InitiateCheckout', 'conversion', `${product}:${coupon}`);
                     if (window.fastspring) {
                         window.fastspring.builder.push({
                             'products': [{'path': product}],

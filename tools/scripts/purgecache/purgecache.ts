@@ -1,7 +1,7 @@
 /// <reference path="cloudflare.d.ts" />
 
 import * as fs from 'fs';
-import * as cloudflare from 'cloudflare';
+import cloudflare from 'cloudflare';
 
 // $ export CF_API_EMAIL='user@example.com'
 // $ export CF_API_KEY='00000000000000000000000000000000'

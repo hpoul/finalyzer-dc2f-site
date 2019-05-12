@@ -18,7 +18,21 @@
 //
 // }
 
-declare module 'cloudflare';
+declare module 'cloudflare' {
+    function initCloudFlare(options: {email: string, key: string}): Cloudflare;
+
+    class Cloudflare {
+        zones: CloudflareZones;
+    }
+
+    class CloudflareZones {
+        purgeCache(zoneId: string, options: {files: string[]}): Promise<boolean>;
+    }
+
+    export default initCloudFlare;
+    // export = initCloudFlare;
+}
+// declare function cloudflare(options: {email: string, key: string}): any;
 
 // export = cloudflare;
 

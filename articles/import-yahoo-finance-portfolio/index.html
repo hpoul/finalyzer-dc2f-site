@@ -147,21 +147,39 @@ Now you can also import your existing <em>Yahoo! Finance</em> portfolio!</p>
 </section>
     </footer>
 
-<!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
-    js.async = true;
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<!-- Your customer chat code -->
-<div class="fb-customerchat"
-     attribution=setup_tool
-     page_id="306833413221913">
-</div>
+      <script>
+        function loadScript(src, cb) {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = src;
+            script.onload = cb;
+            document.head.append(script);
+        }
+        var continuallyQueue = [];
+        var runWithContinually = function(cb) { continuallyQueue.push(cb); };
+        var continuallySettings = { appID: 'k98re9zkrepm' };
+        loadScript("https://cdn-app.continual.ly/js/embed/continually-embed.latest.min.js", function() {
+            runWithContinually = function(cb) { cb(continually); };
+            for (var i = 0; i < continuallyQueue.length ; i++) {
+                continuallyQueue[i](continually);
+            }
+        });
+        runWithContinually(function (continually) {
+            continually.on('ready', function (api) {
+                api.on('startConversation', function (event) {
+                    gtag('event', 'Started Conversation', {
+                        'event_category': 'Continually Conversations',
+                        'event_label': event.conversationId
+                    });
+                });
+                api.on('emailCapture', function (event) {
+                    gtag('event', 'Email captured', {
+                        'event_category': 'Continually Conversations',
+                        'event_label': event.conversationId
+                    });
+                });
+            });
+        });
+   </script>
           </body>
 </html>

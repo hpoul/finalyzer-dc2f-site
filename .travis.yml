@@ -13,7 +13,7 @@ cache:
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash tools/web-sphene-net-deploy.sh
+  script: bash tools/web-sphene-net-deploy.sh && bash tools/gh-pages-deploy.sh
   #script: bash tools/gh-pages-deploy.sh
   on:
     branch: master

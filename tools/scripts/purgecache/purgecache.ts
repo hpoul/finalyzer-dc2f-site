@@ -1,3 +1,5 @@
+/// <reference path="cloudflare.d.ts" />
+
 import * as fs from 'fs';
 import * as cloudflare from 'cloudflare';
 
@@ -35,9 +37,9 @@ const urls = extractUrls('public/allsites.json');
 console.log('clearing cache for urls: ', urls);
 
 const cf = cloudflare({email: apiEmail, key: apiKey});
-cf.zones.purgeCache(apiZoneId, { files: urls }).then((success) => {
+cf.zones.purgeCache(apiZoneId, { files: urls }).then((success: boolean) => {
     console.log('Successfully purged cache.', success);
-}).catch((error) => {
+}).catch((error: any) => {
     console.error('error while purging cache.', error);
     process.exit(1);
 });

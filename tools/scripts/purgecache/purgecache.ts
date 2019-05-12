@@ -1,7 +1,7 @@
 /// <reference path="cloudflare.d.ts" />
 
 import * as fs from 'fs';
-import cloudflare from 'cloudflare';
+import * as cloudflare from 'cloudflare';
 
 // $ export CF_API_EMAIL='user@example.com'
 // $ export CF_API_KEY='00000000000000000000000000000000'
@@ -35,8 +35,9 @@ function extractUrls(jsonSitemap: string) {
 const urls = extractUrls('public/allsites.json');
 
 console.log('clearing cache for urls: ', urls);
+console.log('cloudflare', cloudflare);
 
-const cf = cloudflare({email: apiEmail, key: apiKey});
+const cf: Cloudflare = cloudflare({email: apiEmail, key: apiKey});
 cf.zones.purgeCache(apiZoneId, { files: urls }).then((success: boolean) => {
     console.log('Successfully purged cache.', success);
 }).catch((error: any) => {

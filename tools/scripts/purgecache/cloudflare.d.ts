@@ -18,20 +18,24 @@
 //
 // }
 
-declare module 'cloudflare' {
-    function initCloudFlare(options: {email: string, key: string}): Cloudflare;
+// import {Cloudflare} from "cloudflare";
 
-    class Cloudflare {
-        zones: CloudflareZones;
-    }
+declare module 'cloudflare';
 
-    class CloudflareZones {
-        purgeCache(zoneId: string, options: {files: string[]}): Promise<boolean>;
-    }
-
-    export default initCloudFlare;
-    // export = initCloudFlare;
-}
+// declare module 'cloudflare' {
+//     function initCloudFlare(options: {email: string, key: string}): Cloudflare;
+//
+//     class Cloudflare {
+//         zones: CloudflareZones;
+//     }
+//
+//     class CloudflareZones {
+//         purgeCache(zoneId: string, options: {files: string[]}): Promise<boolean>;
+//     }
+//
+//     export = initCloudFlare;
+//     // export function cloudflare(options: {email: string, key: string}): Cloudflare;
+// }
 // declare function cloudflare(options: {email: string, key: string}): any;
 
 // export = cloudflare;
@@ -42,12 +46,15 @@ declare module 'cloudflare' {
 
 // declare function initCloudFlare(options: {email: string, key: string}): Cloudflare;
 //
-// declare class Cloudflare {
-//     zones: CloudflareZones;
-// }
-//
-// declare class CloudflareZones {
-//     purgeCache(zoneId: string, options: {files: string[]}): Promise<boolean>;
-// }
+
+declare function cloudflare(options: {email: string, key: string}): any;
+
+declare class Cloudflare {
+    zones: CloudflareZones;
+}
+
+declare class CloudflareZones {
+    purgeCache(zoneId: string, options: {files: string[]}): Promise<boolean>;
+}
 
 

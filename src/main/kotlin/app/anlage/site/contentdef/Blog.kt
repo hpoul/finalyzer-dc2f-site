@@ -16,7 +16,7 @@ interface Blog: WebsiteFolderContent, ContentBranchDef<Article>, WithPageSeo
 interface Article: ContentDef, SlugCustomization, WithAuthor, WithWordCount, WithMainImage, WebsiteFolderContent, WithRenderPathOverride {
     override var author: String
     val date: ZonedDateTime
-    val categories: Array<String>
+    val categories: List<String>
     val seo: PageSeo
     val title: String
     /**

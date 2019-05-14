@@ -34,6 +34,8 @@ function extractUrls(jsonSitemap: string) {
 
 const urls = extractUrls('public/allsites.json');
 
+urls.push('https://anlage.app/sitemap.xml');
+
 console.log('clearing cache for urls: ', urls);
 console.log('cloudflare', cloudflare);
 

@@ -31,7 +31,7 @@ class FinalyzerTheme : Theme() {
     override fun configure(config: ThemeConfig) {
         config.pageRenderer<FinalyzerWebsite> {
             renderChildren(node.children)
-            copyForNode(node.index).render()
+            createSubContext(node.index, out).render()
         }
         config.pageRenderer<CpcLandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
@@ -141,7 +141,7 @@ fun main(args: Array<String>) {
             }
 
             val targetPath = FileSystems.getDefault().getPath("public")
-            Renderer(
+            FileOutputRenderer(
                 FinalyzerTheme(),
                 targetPath,
                 loadedWebsite.context,

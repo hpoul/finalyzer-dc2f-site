@@ -31,7 +31,7 @@ class FinalyzerTheme : Theme() {
     override fun configure(config: ThemeConfig) {
         config.pageRenderer<FinalyzerWebsite> {
             renderChildren(node.children)
-            createSubContext(node.index, out).render()
+            createSubContext(node.index, out, enclosingNode = null).render()
         }
         config.pageRenderer<CpcLandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }

@@ -141,7 +141,7 @@ fun FinalyzerTheme.contentTemplates() {
         renderChildren(node.children)
 //        node.index?.let(::renderNode)
         node.index?.let { index ->
-            createSubContext(index, out = out).render()
+            createSubContext(index, out = out, enclosingNode = null).render()
         }
     }
 }

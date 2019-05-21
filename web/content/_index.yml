@@ -1,54 +1,49 @@
 name: 'Anlage.App'
-#seo:
-#    title: 'Lorem Ipsum'
-#    description: 'Hello World'
-footerContent: /partials/subscribe-reports-section
+footerContent: '/partials/subscribe-reports-section'
 embed:
   references:
-    ctaButton: /partials/cta-button
-menu: # config how this page is listed in the menu.
+    ctaButton: '/partials/cta-button'
+menu:
   name: 'Home'
 mainMenu:
-  - name: 'Home'
-    ref: /
-  - ref: /pages/pricing
-  - name: "Tools"
-    ref: /tools
-  - ref: /articles
+- name: 'Home'
+  ref: '/'
+- ref: '/pages/pricing'
+- name: 'Tools'
+  ref: '/tools'
+- ref: '/articles'
 config:
   backendUrlProd: 'https://api.anlage.app/api'
   backendUrlDev: 'http://localhost:8080/api'
   signUpUrl: 'https://anlage.app/app/#/auth/signUp'
   url:
-    protocol: https
-    host: anlage.app
+    protocol: 'https'
+    host: 'anlage.app'
   disqus:
     shortName: 'anlage-app'
   favicons:
-    - image: ./favicon.ico
-    - image: ./favicon-32x32.png
-    - image: ./favicon-16x16.png
-  logo: anlage-app-logo.png
+  - image: './favicon.ico'
+  - image: './favicon-32x32.png'
+  - image: './favicon-16x16.png'
+  logo: 'anlage-app-logo.png'
   game:
     storeUrlAndroid: 'https://play.google.com/store/apps/details?id=app.anlage.game.marketcap&utm_source=website&utm_campaign=website&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
     storeUrlIOS: 'https://itunes.apple.com/app/marketcap-game-by-anlage-app/id1446255350?mt=8&at=11l8ru&pt=827760&ct=website'
 footerMenu:
-  - name: Product
-    children:
-      - name: "Info"
-        ref: /
-      - ref: /pages/pricing
-      - name: 'Weekly Reports'
-        ref: /tools
-      - name: 'Tool: 52 Week Lows'
-        ref: /tools/52-week-lows
-      - name: 'Tool: 52 Week Highs'
-        ref: /tools/52-week-highs
-#      - ref: /tools/52-week-lows
-#      - ref: /tools/52-week-highs
-      - name: "Login"
-        url: "https://anlage.app/app/"
-  - name: About
-    children:
-      - ref: /pages/contact
-      - ref: /articles
+- name: 'Product'
+  children:
+  - name: 'Info'
+    ref: '/'
+  - ref: '/pages/pricing'
+  - name: 'Weekly Reports'
+    ref: '/tools'
+  - name: 'Tool: 52 Week Lows'
+    ref: '/tools/52-week-lows'
+  - name: 'Tool: 52 Week Highs'
+    ref: '/tools/52-week-highs'
+  - name: 'Login'
+    url: 'https://anlage.app/app/'
+- name: 'About'
+  children:
+  - ref: '/pages/contact'
+  - ref: '/articles'

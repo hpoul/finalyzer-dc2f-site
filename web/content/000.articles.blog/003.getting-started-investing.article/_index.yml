@@ -1,22 +1,19 @@
-author: "Herbert Poul"
-date: 2018-08-02 10:30:00
-slug: become-individual-investor
+author: 'Herbert Poul'
+date: '2018-08-02 10:30:00'
+slug: 'become-individual-investor'
 categories:
-  - Investing
-#slug: become-individual-investor
+- 'Investing'
 seo:
-  title: 4 Steps to become an Individual Investor
-  description:
-    Become an individual investor. Learn how to find best
-    performing stocks, how to keep track of their performance
-    and analyse your gains.
-title: 4 Steps to become an Individual Investor
+  title: '4 Steps to become an Individual Investor'
+  description: 'Become an individual investor. Learn how to find best performing stocks,
+    how to keep track of their performance and analyse your gains.'
+title: '4 Steps to become an Individual Investor'
 embed:
   figures:
     screenshot:
-      image: ./anlage-app-screenshot-observe.png
+      image: './anlage-app-screenshot-observe.png'
       title: 'Observe and analyse your portfolio with Anlage.App'
     broker:
-      image: ./broker.jpg
+      image: './broker.jpg'
       title: 'Choosing the right broker'
 teaser: 'teaser.jpg'

@@ -36,49 +36,59 @@ class FinalyzerTheme : Theme() {
         config.pageRenderer<CpcLandingPage> { landingPage() }
         config.pageRenderer<Blog> { renderChildren(node.children); blogIndexPage() }
         config.pageRenderer<Article> { blogArticle() }
-        config.pageRenderer<PartialFolder> {  }
+        config.pageRenderer<PartialFolder> { }
         robotsTxt()
 
         // TODO maybe create a custom variant to register embeddable figures?
         config.pageRenderer<FigureEmbeddable> {
             appendHTML().figure {
-//                figure {
-                    img {
-                        node.resize?.let { resize ->
-                            val resized = node.image.resize(context,
-                                resize.width ?: Int.MAX_VALUE,
-                                resize.height ?: Int.MAX_VALUE,
-                                fillType = resize.fillType ?: FillType.Cover)
-                            src = resized.href
-                            width = resized.width.toString()
-                            height = resized.height.toString()
-                        } ?: run {
-                            src = node.image.href(context)
-                        }
-                        alt = node.alt ?: node.title ?: ""
+                //                figure {
+                img {
+                    node.resize?.let { resize ->
+                        val resized = node.image.resize(
+                            context,
+                            resize.width ?: Int.MAX_VALUE,
+                            resize.height ?: Int.MAX_VALUE,
+                            fillType = resize.fillType ?: FillType.Cover
+                        )
+                        src = resized.href
+                        width = resized.width.toString()
+                        height = resized.height.toString()
+                    } ?: run {
+                        src = node.image.href(context)
+                    }
+                    alt = node.alt ?: node.title ?: ""
 //                        width = "200"//child.screenshot.width.toString()
 //                        height = "200"//child.screenshot.height.toString()
+                }
+                node.title?.let { title ->
+                    figcaption {
+                        h4 { +title }
                     }
-                    node.title?.let { title ->
-                        figcaption {
-                            h4 { +title }
-                        }
-                    }
+                }
 //                }
 
             }
         }
         config.pageRenderer<Disqus> {
-            val permalink = enclosingNode?.let { StringEscapeUtils.escapeJson(context.href(it, absoluteUrl = true)) } ?: ""
+            val permalink = enclosingNode?.let {
+                StringEscapeUtils.escapeJson(
+                    context.href(
+                        it,
+                        absoluteUrl = true
+                    )
+                )
+            } ?: ""
             // language=html
-            out.appendln("""
+            out.appendln(
+                """
 <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
     this.page.url = "$permalink";
     };
 
-    (function() {${ /* // DON'T EDIT BELOW THIS LINE */ "" }
+    (function() {${ /* // DON'T EDIT BELOW THIS LINE */ ""}
         setTimeout(function() {
             var d = document, s = d.createElement('script');
             s.async = true;
@@ -89,7 +99,8 @@ class FinalyzerTheme : Theme() {
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            """)
+            """
+            )
         }
         contentTemplates()
 //        config.pageRenderer<FinalyzerWebsite>(
@@ -118,6 +129,17 @@ fun FinalyzerTheme.robotsTxt() {
     }
 }
 
+class FinalyzerSetup : Dc2fSetup<FinalyzerWebsite> {
+
+    override fun urlConfig(rootConfig: FinalyzerWebsite): UrlConfig {
+        return rootConfig.config.url
+    }
+
+    override val rootContent = FinalyzerWebsite::class
+
+    override val theme: Theme = FinalyzerTheme()
+
+}
 
 fun main(args: Array<String>) {
     logger.info { "Starting ..." }
@@ -132,33 +154,28 @@ fun main(args: Array<String>) {
 //
 //    System.exit(0)
 
-    val loadedWebsite = ContentLoader(FinalyzerWebsite::class)
-        .load(FileSystems.getDefault().getPath("web", "content")) { loadedWebsite, context ->
+    val setup = FinalyzerSetup()
+    setup.loadWebsite("web/content") { loadedWebsite, context ->
 
-            logger.info { "loaded website $loadedWebsite." }
-            logger.info {
-                "reflected: ${loadedWebsite.toStringReflective()}"
-            }
-
-            val targetPath = FileSystems.getDefault().getPath("public")
-            FileOutputRenderer(
-                FinalyzerTheme(),
-                targetPath,
-                loadedWebsite.context,
-                urlConfig = loadedWebsite.content.config.url
-            ).let { renderer ->
-                renderer.renderWebsite(loadedWebsite.content, loadedWebsite.metadata)
-
-                SitemapRenderer(targetPath, loadedWebsite.context, renderer, loadedWebsite.content.config.url)
-                    .render()
-                AllSitesJsonGenerator(targetPath.resolve("allsites.json"), renderer.loaderContext, renderer)
-                    .render()
-            }
-
-            // FIXME workaround for now to copy over some assets only referenced by css (fonts)
-            FileUtils.copyDirectory(File("web", "static"), targetPath.toFile())
-
+        logger.info { "loaded website $loadedWebsite." }
+        logger.info {
+            "reflected: ${loadedWebsite.toStringReflective()}"
         }
+
+
+        val targetPath = FileSystems.getDefault().getPath("public")
+        setup.renderToPath(targetPath, loadedWebsite, context) { renderer ->
+            AllSitesJsonGenerator(
+                targetPath.resolve("allsites.json"),
+                renderer.loaderContext,
+                renderer
+            )
+                .render()
+        }
+        // FIXME workaround for now to copy over some assets only referenced by css (fonts)
+        FileUtils.copyDirectory(File("web", "static"), targetPath.toFile())
+
+    }
 
 }
 

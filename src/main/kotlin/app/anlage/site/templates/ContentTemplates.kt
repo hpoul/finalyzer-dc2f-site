@@ -94,7 +94,7 @@ fun FinalyzerTheme.contentTemplates() {
                 // type = ScriptType.textJavaScript,
                 src = context.getAsset("theme/script/weekly-stats-component.js")
                     .transform(DigestTransformer())
-                    .href(RenderPath.parse("/script/"))
+                    .href(RenderPath.parse("/script/"), context.renderer.urlConfig)
             ) { }
 
 

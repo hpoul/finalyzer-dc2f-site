@@ -39,7 +39,7 @@ fun <T> TagConsumer<T>.baseTemplate(
                         img(
                             "ANLAGE.APP",
                             src = context.getAsset("theme/images/logo-anlage-app.svg")
-                                .href(RenderPath.parse("/images/"))
+                                .href(RenderPath.parse("/images/"), context.renderer.urlConfig)
                         )
                     }
                     // DIFF added newline to minimize diff with hugo version.
@@ -215,14 +215,14 @@ fun HEAD.siteHead(context: RenderContext<*>, seo: PageSeo) {
                     )
                 )
             ).transform(digest)
-            .href(RenderPath.parse("/styles/css/"))
+            .href(RenderPath.parse("/styles/css/"), context.renderer.urlConfig)
         integrity = requireNotNull(digest.value?.integrityAttrValue)
     }
     script(
         // TODO add support for typescript transform?
         // DIFF don't include type=".."
 //        type = ScriptType.textJavaScript,
-        src = context.getAsset("theme/script/main.js").href(RenderPath.parse("/script/"))
+        src = context.getAsset("theme/script/main.js").href(RenderPath.parse("/script/"), context.renderer.urlConfig)
     ) {
         async = true
     }

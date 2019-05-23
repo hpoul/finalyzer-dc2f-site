@@ -47,3 +47,5 @@ build
 /tools/secrets/purgecache.secrets.json
 /tools/secrets/id_rsa.web.sphene.net
 /tools/secrets/id_rsa.web.sphene.net.pub
+/tmpDir
+
